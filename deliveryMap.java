@@ -29,4 +29,16 @@ public class deliveryMap{
     {
         roads.add(r);
     }
+
+    public intersection searchById(String id){
+        for (intersection i:intersections)
+        {
+            if (i.getId()==id)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
+    
 }
