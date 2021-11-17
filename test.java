@@ -4,7 +4,7 @@ public class test{
     public static void main(String[] args) {
         String filemap="./fichiersXML2020/smallMap.xml";
         String filerequest="./fichiersXML2020/requestsSmall1.xml";
-        loadCommand l=new loadCommand();
+        fileLoader l=new fileLoader();
         List<intersection> intersections=l.loadIntersection(filemap);
         List<road> roads=l.loadRoad(filemap);
         List<Request> requests=l.loadRequest(filerequest);

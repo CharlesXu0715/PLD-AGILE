@@ -16,11 +16,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class loadCommand{
+public class fileLoader{
     private List<intersection> intersections;
     private List<road> roads;
     private List<Request> requests;
-    public loadCommand(){
+    public fileLoader(){
         /* type=1:intersections & roads
         type=2:requests */
         intersections=new ArrayList<intersection>();
