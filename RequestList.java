@@ -1,20 +1,20 @@
 import java.util.List;
 import java.util.ArrayList;
-public class deliverer{
+public class RequestList{
     private String departTime;
-    private intersection departAdd;
+    private String departAdd;
     private List<Request> requests;
-    public deliverer(String departTime,intersection departAdd){
+    public RequestList(String departTime,String departAdd,List<Request>requests){
         this.departTime=departTime;
         this.departAdd=departAdd;
-        requests=new ArrayList<Request>();
+        this.requests=requests;
     }
 
     public String getDepartTime(){
         return departTime;
     }
 
-    public intersection getDepartAdd(){
+    public String getDepartAdd(){
         return departAdd;
     }
 

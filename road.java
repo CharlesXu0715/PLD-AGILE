@@ -1,10 +1,10 @@
-public class road{
+public class Road{
 
     private String originId;
     private String destinationId;
     private String name;
     private double length;
-    public road(String originId,String destinationId,String name,double length){
+    public Road(String originId,String destinationId,String name,double length){
         this.originId=originId;
         this.destinationId=destinationId;
         this.name=name;

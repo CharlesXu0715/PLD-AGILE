@@ -1,9 +1,9 @@
-public class intersection{
+public class Intersection{
 
     private double longitude;
     private double latitude;
     private String id;
-    public intersection(double longitude,double latitude,String id){
+    public Intersection(double longitude,double latitude,String id){
         this.longitude=longitude;
         this.latitude=latitude;
         this.id=id;

@@ -5,20 +5,21 @@ public class test{
         String filemap="./fichiersXML2020/smallMap.xml";
         String filerequest="./fichiersXML2020/requestsSmall1.xml";
         fileLoader l=new fileLoader();
-        List<intersection> intersections=l.loadIntersection(filemap);
-        List<road> roads=l.loadRoad(filemap);
-        List<Request> requests=l.loadRequest(filerequest);
+        List<Intersection> intersections=l.loadIntersection(filemap);
+        List<Road> roads=l.loadRoad(filemap);
+        RequestList requests=l.loadRequest(filerequest);
         System.out.println(intersections.size());
         System.out.println(roads.size());
-        System.out.println(requests.size());
-        for (intersection i:intersections) {
+        System.out.println(requests.getRequests().size());
+        for (Intersection i:intersections) {
             System.out.println(i.getId());
         }
-        for (road i:roads) {
+        for (Road i:roads) {
             System.out.println(i.getName());
         }
-        for (Request i:requests) {
-            System.out.println(i.getPickDur());
+        for (Request i:requests.getRequests()) {
+            System.out.println(i.getPickPoint().getDuration());
+
         }
     }
 }

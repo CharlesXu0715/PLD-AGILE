@@ -17,18 +17,17 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class fileLoader{
-    private List<intersection> intersections;
-    private List<road> roads;
-    private List<Request> requests;
+    private List<Intersection> intersections;
+    private List<Road> roads;
+    private RequestList requests;
     public fileLoader(){
         /* type=1:intersections & roads
         type=2:requests */
-        intersections=new ArrayList<intersection>();
-        roads=new ArrayList<road>();
-        requests=new ArrayList<Request>();
+        intersections=new ArrayList<Intersection>();
+        roads=new ArrayList<Road>();
     }
 
-    public List<intersection> loadIntersection(String filename){
+    public List<Intersection> loadIntersection(String filename){
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try { 
@@ -38,7 +37,7 @@ public class fileLoader{
             for(int i = 0; i < nl.getLength(); i++) { 
                 Node intersec = nl.item(i); 
                 NamedNodeMap nnm = intersec.getAttributes();
-                intersection in=new intersection(Double.parseDouble(nnm.item(2).getNodeValue()), Double.parseDouble(nnm.item(1).getNodeValue()), nnm.item(0).getNodeValue());
+                Intersection in=new Intersection(Double.parseDouble(nnm.item(2).getNodeValue()), Double.parseDouble(nnm.item(1).getNodeValue()), nnm.item(0).getNodeValue());
                 intersections.add(in);
             } 
         } 
@@ -52,7 +51,7 @@ public class fileLoader{
         return intersections; 
     }
 
-    public List<road> loadRoad(String filename){
+    public List<Road> loadRoad(String filename){
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try {
@@ -62,7 +61,7 @@ public class fileLoader{
             for(int i = 0; i < nl.getLength(); i++) {
                 Node segment = nl.item(i);
                 NamedNodeMap nnm = segment.getAttributes();
-                road r=new road(nnm.item(3).getNodeValue(), nnm.item(0).getNodeValue(), nnm.item(2).getNodeValue(), Double.parseDouble(nnm.item(1).getNodeValue()));
+                Road r=new Road(nnm.item(3).getNodeValue(), nnm.item(0).getNodeValue(), nnm.item(2).getNodeValue(), Double.parseDouble(nnm.item(1).getNodeValue()));
                 roads.add(r);
             } 
         } 
@@ -76,7 +75,8 @@ public class fileLoader{
         return roads; 
     }
 
-    public List<Request> loadRequest(String filename){
+    public RequestList loadRequest(String filename){
+        List<Request> rl=new ArrayList<Request>();
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try { 
@@ -87,8 +87,12 @@ public class fileLoader{
                 Node req = nl.item(i);
                 NamedNodeMap nnm = req.getAttributes();
                 Request r=new Request(Integer.parseInt(nnm.item(2).getNodeValue()), Integer.parseInt(nnm.item(3).getNodeValue()), nnm.item(0).getNodeValue(), nnm.item(1).getNodeValue());
-                requests.add(r);
-            } 
+                rl.add(r);
+            }
+            nl=document.getElementsByTagName("depot");
+            Node d=nl.item(0);
+            NamedNodeMap nnm = d.getAttributes();
+            requests=new RequestList(nnm.item(1).getNodeValue(), nnm.item(0).getNodeValue(), rl);
         } 
         catch (ParserConfigurationException e) { 
             e.printStackTrace(); 
