@@ -1,9 +1,9 @@
 public class Request{
     private int delivDur;
     private int pickDur;
-    private intersection pickAdd;
-    private intersection delivAdd;
-    public Request(int delivDur,int pickDur,intersection pickAdd,intersection delivAdd) {
+    private String pickAdd;
+    private String delivAdd;
+    public Request(int delivDur,int pickDur,String pickAdd,String delivAdd) {
         this.delivDur=delivDur;
         this.pickDur=pickDur;
         this.pickAdd=pickAdd;
@@ -18,11 +18,11 @@ public class Request{
         return pickDur;
     }
 
-    public intersection getPickAdd(){
+    public String getPickAdd(){
         return pickAdd;
     }
 
-    public intersection getDelivAdd(){
+    public String getDelivAdd(){
         return delivAdd;
     }
 }

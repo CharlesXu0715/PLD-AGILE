@@ -1,24 +1,24 @@
 public class road{
 
-    private intersection origin;
-    private intersection destination;
+    private String originId;
+    private String destinationId;
     private String name;
     private double length;
-    public road(intersection origin,intersection destination,String name,double length){
-        this.origin=origin;
-        this.destination=destination;
+    public road(String originId,String destinationId,String name,double length){
+        this.originId=originId;
+        this.destinationId=destinationId;
         this.name=name;
         this.length=length;
     }
 
-    public intersection getOrigin()
+    public String getOriginId()
     {
-        return origin;
+        return originId;
     }
 
-    public intersection getDestination()
+    public String getDestinationId()
     {
-        return destination;
+        return destinationId;
     }
 
     public String getName()
