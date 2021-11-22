@@ -14,8 +14,8 @@ import model.*;
 
 public class Test{
     public static void main(String[] args) {
-        String filemap="src/test/resources/smallMap.xml";
-        String filerequest="src/test/resources/requestsSmall1.xml";
+        String filemap="src/main/resources/smallMap.xml";
+        String filerequest="src/main/resources/requestsSmall1.xml";
         FileLoader l=new FileLoader();
         List<Intersection> intersections=l.loadIntersection(filemap);
         List<Road> roads=l.loadRoad(filemap);

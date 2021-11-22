@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<map>
+<intersection id="1679901320" latitude="45.762653" longitude="4.875565"/>
+<intersection id="208769457" latitude="45.760174" longitude="4.877455"/>
+<intersection id="208769120" latitude="45.759434" longitude="4.869736"/>
+<intersection id="25336179" latitude="45.754128" longitude="4.863194"/>
+<intersection id="342868447" latitude="45.76004" longitude="4.877385"/>
+<intersection id="55474973" latitude="45.76165" longitude="4.875242"/>
+<intersection id="1679901326" latitude="45.762775" longitude="4.873984"/>
+<intersection id="342873658" latitude="45.76038" longitude="4.8775625"/>
+<intersection id="208769499" latitude="45.760597" longitude="4.87622"/>
+<intersection id="208776568" latitude="45.758827" longitude="4.869551"/>
+<intersection id="208769133" latitude="45.759453" longitude="4.8698664"/>
+<intersection id="208769112" latitude="45.75941" longitude="4.86923"/>
+<intersection id="208769227" latitude="45.759556" longitude="4.8696303"/>
+<intersection id="250042857" latitude="45.754208" longitude="4.8638077"/>
+<intersection id="26057064" latitude="45.75704" longitude="4.8625107"/>
+<intersection id="195261" latitude="45.753925" longitude="4.8615813"/>
+<intersection id="25336175" latitude="45.75301" longitude="4.863642"/>
+<segment destination="208769457" length="15.785075" name="Rue Richelieu" origin="342868447"/>
+<segment destination="55474973" length="114.625244" name="Rue Pascal" origin="1679901320"/>
+<segment destination="1679901320" length="123.51345" name="Rue Clos Poncet" origin="1679901326"/>
+<segment destination="342873658" length="24.386381" name="Rue Richelieu" origin="208769457"/>
+<segment destination="208769499" length="106.73056" name="Rue Frédéric Passy" origin="208769457"/>
+<segment destination="342868447" length="15.785075" name="Rue Richelieu" origin="208769457"/>
+<segment destination="208769457" length="24.386381" name="Rue Richelieu" origin="342873658"/>
+<segment destination="208769457" length="106.73056" name="Rue Frédéric Passy" origin="208769499"/>
+<segment destination="208769120" length="68.82436" name="Rue de Nazareth" origin="208776568"/>
+<segment destination="208769133" length="10.284923" name="Rue Nazareth" origin="208769120"/>
+<segment destination="208769120" length="39.416725" name="Rue Nazareth" origin="208769112"/>
+<segment destination="208769120" length="16.263586" name="Place de la Ferrandière" origin="208769227"/>
+<segment destination="25336179" length="48.468773" name="Avenue Félix Faure" origin="250042857"/>
+<segment destination="25336179" length="357.00134" name="Rue Maurice Flandin" origin="26057064"/>
+<segment destination="25336179" length="127.18727" name="Avenue Félix Faure" origin="195261"/>
+<segment destination="25336179" length="129.12434" name="Rue Jeanne Hachette" origin="25336175"/>
+<segment destination="250042857" length="48.468773" name="Avenue Félix Faure" origin="25336179"/>
+<segment destination="195261" length="127.18727" name="Avenue Félix Faure" origin="25336179"/>
+<segment destination="25336175" length="129.12434" name="Rue Jeanne Hachette" origin="25336179"/>
+</map>
