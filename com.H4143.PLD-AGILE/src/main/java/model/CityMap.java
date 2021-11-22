@@ -44,7 +44,7 @@ public class CityMap {
     public Intersection searchById(String id){
         for (Intersection i:intersections)
         {
-            if (i.getId()==id)
+            if (i.getId().equals(id))
             {
                 return i;
             }
