@@ -1,10 +1,14 @@
 package model;
 
+import java.util.List;
+
+import tsp.Graph;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CityMap {
+public class CityMap implements Graph{
 	private List<Road> roads;
     private List<Intersection> intersections;
     private List<Map.Entry<Integer,Double>> ajacence[];
@@ -57,5 +61,25 @@ public class CityMap {
         }
         return null;
     }
+    
+    @Override
+	public int getNbVertices() {
+		return intersections.size();
+	}
+    
+    @Override
+	public int getCost(int i, int j) {
+		if (i<0 || i>=intersections.size() || j<0 || j>=intersections.size())
+			return -1;
+		//calculate cost not yet implemented
+		return 0;
+	}
+
+	@Override
+	public boolean isArc(int i, int j) {
+		if (i<0 || i>=intersections.size() || j<0 || j>=intersections.size())
+			return false;
+		return ajacence[i].contains(intersections.get(j).getId());
+	}
     
 }
