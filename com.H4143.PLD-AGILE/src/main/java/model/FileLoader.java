@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -32,7 +31,7 @@ public class FileLoader {
         try { 
             DocumentBuilder db = dbf.newDocumentBuilder(); 
             org.w3c.dom.Document document = db.parse(f);
-            NodeList nl = ((org.w3c.dom.Document) document).getElementsByTagName("intersection"); 
+            NodeList nl = document.getElementsByTagName("intersection"); 
             for(int i = 0; i < nl.getLength(); i++) { 
                 Node intersec = nl.item(i); 
                 NamedNodeMap nnm = intersec.getAttributes();
@@ -56,7 +55,7 @@ public class FileLoader {
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             org.w3c.dom.Document document = db.parse(f);
-            NodeList nl = ((org.w3c.dom.Document) document).getElementsByTagName("segment"); 
+            NodeList nl = document.getElementsByTagName("segment"); 
             for(int i = 0; i < nl.getLength(); i++) {
                 Node segment = nl.item(i);
                 NamedNodeMap nnm = segment.getAttributes();
@@ -81,7 +80,7 @@ public class FileLoader {
         try { 
             DocumentBuilder db = dbf.newDocumentBuilder();
             org.w3c.dom.Document document = db.parse(f);
-            NodeList nl = ((org.w3c.dom.Document) document).getElementsByTagName("request"); 
+            NodeList nl = document.getElementsByTagName("request"); 
             for(int i = 0; i < nl.getLength(); i++) {
                 Node req = nl.item(i);
                 NamedNodeMap nnm = req.getAttributes();
