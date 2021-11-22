@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -15,6 +15,12 @@ import org.junit.Test;
 
 import com.google.maps.errors.ApiException;
 
+import model.CityMap;
+import model.FileLoader;
+import model.FileLoaderTest;
+import model.Intersection;
+import model.RequestList;
+import model.Road;
 import view.GoogleMap;
 
 public class GoogleMapTest {
