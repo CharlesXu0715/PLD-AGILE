@@ -30,7 +30,11 @@ import javax.swing.JScrollPane;
  */
 public class ClientUI extends JFrame implements ActionListener ,WindowListener
 {
-    //panel1
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//panel1
     private TextField serverHost;
     private TextField serverPort;
     private Button connexion;
@@ -47,7 +51,7 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
     public ClientUI()
     {
         setTitle("ClientUI");
-        setSize(600, 450);
+        setSize(1920, 1050);
         setLocationRelativeTo(null);
         setResizable(false);
         this.addWindowListener(this);
@@ -147,7 +151,6 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
     @Override
     public void windowClosing(WindowEvent e) {
      
-        }
     }
 
     @Override
