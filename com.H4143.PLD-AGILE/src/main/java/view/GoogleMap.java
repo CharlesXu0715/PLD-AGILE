@@ -21,9 +21,12 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.Size;
 
+import model.*;
+
 public class GoogleMap {
 	private GeoApiContext geoApiContext;
 	private StaticMapsRequest staticMapsRequest;
+//	private ArrayList<Markers> listMarkers;
 	
 	private final static int WIDTH = 640;
 	private final static int HEIGHT = 480;
@@ -32,11 +35,34 @@ public class GoogleMap {
 	private final static LatLng SYDNEY2 = new LatLng(-35.8688, 140.2093);
 	private final BufferedImage IMAGE = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
-	public GoogleMap(int width, int height) {
+	public GoogleMap(int width, int height, CityMap cityMap, RequestList requestList) {
 		this.geoApiContext = new GeoApiContext.Builder().apiKey("AIzaSyAnZCLDHsEkij1oGVn1umJr5MUZLqhHMTo")
 				.build();
 		this.staticMapsRequest = StaticMapsApi.newRequest(this.geoApiContext, new Size(width, height));
+		
+				
+		for(Request request: requestList.getRequests()) {
+			String pickPointId = request.getPickPoint().getPointId();
+		    String delivPointId = request.getDelivPoint().getPointId();
+		    
+		    Intersection pickPoint = cityMap.searchById(pickPointId);
+		    Intersection delivPoint = cityMap.searchById(delivPointId);
+		    
+		    Markers markers = new Markers();
+			markers.size(MarkersSize.small);
+			markers.color("blue");
+			markers.label("P");
+			
+		    markers.addLocation(new LatLng(pickPoint.getLatitude(), pickPoint.getLongitude()));
+		    markers.addLocation(new LatLng(delivPoint.getLatitude(), delivPoint.getLongitude()));
+		
+		    this.staticMapsRequest.markers(markers);
+		}
+		
+		
 	}
+	
+	
 	
 	public BufferedImage getBufferedImage() throws IOException, ApiException, InterruptedException {
 		return ImageIO.read(new ByteArrayInputStream(this.staticMapsRequest.await().imageData));
