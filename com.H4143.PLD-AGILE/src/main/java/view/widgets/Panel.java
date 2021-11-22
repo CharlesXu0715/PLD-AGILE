@@ -21,7 +21,7 @@ public class Panel extends JPanel {
     private static Color DarkRed = new Color(182,83,62);
     
     public Panel() {
-        this.setBackground(DarkRed);
+        this.setBackground(White);
     }
 	
     public Panel(Dimension dim) {

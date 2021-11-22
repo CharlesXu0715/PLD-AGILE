@@ -17,7 +17,7 @@ import javax.swing.JButton;
  * @author wuchenya
  */
 public class Button extends JButton {
-    private static Color DarkBleu = new Color(59,69,89);
+    private static Color DarkBleu = new Color(122,147,230);
     private static Color LightBleu = new Color(176,224,230);
     private static Color White = new Color(255,255,255);
     private static Color LightRed = new Color(237,217,205);
@@ -29,8 +29,10 @@ public class Button extends JButton {
         this.setForeground(White);
         this.setFont(new Font("Arial", Font.BOLD, 16));
         this.setFocusable(false);
-        this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
-        this.addMouseListener(new MouseListener() {
+        this.setBorderPainted(false);
+        //this.setBorder(BorderFactory.createRaisedSoftBevelBorder());
+        //this.setBorder(new RoundedBorder(25));
+        /*this.addMouseListener(new MouseListener() {
             public void mousePressed(MouseEvent e) {
                     setBorder(BorderFactory.createLoweredSoftBevelBorder());
             }
@@ -40,6 +42,6 @@ public class Button extends JButton {
             public void mouseEntered(MouseEvent e) {}
             public void mouseExited(MouseEvent e) {}
             public void mouseClicked(MouseEvent e) {}
-        });
+        });*/
     }
 }
