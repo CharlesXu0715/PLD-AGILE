@@ -30,7 +30,7 @@ public class Test{
             System.out.println(i.getName());
         }
         for (Request i:requests.getRequests()) {
-            System.out.println(i.getPickPoint().getDuration());
+            System.out.println(i.getDelivPoint().getDuration());
 
         }
         

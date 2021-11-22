@@ -1,25 +1,25 @@
 package model;
 
 public class Road {
-	private String originId;
-    private String destinationId;
+	private int originIndex;
+    private int destinationIndex;
     private String name;
     private double length;
-    public Road(String originId,String destinationId,String name,double length){
-        this.originId=originId;
-        this.destinationId=destinationId;
+    public Road(int originId,int destinationId,String name,double length){
+        this.originIndex=originId;
+        this.destinationIndex=destinationId;
         this.name=name;
         this.length=length;
     }
 
-    public String getOriginId()
+    public int getOriginIndex()
     {
-        return originId;
+        return originIndex;
     }
 
-    public String getDestinationId()
+    public int getDestinationIndex()
     {
-        return destinationId;
+        return destinationIndex;
     }
 
     public String getName()

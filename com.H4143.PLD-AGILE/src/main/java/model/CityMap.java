@@ -1,12 +1,13 @@
 package model;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class CityMap {
 	private List<Road> roads;
     private List<Intersection> intersections;
-    private List<String> ajacence[];
+    private List<Map.Entry<Integer,Double>> ajacence[];
 
     public CityMap(List<Road> roads,List<Intersection> intersections){
         //roads=new ArrayList<Road>();
@@ -15,14 +16,19 @@ public class CityMap {
     	this.intersections=intersections;
     	int s=intersections.size();
     	ajacence=new ArrayList[s];
+    	int originIndex=0,destinationIndex=0;
     	for (Road r:roads) {
     		for (int i=0;i<s;i++) {
-    			if(intersections.get(i).equals(r.getOriginId()))
+    			if(intersections.get(i).getId().equals(r.getOriginId()))
     			{
-    				ajacence[i].add(r.getDestinationId());
-    				break;
+    				originIndex=i;
+    			}
+    			if(intersections.get(i).getId().equals(r.getDestinationId()))
+    			{
+    				destinationIndex=i;
     			}
     		}
+    		ajacence[originIndex].add(destinationIndex);
     	}
     }
 
@@ -36,7 +42,7 @@ public class CityMap {
         return intersections;
     }
     
-    public List<String>[] getAjacence()
+    public List<Integer>[] getAjacence()
     {
     	return ajacence;
     }
