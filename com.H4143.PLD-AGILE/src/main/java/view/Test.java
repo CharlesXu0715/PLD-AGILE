@@ -5,8 +5,8 @@ import model.*;
 
 public class Test{
     public static void main(String[] args) {
-        String filemap="./fichiersXML2020/smallMap.xml";
-        String filerequest="./fichiersXML2020/requestsSmall1.xml";
+        String filemap="src/test/resources/smallMap.xml";
+        String filerequest="src/test/resources/requestsSmall1.xml";
         FileLoader l=new FileLoader();
         List<Intersection> intersections=l.loadIntersection(filemap);
         List<Road> roads=l.loadRoad(filemap);
