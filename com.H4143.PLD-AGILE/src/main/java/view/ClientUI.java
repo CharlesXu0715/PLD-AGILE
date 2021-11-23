@@ -66,7 +66,7 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
     	fileChooser.setFileFilter(filter);
     	
         setTitle("ClientUI");
-        setSize(1020, 700);
+        setSize(1020, 800);
         setLocationRelativeTo(null);
         setResizable(false);
         this.addWindowListener(this);
