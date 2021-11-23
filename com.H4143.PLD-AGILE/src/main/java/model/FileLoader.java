@@ -96,7 +96,20 @@ public class FileLoader {
             for(int i = 0; i < nl.getLength(); i++) {
                 Node req = nl.item(i);
                 NamedNodeMap nnm = req.getAttributes();
-                Request r=new Request(Integer.parseInt(nnm.item(2).getNodeValue()), Integer.parseInt(nnm.item(3).getNodeValue()), nnm.item(0).getNodeValue(), nnm.item(1).getNodeValue());
+//                System.out.println(nnm.item(0).getNodeValue());
+//                System.out.println(nnm.item(1).getNodeValue());
+//                System.out.println(nnm.item(2).getNodeValue());
+//                System.out.println(nnm.item(3).getNodeValue());
+
+                String pickId=nnm.item(2).getNodeValue();
+                String delivId=nnm.item(0).getNodeValue();
+                int pickDur= Integer.parseInt(nnm.item(3).getNodeValue());
+                int delivDur=Integer.parseInt(nnm.item(1).getNodeValue());
+                System.out.println("delivDur:"+delivDur);
+                System.out.println("delivId:"+delivId);
+                System.out.println("pickDur:"+pickDur);
+                System.out.println("pickId:"+pickId);
+                Request r=new Request(delivDur, pickDur, pickId, delivId);
                 rl.add(r);
             }
             nl=((org.w3c.dom.Document) document).getElementsByTagName("depot");

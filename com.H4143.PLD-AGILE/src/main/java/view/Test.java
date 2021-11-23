@@ -24,9 +24,9 @@ public class Test{
         List<Road> roads=l.loadRoad(filemap);
         RequestList requests=l.loadRequest(filerequest);
         CityMap citymap=new CityMap(roads,intersections);
-        System.out.println(intersections.size());
-        System.out.println(roads.size());
-        System.out.println(requests.getRequests().size());
+//        System.out.println(intersections.size());
+//        System.out.println(roads.size());
+//        System.out.println(requests.getRequests().size());
 //        for (Intersection i:citymap.getIntersections()) {
 //            System.out.println(i.getId());
 //        }
@@ -34,7 +34,10 @@ public class Test{
 //            System.out.println(i.getOriginIndex()+"->"+i.getDestinationIndex());
 //        }
 //        for (Request i:requests.getRequests()) {
-//            System.out.println(i.getDelivPoint().getDuration());
+//            System.out.println("delivDur:"+i.getDelivPoint().getDuration());
+//            System.out.println("delivId:"+i.getDelivPoint().getPointId());
+//            System.out.println("pickDur:"+i.getPickPoint().getDuration());
+//            System.out.println("pickId:"+i.getPickPoint().getPointId());
 //
 //        }
         
@@ -56,21 +59,21 @@ public class Test{
 //        }
         
         
-        List<Map.Entry<Integer,Double>> a[]=citymap.getAdjacence();
-        System.out.println(a.length);
-        for (int i=0;i<a.length;i++) {
-        	for (int j=0;j<a[i].size();j++) {
-        		System.out.print(a[i].get(j).getKey()+" ");
-        	}
-        	System.out.println();
-        }
+//        List<Map.Entry<Integer,Double>> a[]=citymap.getAdjacence();
+//        System.out.println(a.length);
+//        for (int i=0;i<a.length;i++) {
+//        	for (int j=0;j<a[i].size();j++) {
+//        		System.out.print(a[i].get(j).getKey()+" ");
+//        	}
+//        	System.out.println();
+//        }
         
-        /*final int WIDTH = 640;
+        final int WIDTH = 640;
     	final int HEIGHT = 480;
         
         GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
         
-        JFrame frame = new JFrame();
+        /*JFrame frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

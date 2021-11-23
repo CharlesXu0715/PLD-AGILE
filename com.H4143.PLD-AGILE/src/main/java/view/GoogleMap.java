@@ -44,7 +44,7 @@ public class GoogleMap {
 		for(Request request: requestList.getRequests()) {
 			String pickPointId = request.getPickPoint().getPointId();
 		    String delivPointId = request.getDelivPoint().getPointId();
-		    
+		    System.out.println(delivPointId);
 		    Intersection pickPoint = cityMap.searchById(pickPointId);
 		    Intersection delivPoint = cityMap.searchById(delivPointId);
 		    
@@ -53,8 +53,8 @@ public class GoogleMap {
 			markers.color("blue");
 			markers.label("P");
 			
-		    markers.addLocation(new LatLng(pickPoint.getLatitude(), pickPoint.getLongitude()));
-		    markers.addLocation(new LatLng(delivPoint.getLatitude(), delivPoint.getLongitude()));
+//		    markers.addLocation(new LatLng(pickPoint.getLatitude(), pickPoint.getLongitude()));
+//		    markers.addLocation(new LatLng(delivPoint.getLatitude(), delivPoint.getLongitude()));
 		
 		    this.staticMapsRequest.markers(markers);
 		}

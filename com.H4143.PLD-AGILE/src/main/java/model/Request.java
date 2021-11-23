@@ -12,6 +12,10 @@ public class Request {
         this.pickDur=pickDur;
         this.pickAdd=pickAdd;
         this.delivAdd=delivAdd;*/
+//    	System.out.println("delivDur:"+delivDur);
+//        System.out.println("delivId:"+delivAdd);
+//        System.out.println("pickDur:"+pickDur);
+//        System.out.println("pickId:"+pickAdd);
         pickPoint=new VisitPoint(pickAdd, pickDur);
         delivPoint=new VisitPoint(delivAdd, delivDur);
     }
