@@ -279,12 +279,12 @@ public class MapUI extends JPanel {
 			System.out.println("listRequests.get(i).getPickPoint().getPointId() : "+listRequests.get(i).getPickPoint().getPointId());
 			int x1 = weightLatitude(inter2.getLatitude(), xScale);
 			int y1 = weightLongitude(inter2.getLongitude(), yScale);
-			/*Intersection inter3 = cityMap.searchById(listRequests.get(i).getDelivPoint().getPointId());
+			Intersection inter3 = cityMap.searchById(listRequests.get(i).getDelivPoint().getPointId());
 			System.out.println("listRequests.get(i).getDelivPoint().getPointId() : "+listRequests.get(i).getDelivPoint().getPointId());
 			int x2 = weightLatitude(inter3.getLatitude(), xScale);
-			int y2 = weightLongitude(inter3.getLongitude(), yScale);*/
+			int y2 = weightLongitude(inter3.getLongitude(), yScale);
 			graphPoints2.add(new Point(getWidth() - y1, x1));
-			//graphPoints2.add(new Point(getWidth() - y2, x2));
+			graphPoints2.add(new Point(getWidth() - y2, x2));
 		}
 
 		g2.setColor(pointColorDepot);
