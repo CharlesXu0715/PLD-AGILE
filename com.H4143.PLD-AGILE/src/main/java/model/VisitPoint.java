@@ -2,11 +2,11 @@ package model;
 
 public class VisitPoint {
 //	private String pointId; //id of intersection
-	private int pointIndex; //index of intersection as store in CityMap
+	private Intersection intersection; //index of intersection as store in CityMap
     private int duration;
 
-    public VisitPoint(int pointIndex,int duration) {
-        this.pointIndex=pointIndex;
+    public VisitPoint(Intersection intersection,int duration) {
+        this.intersection=intersection;
         this.duration=duration;
     }
 
@@ -18,8 +18,8 @@ public class VisitPoint {
         return duration;
     }
 
-	public int getPointIndex() {
-		return pointIndex;
+	public Intersection getIntersection() {
+		return intersection;
 	}
 
 //	public void setPointIndex(int pointIndex) {

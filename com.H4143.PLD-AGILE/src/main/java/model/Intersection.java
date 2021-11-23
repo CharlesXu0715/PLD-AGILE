@@ -5,10 +5,22 @@ public class Intersection {
     private double latitude;
     private int index;
     private String id;
-    public Intersection(double longitude,double latitude,String id){
+    public Intersection(double longitude,double latitude,String id,int index){
         this.longitude=longitude;
         this.latitude=latitude;
         this.id=id;
+        this.index=index;
+    }
+    
+    public Intersection() {
+    	
+    }
+    
+    public Intersection(Intersection i) {
+    	this.longitude=i.longitude;
+        this.latitude=i.latitude;
+        this.id=i.id;
+        this.index=i.index;
     }
 
     public double getLongitude(){

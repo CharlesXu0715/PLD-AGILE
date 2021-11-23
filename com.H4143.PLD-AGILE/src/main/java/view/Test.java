@@ -35,12 +35,12 @@ public class Test{
 //        }
         for (Request i:requests.getRequests()) {
             System.out.println("delivDur:"+i.getDelivPoint().getDuration());
-            System.out.println("delivIndex:"+i.getDelivPoint().getPointIndex());
+            System.out.println("delivIndex:"+i.getDelivPoint().getIntersection().getIndex());
             System.out.println("pickDur:"+i.getPickPoint().getDuration());
-            System.out.println("pickIndex:"+i.getPickPoint().getPointIndex());
+            System.out.println("pickIndex:"+i.getPickPoint().getIntersection().getIndex());
             System.out.println("-----");
-            System.out.println("delivId:"+intersections.get(i.getDelivPoint().getPointIndex()).getId());
-            System.out.println("pickId:"+intersections.get(i.getPickPoint().getPointIndex()).getId());
+            System.out.println("delivId:"+intersections.get(i.getDelivPoint().getIntersection().getIndex()).getId());
+            System.out.println("pickId:"+intersections.get(i.getPickPoint().getIntersection().getIndex()).getId());
 
         }
         

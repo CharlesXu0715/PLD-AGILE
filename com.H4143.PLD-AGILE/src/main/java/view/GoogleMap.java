@@ -42,8 +42,8 @@ public class GoogleMap {
 		
 				
 		for(Request request: requestList.getRequests()) {
-			int pickPointIndex = request.getPickPoint().getPointIndex();
-		    int delivPointIndex = request.getDelivPoint().getPointIndex();
+			int pickPointIndex = request.getPickPoint().getIntersection().getIndex();
+		    int delivPointIndex = request.getDelivPoint().getIntersection().getIndex();
 		    System.out.println(delivPointIndex);
 		    Intersection pickPoint = cityMap.searchByIndex(pickPointIndex);
 		    Intersection delivPoint = cityMap.searchByIndex(delivPointIndex);
