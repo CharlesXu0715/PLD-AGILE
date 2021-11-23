@@ -40,9 +40,7 @@ public class GoogleMap {
 				.build();
 		this.staticMapsRequest = StaticMapsApi.newRequest(this.geoApiContext, new Size(width, height));
 		
-		
-		
-		
+				
 		for(Request request: requestList.getRequests()) {
 			String pickPointId = request.getPickPoint().getPointId();
 		    String delivPointId = request.getDelivPoint().getPointId();

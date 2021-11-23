@@ -18,15 +18,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
+
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import model.CityMap;
+import model.FileLoader;
+import model.Intersection;
+import model.Road;
 
 /**
  *
- * @author wuchenya
+ * @author 
  */
 public class ClientUI extends JFrame implements ActionListener ,WindowListener
 {
@@ -35,9 +46,8 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
 	 */
 	private static final long serialVersionUID = 1L;
 	//panel1
-    private TextField serverHost;
-    private TextField serverPort;
-    private Button connexion;
+	private Button loadMap;
+    private Button loadRequest;
     //panel2
     private TextArea textArea;
     //panel3
@@ -45,13 +55,18 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
     private Button send;
     private Button vide;
     
-
-	
+    private FileLoader fileLoader = new FileLoader();
+    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier .xml","xml");
+    
+    private JFileChooser fileChooser = new JFileChooser();
     
     public ClientUI()
     {
+    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	fileChooser.setFileFilter(filter);
+    	
         setTitle("ClientUI");
-        setSize(1920, 1050);
+        setSize(1020, 700);
         setLocationRelativeTo(null);
         setResizable(false);
         this.addWindowListener(this);
@@ -59,36 +74,55 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
         setLayout(new BorderLayout());
         
         
-        Panel panel1=new Panel();
-        panel1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        this.add(panel1,BorderLayout.NORTH);
+        //div map
+        Panel divMap=new Panel();
+        divMap.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        this.add(divMap,BorderLayout.WEST);
+        Panel divMapSVG = new Panel();
+        divMapSVG.setPreferredSize(new Dimension(450, 250));
+        divMap.setPreferredSize(new Dimension(450, 700));
+        divMap.add(divMapSVG);
         
-        Panel panel2=new Panel();
-        panel2.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        this.add(panel2,BorderLayout.CENTER);
+        loadMap = new Button("Load Map");
+        divMap.add(loadMap);
         
-        Panel panel3=new Panel();
-        panel3.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        this.add(panel3,BorderLayout.SOUTH);
-	
-        serverHost = new TextField();
-        serverHost.setText("localhost");
-        serverHost.setPreferredSize(new Dimension(180, 25));
-        panel1.add(new Label("Host :"));
-        panel1.add(serverHost);
+        loadMap.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int result = fileChooser.showOpenDialog(divMapSVG);
+            	chooseFile(result, "map");
+            	}
+            }
+        );
         
-        serverPort = new TextField();
-        serverPort.setText("1025");
-        serverPort.setPreferredSize(new Dimension(150, 25));
-        panel1.add(new Label("Port : "));
-        panel1.add(serverPort);
+        //div request
+        Panel divRequest = new Panel();
+        //divRequest.setBorder(BorderFactory.createLineBorder(Color.black));
+        divRequest.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        this.add(divRequest,BorderLayout.EAST);
         
-        connexion=new Button("Connecter");
-        connexion.addActionListener(this);
-        panel1.add(connexion);
+        Panel divRequestBox = new Panel();
+        divRequestBox.setPreferredSize(new Dimension(450, 250));
+        divRequest.setPreferredSize(new Dimension(450, 700));
         
-        textArea = new TextArea();
-        panel2.setPreferredSize(new Dimension(600, 330));
+        divRequest.add(divRequestBox);
+        
+        loadRequest = new Button("Load Request");
+        divRequest.add(loadRequest);
+                
+        loadRequest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int result = fileChooser.showOpenDialog(divRequestBox);
+            	chooseFile(result, "request");
+            	}
+            }
+        );
+        
+       
+        
+       /* textArea = new TextArea();
+         
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension(580, 330));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -112,7 +146,25 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
                         clear();
                 }
         });
-        panel3.add(vide,BorderLayout.EAST);
+        panel3.add(vide,BorderLayout.EAST);*/
+    }
+    
+    public void chooseFile(int result, String loadWhat) {
+    	if (result == JFileChooser.APPROVE_OPTION) {
+    	    File selectedFile = fileChooser.getSelectedFile();
+    	    switch(loadWhat) {
+    	    case "map":
+    	    	List<Intersection> intersections = fileLoader.loadIntersection(selectedFile.getAbsolutePath());
+        	    List<Road> roads = fileLoader.loadRoad(selectedFile.getAbsolutePath());
+        	    CityMap map = new CityMap(roads,intersections);
+        	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+    	    	break;
+    	    case "request":
+    	    	fileLoader.loadRequest(selectedFile.getAbsolutePath());
+    	    	break;
+    	    }
+    	    
+    	}
     }
     
     public synchronized void write(String msg) {

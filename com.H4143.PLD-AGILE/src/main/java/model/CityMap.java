@@ -55,7 +55,7 @@ public class CityMap implements Graph{
     
     public List<Map.Entry<Integer,Double>>[] getAjacence()
     {
-    	return ajacence;
+    	return adjacence;
     }
     
     public Intersection searchById(String id){
@@ -75,18 +75,27 @@ public class CityMap implements Graph{
 	}
     
     @Override
-	public int getCost(int i, int j) {
-		if (i<0 || i>=intersections.size() || j<0 || j>=intersections.size())
-			return -1;
+	public double getCost(int i, int j) {
+		if (isArc(i,j)) {
+			for (Map.Entry<Integer,Double> e : adjacence[i]) {
+				if (e.getKey()==j)
+					return e.getValue();
+			}
+		}
 		//calculate cost not yet implemented
-		return 0;
+		return -1;
 	}
 
 	@Override
 	public boolean isArc(int i, int j) {
+		boolean isArc = false;
 		if (i<0 || i>=intersections.size() || j<0 || j>=intersections.size())
-			return false;
-		return ajacence[i].contains(intersections.get(j).getId());
+			return isArc;
+		for (Map.Entry<Integer,Double> e : adjacence[i]) {
+			if (e.getKey()==j)
+				isArc = true;
+		}
+		return isArc;
 	}
     
 }
