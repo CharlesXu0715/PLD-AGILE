@@ -21,9 +21,9 @@ public class ShortestPathGraph implements Graph{
 		int j=0;
 		for (int i=0;i<requestList.getRequests().size();i++) {
 			j++;
-			vertexIndices[j]=requestList.getRequests().get(i).getPickPoint().getPointIndex();
+			vertexIndices[j]=requestList.getRequests().get(i).getPickPoint().getIntersection().getIndex();
 			j++;
-			vertexIndices[j]=requestList.getRequests().get(i).getDelivPoint().getPointIndex();
+			vertexIndices[j]=requestList.getRequests().get(i).getDelivPoint().getIntersection().getIndex();
 		}
 		List<Map.Entry<Integer,Double>> adjacence[] = cityMap.getAdjacence();
 		

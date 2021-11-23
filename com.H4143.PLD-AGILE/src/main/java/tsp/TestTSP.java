@@ -12,10 +12,10 @@ import model.Road;
 public class TestTSP {
 
 	public static void main(String[] args) {
-		Intersection iA = new Intersection(0,0,"A");
-		Intersection iB = new Intersection(0,0,"B");
-		Intersection iC = new Intersection(0,0,"C");
-		Intersection iD = new Intersection(0,0,"D");
+		Intersection iA = new Intersection(0,0,"A",0);
+		Intersection iB = new Intersection(0,0,"B",1);
+		Intersection iC = new Intersection(0,0,"C",2);
+		Intersection iD = new Intersection(0,0,"D",3);
 		iA.setIndex(0);
 		iB.setIndex(1);
 		iC.setIndex(2);
@@ -38,9 +38,7 @@ public class TestTSP {
 		roads.add(rAC);
 		CityMap cityMap = new CityMap(roads,intersections);
 		TSP tsp = new TSP1();
-		Request r1 = new Request(1,1,"C","D");
-		r1.getDelivPoint().setPointIndex(2);
-		r1.getPickPoint().setPointIndex(3);
+		Request r1 = new Request(1,1,iC,iD);
 		List<Request> listR = new ArrayList<Request>();
 		listR.add(r1);
 		RequestList requestList = new RequestList("8.0","A",listR);

@@ -275,12 +275,12 @@ public class MapUI extends JPanel {
 		int departureY = weightLongitude(inter.getLongitude(), yScale);
 		graphPoints2.add(new Point(getWidth() - departureY, departureX));
 		for (int i = 0; i < listRequests.size(); i++) {
-			Intersection inter2 = cityMap.searchByIndex(listRequests.get(i).getPickPoint().getIntersection().getIndex());
-			System.out.println("listRequests.get(i).getPickPoint().getPointId() : "+listRequests.get(i).getPickPoint().getIntersection().getIndex());
+			Intersection inter2 = listRequests.get(i).getPickPoint().getIntersection();//cityMap.searchByIndex(listRequests.get(i).getPickPoint().getIntersection().getIndex());
+			System.out.println("listRequests.get(i).getPickPoint().getPointId() : "+listRequests.get(i).getPickPoint().getIntersection());
 			int x1 = weightLatitude(inter2.getLatitude(), xScale);
 			int y1 = weightLongitude(inter2.getLongitude(), yScale);
-			Intersection inter3 = cityMap.searchById(listRequests.get(i).getDelivPoint().getPointId());
-			System.out.println("listRequests.get(i).getDelivPoint().getPointId() : "+listRequests.get(i).getDelivPoint().getPointId());
+			Intersection inter3 = listRequests.get(i).getDelivPoint().getIntersection();//cityMap.searchById(listRequests.get(i).getDelivPoint().getPointId());
+			System.out.println("listRequests.get(i).getDelivPoint().getPointId() : "+listRequests.get(i).getDelivPoint().getIntersection());
 			int x2 = weightLatitude(inter3.getLatitude(), xScale);
 			int y2 = weightLongitude(inter3.getLongitude(), yScale);
 			graphPoints2.add(new Point(getWidth() - y1, x1));
