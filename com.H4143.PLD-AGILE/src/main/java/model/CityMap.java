@@ -7,11 +7,12 @@ import tsp.Graph;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class CityMap implements Graph{
 	private List<Road> roads;
     private List<Intersection> intersections;
-    private List<Map.Entry<Integer,Double>> ajacence[];
+    private ArrayList<Map.Entry<Integer,Double>> ajacence[];
 
     public CityMap(List<Road> roads,List<Intersection> intersections){
         //roads=new ArrayList<Road>();
@@ -20,9 +21,12 @@ public class CityMap implements Graph{
     	this.intersections=intersections;
     	int s=intersections.size();
     	ajacence=new ArrayList[s];
-    	int originIndex=0,destinationIndex=0;
+    	for (int i=0;i<s;i++) {
+    		ajacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
+    	}
+    	//int originIndex=0,destinationIndex=0;
     	for (Road r:roads) {
-    		for (int i=0;i<s;i++) {
+    		/*for (int i=0;i<s;i++) {
     			if(intersections.get(i).getId().equals(r.getOriginId()))
     			{
     				originIndex=i;
@@ -31,8 +35,11 @@ public class CityMap implements Graph{
     			{
     				destinationIndex=i;
     			}
-    		}
-    		ajacence[originIndex].add(destinationIndex);
+    		}*/
+    		//Map.Entry<r.getDestinationIndex(), r.getLength()>
+    		
+    		Entry<Integer, Double> entry = Map.entry(r.getDestinationIndex(), r.getLength());
+    		ajacence[r.getOriginIndex()].add(entry);
     	}
     }
 
@@ -46,7 +53,7 @@ public class CityMap implements Graph{
         return intersections;
     }
     
-    public List<Integer>[] getAjacence()
+    public List<Map.Entry<Integer,Double>>[] getAjacence()
     {
     	return ajacence;
     }

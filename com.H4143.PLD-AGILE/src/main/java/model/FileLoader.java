@@ -59,7 +59,19 @@ public class FileLoader {
             for(int i = 0; i < nl.getLength(); i++) {
                 Node segment = nl.item(i);
                 NamedNodeMap nnm = segment.getAttributes();
-                Road r=new Road(nnm.item(3).getNodeValue(), nnm.item(0).getNodeValue(), nnm.item(2).getNodeValue(), Double.parseDouble(nnm.item(1).getNodeValue()));
+                int originIndex=0;
+                int destinationIndex=0;
+                String originId=nnm.item(3).getNodeValue();
+                String destinationId=nnm.item(0).getNodeValue();
+                for (int j=0;j<intersections.size();j++) {
+                	if (intersections.get(j).getId().equals(originId)) {
+                		originIndex=j;
+                	}
+                	if (intersections.get(j).getId().equals(destinationId)) {
+                		destinationIndex=j;
+                	}
+                }
+                Road r=new Road(originIndex, destinationIndex, nnm.item(2).getNodeValue(), Double.parseDouble(nnm.item(1).getNodeValue()));
                 roads.add(r);
             } 
         } 

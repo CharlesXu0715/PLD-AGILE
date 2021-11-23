@@ -5,9 +5,9 @@ public class Road {
     private int destinationIndex;
     private String name;
     private double length;
-    public Road(int originId,int destinationId,String name,double length){
-        this.originIndex=originId;
-        this.destinationIndex=destinationId;
+    public Road(int originIndex,int destinationIndex,String name,double length){
+        this.originIndex=originIndex;
+        this.destinationIndex=destinationIndex;
         this.name=name;
         this.length=length;
     }
