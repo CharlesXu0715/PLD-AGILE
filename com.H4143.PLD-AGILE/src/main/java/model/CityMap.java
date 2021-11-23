@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 public class CityMap implements Graph{
 	private List<Road> roads;
     private List<Intersection> intersections;
-    private ArrayList<Map.Entry<Integer,Double>> ajacence[];
+    private ArrayList<Map.Entry<Integer,Double>> adjacence[];
 
     public CityMap(List<Road> roads,List<Intersection> intersections){
         //roads=new ArrayList<Road>();
@@ -20,9 +20,9 @@ public class CityMap implements Graph{
     	this.roads=roads;
     	this.intersections=intersections;
     	int s=intersections.size();
-    	ajacence=new ArrayList[s];
+    	adjacence=new ArrayList[s];
     	for (int i=0;i<s;i++) {
-    		ajacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
+    		adjacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
     	}
     	//int originIndex=0,destinationIndex=0;
     	for (Road r:roads) {
@@ -39,7 +39,7 @@ public class CityMap implements Graph{
     		//Map.Entry<r.getDestinationIndex(), r.getLength()>
     		
     		Entry<Integer, Double> entry = Map.entry(r.getDestinationIndex(), r.getLength());
-    		ajacence[r.getOriginIndex()].add(entry);
+    		adjacence[r.getOriginIndex()].add(entry);
     	}
     }
 
@@ -53,7 +53,7 @@ public class CityMap implements Graph{
         return intersections;
     }
     
-    public List<Map.Entry<Integer,Double>>[] getAjacence()
+    public List<Map.Entry<Integer,Double>>[] getAdjacence()
     {
     	return adjacence;
     }

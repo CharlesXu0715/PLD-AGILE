@@ -40,23 +40,23 @@ public class Test{
         
         
 //        int s=intersections.size();
-//        ArrayList<Map.Entry<Integer,Double>> ajacence[]=new ArrayList[s];
+//        ArrayList<Map.Entry<Integer,Double>> adjacence[]=new ArrayList[s];
 //        for (int i=0;i<s;i++) {
-//    		ajacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
+//    		adjacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
 //    	}
 //        for (Road r:roads) {    		
 //    		Entry<Integer, Double> entry = Map.entry(r.getDestinationIndex(), r.getLength());
-//    		ajacence[r.getOriginIndex()].add(entry);
+//    		adjacence[r.getOriginIndex()].add(entry);
 //    	}
 //        for (int i=0;i<ajacence.length;i++) {
 //        	for (int j=0;j<ajacence[i].size();j++) {
-//        		System.out.print(ajacence[i].get(j).getKey()+" ");
+//        		System.out.print(adjacence[i].get(j).getKey()+" ");
 //        	}
 //        	System.out.println();
 //        }
         
         
-        List<Map.Entry<Integer,Double>> a[]=citymap.getAjacence();
+        List<Map.Entry<Integer,Double>> a[]=citymap.getAdjacence();
         System.out.println(a.length);
         for (int i=0;i<a.length;i++) {
         	for (int j=0;j<a[i].size();j++) {
