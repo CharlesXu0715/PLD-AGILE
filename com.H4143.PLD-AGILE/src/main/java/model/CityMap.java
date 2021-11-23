@@ -69,4 +69,15 @@ public class CityMap{
         return null;
     }
     
+    public Intersection searchByIndex(int index){
+        for (Intersection i:intersections)
+        {
+            if (i.getIndex()==index)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
+    
 }

@@ -33,13 +33,16 @@ public class Test{
 //        for (Road i:roads) {
 //            System.out.println(i.getOriginIndex()+"->"+i.getDestinationIndex());
 //        }
-//        for (Request i:requests.getRequests()) {
-//            System.out.println("delivDur:"+i.getDelivPoint().getDuration());
-//            System.out.println("delivId:"+i.getDelivPoint().getPointId());
-//            System.out.println("pickDur:"+i.getPickPoint().getDuration());
-//            System.out.println("pickId:"+i.getPickPoint().getPointId());
-//
-//        }
+        for (Request i:requests.getRequests()) {
+            System.out.println("delivDur:"+i.getDelivPoint().getDuration());
+            System.out.println("delivIndex:"+i.getDelivPoint().getIntersection().getIndex());
+            System.out.println("pickDur:"+i.getPickPoint().getDuration());
+            System.out.println("pickIndex:"+i.getPickPoint().getIntersection().getIndex());
+            System.out.println("-----");
+            System.out.println("delivId:"+intersections.get(i.getDelivPoint().getIntersection().getIndex()).getId());
+            System.out.println("pickId:"+intersections.get(i.getPickPoint().getIntersection().getIndex()).getId());
+
+        }
         
         
 //        int s=intersections.size();
@@ -68,10 +71,10 @@ public class Test{
 //        	System.out.println();
 //        }
         
-        final int WIDTH = 640;
-    	final int HEIGHT = 480;
-        
-        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
+//        final int WIDTH = 640;
+//    	final int HEIGHT = 480;
+//        
+//        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
         
         /*JFrame frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);

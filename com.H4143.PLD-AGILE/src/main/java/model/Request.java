@@ -7,7 +7,7 @@ public class Request {
     private String delivAdd; */
     private VisitPoint pickPoint;
     private VisitPoint delivPoint;
-    public Request(int delivDur,int pickDur,String pickAdd,String delivAdd) {
+    public Request(int delivDur,int pickDur, Intersection pickP, Intersection delivP) {
         /*this.delivDur=delivDur;
         this.pickDur=pickDur;
         this.pickAdd=pickAdd;
@@ -16,8 +16,8 @@ public class Request {
 //        System.out.println("delivId:"+delivAdd);
 //        System.out.println("pickDur:"+pickDur);
 //        System.out.println("pickId:"+pickAdd);
-        pickPoint=new VisitPoint(pickAdd, pickDur);
-        delivPoint=new VisitPoint(delivAdd, delivDur);
+        this.pickPoint=new VisitPoint(pickP, pickDur);
+        this.delivPoint=new VisitPoint(delivP, delivDur);
     }
     
     public VisitPoint getPickPoint() {

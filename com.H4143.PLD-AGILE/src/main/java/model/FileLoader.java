@@ -35,7 +35,7 @@ public class FileLoader {
             for(int i = 0; i < nl.getLength(); i++) { 
                 Node intersec = nl.item(i); 
                 NamedNodeMap nnm = intersec.getAttributes();
-                Intersection in=new Intersection(Double.parseDouble(nnm.item(2).getNodeValue()), Double.parseDouble(nnm.item(1).getNodeValue()), nnm.item(0).getNodeValue());
+                Intersection in=new Intersection(Double.parseDouble(nnm.item(2).getNodeValue()), Double.parseDouble(nnm.item(1).getNodeValue()), nnm.item(0).getNodeValue(),i);
                 intersections.add(in);
             } 
         } 
@@ -103,13 +103,26 @@ public class FileLoader {
 
                 String pickId=nnm.item(2).getNodeValue();
                 String delivId=nnm.item(0).getNodeValue();
+//                int pickIndex=0;
+//                int delivIndex=0;
+                Intersection pickPoint=new Intersection();
+                Intersection delivPoint=new Intersection();
+                for (int j=0;j<intersections.size();j++) {
+                	if (intersections.get(j).getId().equals(pickId)) {
+                		pickPoint=intersections.get(j);
+                	}
+                	if (intersections.get(j).getId().equals(delivId)) {
+                		delivPoint=intersections.get(j);
+                	}
+                }
                 int pickDur= Integer.parseInt(nnm.item(3).getNodeValue());
                 int delivDur=Integer.parseInt(nnm.item(1).getNodeValue());
                 System.out.println("delivDur:"+delivDur);
-                System.out.println("delivId:"+delivId);
+                System.out.println("delivIndex:"+delivPoint.getIndex());
                 System.out.println("pickDur:"+pickDur);
-                System.out.println("pickId:"+pickId);
-                Request r=new Request(delivDur, pickDur, pickId, delivId);
+                System.out.println("pickIndex:"+pickPoint.getIndex());
+                System.out.println("*******");
+                Request r=new Request(delivDur, pickDur, pickPoint, delivPoint);
                 rl.add(r);
             }
             nl=((org.w3c.dom.Document) document).getElementsByTagName("depot");

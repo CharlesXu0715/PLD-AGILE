@@ -275,8 +275,8 @@ public class MapUI extends JPanel {
 		int departureY = weightLongitude(inter.getLongitude(), yScale);
 		graphPoints2.add(new Point(getWidth() - departureY, departureX));
 		for (int i = 0; i < listRequests.size(); i++) {
-			Intersection inter2 = cityMap.searchById(listRequests.get(i).getPickPoint().getPointId());
-			System.out.println("listRequests.get(i).getPickPoint().getPointId() : "+listRequests.get(i).getPickPoint().getPointId());
+			Intersection inter2 = cityMap.searchByIndex(listRequests.get(i).getPickPoint().getIntersection().getIndex());
+			System.out.println("listRequests.get(i).getPickPoint().getPointId() : "+listRequests.get(i).getPickPoint().getIntersection().getIndex());
 			int x1 = weightLatitude(inter2.getLatitude(), xScale);
 			int y1 = weightLongitude(inter2.getLongitude(), yScale);
 			Intersection inter3 = cityMap.searchById(listRequests.get(i).getDelivPoint().getPointId());
