@@ -24,7 +24,7 @@ public class TSP1Test {
         List<Road> roads = fileLoader.loadRoad(FileLoaderTest.filemap);
         RequestList requests = fileLoader.loadRequest(FileLoaderTest.filerequest);
 		tsp1 = new TSP1();
-		graph = new CityMap(roads, intersections);
+		//graph = new CityMap(roads, intersections);
 	}
 	
 	@Test
