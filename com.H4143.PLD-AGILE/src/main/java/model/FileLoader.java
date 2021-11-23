@@ -103,13 +103,24 @@ public class FileLoader {
 
                 String pickId=nnm.item(2).getNodeValue();
                 String delivId=nnm.item(0).getNodeValue();
+                int pickIndex=0;
+                int delivIndex=0;
+                for (int j=0;j<intersections.size();j++) {
+                	if (intersections.get(j).getId().equals(pickId)) {
+                		pickIndex=j;
+                	}
+                	if (intersections.get(j).getId().equals(delivId)) {
+                		delivIndex=j;
+                	}
+                }
                 int pickDur= Integer.parseInt(nnm.item(3).getNodeValue());
                 int delivDur=Integer.parseInt(nnm.item(1).getNodeValue());
                 System.out.println("delivDur:"+delivDur);
-                System.out.println("delivId:"+delivId);
+                System.out.println("delivIndex:"+delivIndex);
                 System.out.println("pickDur:"+pickDur);
-                System.out.println("pickId:"+pickId);
-                Request r=new Request(delivDur, pickDur, pickId, delivId);
+                System.out.println("pickIndex:"+pickIndex);
+                System.out.println("*******");
+                Request r=new Request(delivDur, pickDur, pickIndex, delivIndex);
                 rl.add(r);
             }
             nl=((org.w3c.dom.Document) document).getElementsByTagName("depot");

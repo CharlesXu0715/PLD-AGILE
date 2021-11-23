@@ -42,11 +42,11 @@ public class GoogleMap {
 		
 				
 		for(Request request: requestList.getRequests()) {
-			String pickPointId = request.getPickPoint().getPointId();
-		    String delivPointId = request.getDelivPoint().getPointId();
-		    System.out.println(delivPointId);
-		    Intersection pickPoint = cityMap.searchById(pickPointId);
-		    Intersection delivPoint = cityMap.searchById(delivPointId);
+			int pickPointIndex = request.getPickPoint().getPointIndex();
+		    int delivPointIndex = request.getDelivPoint().getPointIndex();
+		    System.out.println(delivPointIndex);
+		    Intersection pickPoint = cityMap.searchByIndex(pickPointIndex);
+		    Intersection delivPoint = cityMap.searchByIndex(delivPointIndex);
 		    
 		    Markers markers = new Markers();
 			markers.size(MarkersSize.small);
