@@ -46,8 +46,8 @@ public class TestTSP {
 		TSP tsp = new TSP1();
 //		String mapName = "./target/test-classes/testMap.xml";
 //		String requestName = "./target/test-classes/testRequests.xml";
-		String mapName = "src/main/resources/smallMap.xml";
-		String requestName = "src/main/resources/requestsSmall2.xml";
+		String mapName = "src/main/resources/mediumMap.xml";
+		String requestName = "src/main/resources/requestsMedium5.xml";
 		FileLoader fileLoader = new FileLoader();
 		List<Intersection> intersections=fileLoader.loadIntersection(mapName);
         List<Road> roads=fileLoader.loadRoad(mapName);

@@ -270,7 +270,7 @@ public class MapUI extends JPanel {
 		//List<delivery.model.Request> requests = this.CityMap.getRequests();
 		List<Point> graphPoints2 = new ArrayList<>();
 		List<Request> listRequests = requests.getRequests();
-		Intersection inter = cityMap.searchById(requests.getDepartAdd());
+		Intersection inter = requests.getDepartPoint();
 		int departureX = weightLatitude(inter.getLatitude(), xScale);
 		int departureY = weightLongitude(inter.getLongitude(), yScale);
 		graphPoints2.add(new Point(getWidth() - departureY, departureX));

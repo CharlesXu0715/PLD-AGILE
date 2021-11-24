@@ -45,7 +45,7 @@ public class RequestList {
     	String ans="";
     	ans+="Request List : \n";
     	ans+=" depart time : "+departTime+"\n";
-    	ans+=" depart address : "+departAdd+"\n";
+    	ans+=" depart address : "+departPoint.getId()+"\n";
     	ans+=" depart index : "+departIndex+"\n";
     	ans+=" requests : \n";
     	for(Request r:requests)
