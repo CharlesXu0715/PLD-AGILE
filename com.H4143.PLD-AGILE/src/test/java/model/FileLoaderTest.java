@@ -34,9 +34,9 @@ public class FileLoaderTest {
 	@Test
 	public void loadRequest() {
 		RequestList requests = FileLoaderTest.fileLoader.loadRequest(filerequest);
-		assertEquals(2, requests.getRequests().size());
+		assertEquals(1, requests.getRequests().size());
 		assertEquals("8:0:0", requests.getDepartTime());
-		assertEquals("2835339774", requests.getDepartAdd());
+		assertEquals("1679901320", requests.getDepartPoint().getId());
 	}
 	
 }
