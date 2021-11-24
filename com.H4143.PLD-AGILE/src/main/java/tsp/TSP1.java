@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class TSP1 extends TemplateTSP {
-
+	
 	@Override
 	protected int bound(Integer currentVertex, Collection<Integer> unvisited) {
 		return 0;

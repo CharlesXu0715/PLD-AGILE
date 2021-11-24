@@ -49,7 +49,7 @@ public class TestTSP {
 		System.out.print("Solution of cost "+tsp.getSolutionCost()+" found in "
 				+(System.currentTimeMillis() - startTime)+"ms : ");
 		for (int i=0; i<3; i++)
-			System.out.print(tsp.getSolution(i)+" ");
+			System.out.print(g.getVertexIndex(tsp.getSolution(i))+" ");
 	}
 
 }

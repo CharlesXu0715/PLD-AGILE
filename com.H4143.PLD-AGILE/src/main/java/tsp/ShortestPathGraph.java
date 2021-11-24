@@ -77,7 +77,7 @@ public class ShortestPathGraph implements Graph{
 		}
 		
 		return toExplore;
-	}
+	}	
 	
 	@Override
 	public int getNbVertices() {
@@ -96,6 +96,11 @@ public class ShortestPathGraph implements Graph{
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
 			return false;
 		return i != j;
+	}
+	
+	@Override
+	public int getVertexIndex(int i) {
+		return vertexIndices[i];
 	}
 	 
 }

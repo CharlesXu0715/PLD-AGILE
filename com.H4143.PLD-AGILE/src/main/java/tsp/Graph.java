@@ -19,5 +19,13 @@ public interface Graph {
 	 * @return true if <code>(i,j)</code> is an arc of <code>this</code>
 	 */
 	public abstract boolean isArc(int i, int j);
+	
+	/**
+	 * @param i 
+	 * @param j 
+	 * @return the vertex index of vertex <code>i</code> in the complete map
+	 */
+	
+	public abstract int getVertexIndex(int i);
 
 }
