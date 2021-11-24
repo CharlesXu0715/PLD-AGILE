@@ -80,4 +80,20 @@ public class CityMap{
         return null;
     }
     
+    public String toString()
+    {
+    	String ans="CityMap : \n";
+    	ans+=" roads : \n";
+    	for(Road r:roads)
+    	{
+    		ans+="  "+r;
+    	}
+    	ans+=" intersections : \n";
+    	for(Intersection i:intersections)
+    	{
+    		ans+="  "+i;
+    	}
+    	return ans;
+    	
+    }
 }
