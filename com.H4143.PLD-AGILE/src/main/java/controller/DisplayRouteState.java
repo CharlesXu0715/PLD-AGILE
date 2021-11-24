@@ -1,9 +1,9 @@
 package controller;
 
-public class DisplayRouteState extends State{
+public class DisplayRouteState implements State{
 
 	@Override
-	public void buttonCalculateRoute() {
+	public void calculateRoute() {
 		// TODO Auto-generated method stub
 		
 	}
