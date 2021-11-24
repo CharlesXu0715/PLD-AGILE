@@ -27,4 +27,13 @@ public class Request {
     public VisitPoint getDelivPoint() {
         return delivPoint;
     }
+    
+    public String toString()
+    {
+    	String ans="";
+    	ans+="Request : \n";
+    	ans+="  pickup point : "+pickPoint+"\n";
+    	ans+="  delivery point : "+delivPoint+"\n";
+    	return ans;
+    }
 }

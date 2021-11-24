@@ -42,4 +42,15 @@ public class Intersection {
     public int getIndex() {
     	return index;
     }
+    
+    public String toString()
+    {
+    	String ans="";
+    	ans+="Intersection :\n";
+    	ans+="  index : "+index+"\n";
+    	ans+="  id : "+id+"\n";
+    	ans+="  longitude : "+longitude+"\n";
+    	ans+="  latitude : "+latitude+"\n";
+    	return ans;
+    }
 }
