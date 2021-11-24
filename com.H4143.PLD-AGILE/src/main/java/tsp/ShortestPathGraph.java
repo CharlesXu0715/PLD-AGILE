@@ -116,11 +116,7 @@ public class ShortestPathGraph implements Graph{
 	
 	@Override
 	public List<Integer> getPath(int i, int j){
-		if (j==nbVertices) {
-			return paths[i][0];
-		} else {
-			return paths[i][j];
-		}
+		return paths[i][j];
 	}
 	 
 }

@@ -41,7 +41,11 @@ public abstract class TemplateTSP implements TSP {
 	
 	public List<Integer> getPath(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
-			return g.getPath(i, i+1);
+			if (i==g.getNbVertices()-1) {
+				return g.getPath(bestSol[i], bestSol[0]);
+			} else {
+				return g.getPath(bestSol[i], bestSol[i+1]);
+			}
 		return null;
 	}
 	
