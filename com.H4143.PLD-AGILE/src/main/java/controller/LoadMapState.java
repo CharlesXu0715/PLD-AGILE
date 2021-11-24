@@ -6,7 +6,9 @@ public class LoadMapState implements State {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
+	@Override
+	public void loadRequest() {
+		
+	}
 	
 }
