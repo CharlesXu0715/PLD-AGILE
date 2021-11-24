@@ -25,6 +25,9 @@ import model.Intersection;
 import model.Request;
 import model.RequestList;
 import model.Road;
+import tsp.Graph;
+import tsp.ShortestPathGraph;
+import tsp.TSP;
 
 public class MapUI extends JPanel {
 
@@ -42,6 +45,8 @@ public class MapUI extends JPanel {
 	private int padding = 0;
 	double xScale, yScale;
 	static RequestList requests;
+	private TSP tsp;
+	private Graph graphTSP;
 
 	public MapUI(CityMap map) {
 		super();
@@ -278,7 +283,7 @@ public class MapUI extends JPanel {
 		List<Point> graphRequestPoint = new ArrayList<>();
 		List<Request> listRequests = requests.getRequests();
 		
-		Intersection inter = cityMap.searchById(requests.getDepartAdd());
+		Intersection inter = requests.getDepartPoint();
 		int departureX = weightLatitude(inter.getLatitude(), xScale);
 		int departureY = weightLongitude(inter.getLongitude(), yScale);
 		graphRequestPoint.add(new Point(getWidth() - departureY, departureX));
@@ -428,6 +433,17 @@ public class MapUI extends JPanel {
 
 		return listLines;
 
+	}
+	
+	public void drawTour() {
+		Graph g = new ShortestPathGraph(requests,cityMap);
+		long startTime = System.currentTimeMillis();
+		tsp.searchSolution(20000, g);
+		/*for (Point[] line : listLinePoint) {
+			
+			g2.drawLine(getWidth() - ((int) line[0].getY()), ((int) line[0].getX()),
+					getWidth() - ((int) line[1].getY()), ((int) line[1].getX()));
+	}*/
 	}
 
 }

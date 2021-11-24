@@ -51,6 +51,7 @@ public class ClientUI extends JFrame implements ActionListener
 	//panel1
 	private Button loadMap;
     private Button loadRequest;
+    private Button calculateTour;
     Panel divRequest = new Panel();
     Panel divMap=new Panel();
 
@@ -74,8 +75,6 @@ public class ClientUI extends JFrame implements ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         getContentPane().setBackground(Color.WHITE);
-        //this.rightContainer.setBackground(Color.WHITE);
-        //this.rightContainer.setLayout(new BorderLayout());
         this.divRequest.setLayout(new BorderLayout());
         this.divMap.setLayout(new BorderLayout());
         this.divRequest.setBackground(Color.BLUE);
@@ -109,7 +108,9 @@ public class ClientUI extends JFrame implements ActionListener
         this.divRequest.add(divRequestBox);
         
         loadRequest = new Button("Load Request");
+        calculateTour = new Button("Calculate Tour");
         this.divRequest.add(loadRequest, BorderLayout.SOUTH);
+        this.divRequest.add(calculateTour, BorderLayout.NORTH);
                 
         loadRequest.addActionListener(new ActionListener() {
             @Override
@@ -119,6 +120,17 @@ public class ClientUI extends JFrame implements ActionListener
             	}
             }
         );
+        
+        calculateTour.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	//int result = fileChooser.showOpenDialog(divRequestBox);
+            	//chooseFile(result, "request");
+            	calculateTour();
+            	}
+            }
+        );
+        
         
         JSplitPane splitContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.divMap,this.divRequest);
  	   splitContainer.setResizeWeight(0.7);
@@ -175,6 +187,10 @@ public class ClientUI extends JFrame implements ActionListener
     	    }
     	    
     	}
+    }
+    
+    public void calculateTour() {
+    	
     }
 
 	@Override
