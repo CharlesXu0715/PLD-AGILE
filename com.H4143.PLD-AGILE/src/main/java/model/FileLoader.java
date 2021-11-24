@@ -128,7 +128,17 @@ public class FileLoader {
             nl=((org.w3c.dom.Document) document).getElementsByTagName("depot");
             Node d=nl.item(0);
             NamedNodeMap nnm = d.getAttributes();
-            requests=new RequestList(nnm.item(1).getNodeValue(), nnm.item(0).getNodeValue(), rl);
+            String departTime=nnm.item(1).getNodeValue();
+            String departPointId=nnm.item(0).getNodeValue();
+            Intersection departPoint=new Intersection();
+            int departIndex=0;
+            for (int j=0;j<intersections.size();j++) {
+            	if (intersections.get(j).getId().equals(departPointId)) {
+            		departPoint=intersections.get(j);
+            		departIndex=j;
+            	}
+            }
+            requests=new RequestList(departTime, departPoint, departIndex, rl);
         } 
         catch (ParserConfigurationException e) { 
             e.printStackTrace(); 

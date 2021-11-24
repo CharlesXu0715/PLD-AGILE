@@ -3,6 +3,7 @@ package tsp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class TemplateTSP implements TSP {
 
@@ -19,7 +20,7 @@ public abstract class TemplateTSP implements TSP {
 		this.g = g;
 		bestSol = new Integer[g.getNbVertices()];
 		Collection<Integer> unvisited = new ArrayList<Integer>(g.getNbVertices()-1);
-		for (int i=1; i<g.getNbVertices(); i++) unvisited.add(i);
+		for (int i=1; i<g.getNbVertices(); i=i+2) unvisited.add(i);
 		Collection<Integer> visited = new ArrayList<Integer>(g.getNbVertices());
 		visited.add(0); // The first visited vertex is 0
 		bestSolCost = Integer.MAX_VALUE;
@@ -36,6 +37,12 @@ public abstract class TemplateTSP implements TSP {
 		if (g != null)
 			return bestSolCost;
 		return -1;
+	}
+	
+	public List<Integer> getPath(int i){
+		if (g != null && i>=0 && i<g.getNbVertices())
+			return g.getPath(i, i+1);
+		return null;
 	}
 	
 	/**
@@ -79,10 +86,12 @@ public abstract class TemplateTSP implements TSP {
 	        	Integer nextVertex = it.next();
 	        	visited.add(nextVertex);
 	            unvisited.remove(nextVertex);
+	            if (nextVertex%2==1) unvisited.add(nextVertex+1);
 	            branchAndBound(nextVertex, unvisited, visited, 
 	            		currentCost+g.getCost(currentVertex, nextVertex));
 	            visited.remove(nextVertex);
 	            unvisited.add(nextVertex);
+	            if (nextVertex%2==1) unvisited.remove(nextVertex+1);
 	        }	    
 	    }
 	}

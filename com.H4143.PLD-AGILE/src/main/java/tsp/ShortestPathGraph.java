@@ -6,18 +6,26 @@ import java.util.Map;
 
 import model.CityMap;
 import model.RequestList;
+import model.Road;
 
 public class ShortestPathGraph implements Graph{
 
 	private int nbVertices;
 	private int[] vertexIndices;
 	private double[][] costs;
+	private List<Integer> paths[][];
 	
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
 		vertexIndices = new int[nbVertices];
-		vertexIndices[0]=requestList.getDepartIndex();
-		costs= new double[nbVertices][nbVertices];
+		vertexIndices[0] = requestList.getDepartIndex();
+		costs = new double[nbVertices][nbVertices];
+		paths = new ArrayList[nbVertices][nbVertices];
+		for (int i=0;i<nbVertices;i++) {
+			for (int j=0;j<nbVertices;j++) {
+				paths[i][j] = new ArrayList<Integer>();
+			}
+		}
 		int j=0;
 		for (int i=0;i<requestList.getRequests().size();i++) {
 			j++;
@@ -73,11 +81,14 @@ public class ShortestPathGraph implements Graph{
 				}
 				toExplore.remove(toExplore.indexOf(i));
 				costs[indexSource][indexi]=dist[i];
+				for (int j=prev[i]; j!=source;j=prev[j]) {
+					paths[indexSource][indexi].add(0, j);
+				}
 			}
 		}
 		
 		return toExplore;
-	}
+	}	
 	
 	@Override
 	public int getNbVertices() {
@@ -96,6 +107,20 @@ public class ShortestPathGraph implements Graph{
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
 			return false;
 		return i != j;
+	}
+	
+	@Override
+	public int getVertexIndex(int i) {
+		return vertexIndices[i];
+	}
+	
+	@Override
+	public List<Integer> getPath(int i, int j){
+		if (j==nbVertices) {
+			return paths[i][0];
+		} else {
+			return paths[i][j];
+		}
 	}
 	 
 }

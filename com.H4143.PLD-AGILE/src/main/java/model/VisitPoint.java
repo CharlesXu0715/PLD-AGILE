@@ -22,6 +22,15 @@ public class VisitPoint {
 		return intersection;
 	}
 
+	public String toString()
+	{
+		String ans="";
+		ans+="VisitPoint : \n";
+		ans+="  duration : "+duration+"\n";
+		ans+="  point : "+intersection+"\n";
+		return ans;
+	}
+	
 //	public void setPointIndex(int pointIndex) {
 //		this.pointIndex = pointIndex;
 //	}
