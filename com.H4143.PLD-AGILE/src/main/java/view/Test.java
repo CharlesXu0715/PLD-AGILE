@@ -71,12 +71,12 @@ public class Test{
 //        	System.out.println();
 //        }
         
-//        final int WIDTH = 640;
-//    	final int HEIGHT = 480;
-//        
-//        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
+        final int WIDTH = 640;
+    	final int HEIGHT = 480;
         
-        /*JFrame frame = new JFrame();
+        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
+        
+        JFrame frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -95,7 +95,7 @@ public class Test{
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
     }
 }
