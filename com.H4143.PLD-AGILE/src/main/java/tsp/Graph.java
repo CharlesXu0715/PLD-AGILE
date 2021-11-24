@@ -1,5 +1,9 @@
 package tsp;
 
+import java.util.List;
+
+import model.Road;
+
 public interface Graph {
 	/**
 	 * @return the number of vertices in <code>this</code>
@@ -21,11 +25,18 @@ public interface Graph {
 	public abstract boolean isArc(int i, int j);
 	
 	/**
-	 * @param i 
-	 * @param j 
+	 * @param i
 	 * @return the vertex index of vertex <code>i</code> in the complete map
 	 */
 	
 	public abstract int getVertexIndex(int i);
+	
+	/**
+	 * @param i 
+	 * @param j 
+	 * @return a list of edges that go from vertex <code>i</code> to vertex <code>j</code>
+	 */
+	
+	public abstract List<Integer> getPath(int i, int j);
 
 }

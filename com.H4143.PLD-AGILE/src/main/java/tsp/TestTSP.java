@@ -46,8 +46,8 @@ public class TestTSP {
 		TSP tsp = new TSP1();
 //		String mapName = "./target/test-classes/testMap.xml";
 //		String requestName = "./target/test-classes/testRequests.xml";
-		String mapName = "src/main/resources/mediumMap.xml";
-		String requestName = "src/main/resources/requestsMedium5.xml";
+		String mapName = "src/main/resources/smallMap.xml";
+		String requestName = "src/main/resources/requestsSmall1.xml";
 		FileLoader fileLoader = new FileLoader();
 		List<Intersection> intersections=fileLoader.loadIntersection(mapName);
         List<Road> roads=fileLoader.loadRoad(mapName);
@@ -61,8 +61,16 @@ public class TestTSP {
 		for (int i=0; i<g.getNbVertices(); i++)
 			System.out.print(g.getVertexIndex(tsp.getSolution(i))+" ");
 		System.out.println();
-		for (int i=0; i<g.getNbVertices(); i++)
-			System.out.print(intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId()+" ");
+		List<Integer> path;
+		for (int i=0; i<g.getNbVertices(); i++) {
+			System.out.println("Visisted: "+intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId());
+			System.out.print("Crossing:");
+			path = tsp.getPath(i);
+			for (int inter : path) {
+				System.out.print(" "+intersections.get(inter).getId());
+			}
+			System.out.print(". ");
+		}
 	}
 
 }

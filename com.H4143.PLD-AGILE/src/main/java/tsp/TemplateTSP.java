@@ -3,6 +3,7 @@ package tsp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class TemplateTSP implements TSP {
 
@@ -36,6 +37,12 @@ public abstract class TemplateTSP implements TSP {
 		if (g != null)
 			return bestSolCost;
 		return -1;
+	}
+	
+	public List<Integer> getPath(int i){
+		if (g != null && i>=0 && i<g.getNbVertices())
+			return g.getPath(i, i+1);
+		return null;
 	}
 	
 	/**
