@@ -13,6 +13,7 @@ import view.widgets.TextField;
 
         
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.CityMap;
@@ -39,7 +42,7 @@ import model.Road;
  *
  * @author 
  */
-public class ClientUI extends JFrame implements ActionListener ,WindowListener
+public class ClientUI extends JFrame implements ActionListener
 {
     /**
 	 * 
@@ -48,17 +51,16 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
 	//panel1
 	private Button loadMap;
     private Button loadRequest;
-    //panel2
-    private TextArea textArea;
-    //panel3
-    private TextField msgField;
-    private Button send;
-    private Button vide;
+    Panel divRequest = new Panel();
+    Panel divMap=new Panel();
+
     
     private FileLoader fileLoader = new FileLoader();
     private FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier .xml","xml");
     
     private JFileChooser fileChooser = new JFileChooser();
+    
+    private MapUI map;
     
     public ClientUI()
     {
@@ -66,49 +68,48 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
     	fileChooser.setFileFilter(filter);
     	
         setTitle("ClientUI");
-        setSize(1020, 800);
+        setSize(1420, 820);
         setLocationRelativeTo(null);
         setResizable(false);
-        this.addWindowListener(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        
-        
-        //div map
-        Panel divMap=new Panel();
-        divMap.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        this.add(divMap,BorderLayout.WEST);
-        Panel divMapSVG = new Panel();
-        divMapSVG.setPreferredSize(new Dimension(450, 250));
-        divMap.setPreferredSize(new Dimension(450, 700));
-        divMap.add(divMapSVG);
-        
+        getContentPane().setBackground(Color.WHITE);
+        //this.rightContainer.setBackground(Color.WHITE);
+        //this.rightContainer.setLayout(new BorderLayout());
+        this.divRequest.setLayout(new BorderLayout());
+        this.divMap.setLayout(new BorderLayout());
+        this.divRequest.setBackground(Color.BLUE);
+        this.divMap.setBackground(Color.RED);
+        this.divMap.setMinimumSize(new Dimension(710,820));
+        this.divRequest.setMinimumSize(new Dimension(710,820));
+        add(this.divMap);
+
         loadMap = new Button("Load Map");
-        divMap.add(loadMap);
+        this.divMap.add(loadMap,BorderLayout.SOUTH);
         
         loadMap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	int result = fileChooser.showOpenDialog(divMapSVG);
+            	int result = fileChooser.showOpenDialog(divMap);
             	chooseFile(result, "map");
             	}
             }
         );
         
-        //div request
-        Panel divRequest = new Panel();
-        //divRequest.setBorder(BorderFactory.createLineBorder(Color.black));
-        divRequest.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        this.add(divRequest,BorderLayout.EAST);
+        
+//        //div request
+        this.divMap.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        this.divRequest.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        this.add(divRequest);
         
         Panel divRequestBox = new Panel();
         divRequestBox.setPreferredSize(new Dimension(450, 250));
-        divRequest.setPreferredSize(new Dimension(450, 700));
+        //this.divRequest.setPreferredSize(new Dimension(710, 820));
         
-        divRequest.add(divRequestBox);
+        this.divRequest.add(divRequestBox);
         
         loadRequest = new Button("Load Request");
-        divRequest.add(loadRequest);
+        this.divRequest.add(loadRequest, BorderLayout.SOUTH);
                 
         loadRequest.addActionListener(new ActionListener() {
             @Override
@@ -119,7 +120,10 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
             }
         );
         
-       
+        JSplitPane splitContainer = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.divMap,this.divRequest);
+ 	   splitContainer.setResizeWeight(0.7);
+ 	   
+ 	   this.add(splitContainer);
         
        /* textArea = new TextArea();
          
@@ -158,72 +162,28 @@ public class ClientUI extends JFrame implements ActionListener ,WindowListener
         	    List<Road> roads = fileLoader.loadRoad(selectedFile.getAbsolutePath());
         	    CityMap map = new CityMap(roads,intersections);
         	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        	    this.map = new MapUI(map);
+        	   this.map.setMinimumSize(new Dimension(400,600));
+        	   this.divMap.add(this.map);
+        		this.setVisible(true);
     	    	break;
     	    case "request":
-    	    	fileLoader.loadRequest(selectedFile.getAbsolutePath());
+    	    	this.map.setRequests(fileLoader.loadRequest(selectedFile.getAbsolutePath()));
+        	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+        	    this.map.paintRequest(this.map.getGraphics());
     	    	break;
     	    }
     	    
     	}
     }
-    
-    public synchronized void write(String msg) {
-        synchronized(textArea) {
-            if(!msg.isEmpty()) {
-                textArea.append(msg + "\n");
-                textArea.setCaretPosition(textArea.getDocument().getLength());
-            }
-        }
-    }
-    
-    public synchronized void clear() {
-        synchronized(textArea) {
-            textArea.setText("");
-        }
-    }
-    
-    public static void main(String[] args) {
-        try{
-            new ClientUI().setVisible(true);
-        }
-        catch(Exception e){
-        }
-    }
-    
-    public void actionPerformed(ActionEvent e){
-    String message;
-   
-    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
     
 
-    @Override
-    public void windowOpened(WindowEvent e) {
-    }
 
-    @Override
-    public void windowClosing(WindowEvent e) {
-     
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-    }
 }
 
