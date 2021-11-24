@@ -31,4 +31,15 @@ public class Road {
     {
         return length;
     }
+    
+    public String toString()
+    {
+    	String ans="";
+    	ans+="Road : \n";
+    	ans+="  name :"+name+"\n";
+    	ans+="  length : "+length+"\n";
+    	ans+="  originIndex : "+originIndex+"\n";
+    	ans+="  destinationIndex : "+destinationIndex+"\n";
+    	return ans;
+    }
 }

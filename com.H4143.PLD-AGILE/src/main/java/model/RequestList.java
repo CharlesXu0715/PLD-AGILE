@@ -39,4 +39,18 @@ public class RequestList {
     	this.departIndex = departIndex;
     }
     
+    public String toString()
+    {
+    	String ans="";
+    	ans+="Request List : \n";
+    	ans+=" depart time : "+departTime+"\n";
+    	ans+=" depart address : "+departAdd+"\n";
+    	ans+=" depart index : "+departIndex+"\n";
+    	ans+=" requests : \n";
+    	for(Request r:requests)
+    	{
+    		ans+="  "+r;
+    	}
+    	return ans;
+    }
 }
