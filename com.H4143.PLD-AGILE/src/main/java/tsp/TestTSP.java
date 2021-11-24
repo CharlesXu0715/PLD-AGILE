@@ -71,6 +71,7 @@ public class TestTSP {
 			}
 			System.out.print(". ");
 		}
+		System.out.println("Returned to: "+intersections.get(g.getVertexIndex(tsp.getSolution(0))).getId());
 	}
 
 }
