@@ -34,9 +34,10 @@ public class GoogleMap {
 		this.geoApiContext = new GeoApiContext.Builder().apiKey("AIzaSyAnZCLDHsEkij1oGVn1umJr5MUZLqhHMTo")
 				.build();
 		this.staticMapsRequest = StaticMapsApi.newRequest(this.geoApiContext, new Size(width, height));
-		this.staticMapsRequest.maptype(StaticMapType.satellite);
+		this.staticMapsRequest.maptype(StaticMapType.roadmap);
+		this.staticMapsRequest.custom("style", "feature:poi|element:labels|visibility:off");
 		int count = 0;
-
+	
 		Intersection departPoint = requestList.getDepartPoint();
 		Markers departMarker = new Markers();
 		departMarker.color(predefinedColor[count++]);

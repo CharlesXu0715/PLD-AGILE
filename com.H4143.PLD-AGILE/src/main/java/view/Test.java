@@ -17,16 +17,16 @@ import model.*;
 
 public class Test{
     public static void main(String[] args) {
-        String filemap="src/test/resources/testMap.xml";
-        String filerequest="src/test/resources/testRequests.xml";
+        String filemap="src/main/resources/largeMap.xml";
+        String filerequest="src/main/resources/requestsLarge9.xml";
         FileLoader l = new FileLoader();
         List<Intersection> intersections=l.loadIntersection(filemap);
         List<Road> roads=l.loadRoad(filemap);
         RequestList requests=l.loadRequest(filerequest);
         CityMap citymap=new CityMap(roads,intersections);
         
-        final int WIDTH = 640;
-    	final int HEIGHT = 480;
+        final int WIDTH = 600;
+    	final int HEIGHT = 600;
         
         GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
         
