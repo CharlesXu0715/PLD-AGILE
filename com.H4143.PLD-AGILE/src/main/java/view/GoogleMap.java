@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -30,7 +31,7 @@ public class GoogleMap {
 	private String[] predefinedColor = {"red", "brown", "green", "purple", "yellow", "blue", "gray", "orange", "black", "white"};
 	
 
-	public GoogleMap(int width, int height, CityMap cityMap, RequestList requestList) {
+	public GoogleMap(int width, int height, CityMap cityMap, RequestList requestList, List<Intersection> intersections) {
 		this.geoApiContext = new GeoApiContext.Builder().apiKey("AIzaSyAnZCLDHsEkij1oGVn1umJr5MUZLqhHMTo")
 				.build();
 		this.staticMapsRequest = StaticMapsApi.newRequest(this.geoApiContext, new Size(width, height));
@@ -68,8 +69,21 @@ public class GoogleMap {
 		}
 		
 		
+		
+		for (int i = 0; i < intersections.size(); i++) {
+			String hex = Integer.toHexString(256 / (intersections.size() - 1) * i);
+			hex = (hex.length() == 1) ? "0" + hex : hex;
+			int next = (i == intersections.size() - 1) ? 0 : i + 1;
+			Path path = new Path();
+			path.geodesic(true);
+			path.color("0x" + hex + hex + hex);
+		    path.addPoint(new LatLng(intersections.get(i).getLatitude(), intersections.get(i).getLongitude()));
+		    path.addPoint(new LatLng(intersections.get(next).getLatitude(), intersections.get(next).getLongitude()));
+		    this.staticMapsRequest.path(path);
+		}
+		
+		
 	}
-	
 	
 	
 	public BufferedImage getBufferedImage() throws IOException, ApiException, InterruptedException {

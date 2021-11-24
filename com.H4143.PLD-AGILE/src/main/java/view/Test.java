@@ -28,7 +28,7 @@ public class Test{
         final int WIDTH = 600;
     	final int HEIGHT = 600;
         
-        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
+        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests, null);
         
         JFrame frame = new JFrame();
 		frame.setSize(WIDTH, HEIGHT);

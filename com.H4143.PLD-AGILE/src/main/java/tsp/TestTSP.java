@@ -1,7 +1,15 @@
 package tsp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
+
+import com.google.maps.errors.ApiException;
 
 import model.CityMap;
 import model.FileLoader;
@@ -9,6 +17,7 @@ import model.Intersection;
 import model.Request;
 import model.RequestList;
 import model.Road;
+import view.GoogleMap;
 
 public class TestTSP {
 
@@ -62,16 +71,57 @@ public class TestTSP {
 			System.out.print(g.getVertexIndex(tsp.getSolution(i))+" ");
 		System.out.println();
 		List<Integer> path;
+//		for (int i=0; i<g.getNbVertices(); i++) {
+//			System.out.println("Visisted: "+intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId());
+//			System.out.print("Crossing:");
+//			path = tsp.getPath(i);
+//			for (int inter : path) {
+//				System.out.print(" "+intersections.get(inter).getId());
+//			}
+//			System.out.print(". ");
+//		}
+//		System.out.println("Returned to: "+intersections.get(g.getVertexIndex(tsp.getSolution(0))).getId());
+		
+		List<Intersection> intersections2 = new ArrayList<Intersection>();
+		
 		for (int i=0; i<g.getNbVertices(); i++) {
 			System.out.println("Visisted: "+intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId());
-			System.out.print("Crossing:");
+			intersections2.add(intersections.get(g.getVertexIndex(tsp.getSolution(i))));
 			path = tsp.getPath(i);
 			for (int inter : path) {
 				System.out.print(" "+intersections.get(inter).getId());
+				intersections2.add(intersections.get(inter));
 			}
-			System.out.print(". ");
 		}
-		System.out.println("Returned to: "+intersections.get(g.getVertexIndex(tsp.getSolution(0))).getId());
+		
+		
+		
+		final int WIDTH = 600;
+    	final int HEIGHT = 600;
+        
+        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requestList, intersections2);
+        
+        JFrame frame = new JFrame();
+		frame.setSize(WIDTH, HEIGHT);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		JLabel jLabel;
+		try {
+			jLabel = new JLabel(new ImageIcon(googleMap.getBufferedImage()));
+			jLabel.setBounds(0, 0, WIDTH, HEIGHT);
+			frame.getContentPane().add(jLabel);
+			frame.setVisible(true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
