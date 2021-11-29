@@ -30,5 +30,16 @@ public class Route {
 		return duration;
 	}
 	
+	public String toString()
+    {
+    	String ans="";
+    	ans+="Route: \n";
+    	for (Path path : paths) {
+    		ans+=path.toString()+"\r\n";
+    	}
+    	ans+="Total duration: "+duration;
+    	return ans;
+    }
+	
 	
 }

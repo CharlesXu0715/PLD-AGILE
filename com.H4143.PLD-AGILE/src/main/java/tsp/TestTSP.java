@@ -14,6 +14,7 @@ import com.google.maps.errors.ApiException;
 import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
+import model.Path;
 import model.Request;
 import model.RequestList;
 import model.Road;
@@ -60,6 +61,7 @@ public class TestTSP {
 		FileLoader fileLoader = new FileLoader();
 		List<Intersection> intersections=fileLoader.loadIntersection(mapName);
         List<Road> roads=fileLoader.loadRoad(mapName);
+        intersections = fileLoader.chargeRoad(intersections, roads);
 		CityMap cityMap = new CityMap(roads,intersections);
 		RequestList requestList = fileLoader.loadRequest(requestName);
 		Graph g = new ShortestPathGraph(requestList,cityMap);
@@ -70,7 +72,7 @@ public class TestTSP {
 		for (int i=0; i<g.getNbVertices(); i++)
 			System.out.print(g.getVertexIndex(tsp.getSolution(i))+" ");
 		System.out.println();
-		List<Integer> path;
+		System.out.println(tsp.getRoute());
 //		for (int i=0; i<g.getNbVertices(); i++) {
 //			System.out.println("Visisted: "+intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId());
 //			System.out.print("Crossing:");
@@ -85,13 +87,7 @@ public class TestTSP {
 		List<Intersection> intersections2 = new ArrayList<Intersection>();
 		
 		for (int i=0; i<g.getNbVertices(); i++) {
-			System.out.println("Visisted: "+intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId());
 			intersections2.add(intersections.get(g.getVertexIndex(tsp.getSolution(i))));
-			path = tsp.getPath(i);
-			for (int inter : path) {
-				System.out.print(" "+intersections.get(inter).getId());
-				intersections2.add(intersections.get(inter));
-			}
 		}
 		
 		

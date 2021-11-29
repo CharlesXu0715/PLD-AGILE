@@ -23,7 +23,7 @@ public class Path {
 		return roads;
 	}
 
-	public void addRoads(Road road) {
+	public void addRoad(Road road) {
 		//the road list is added inversely
 		this.roads.add(0,road);
 		cost += road.getLength();
@@ -45,5 +45,17 @@ public class Path {
 	public Intersection getEnd() {
 		return end;
 	}
+	
+	public String toString()
+    {
+    	String ans="";
+    	ans+="From : " + start.getId() +", to : " + end.getId()+"\r\n";
+    	ans+="    Passing by : ";
+    	for (Road road : roads) {
+    		ans+=road.getName()+", ";
+    	}
+    	ans+="\r\nDuration: "+duration;
+    	return ans;
+    }
 	
 }
