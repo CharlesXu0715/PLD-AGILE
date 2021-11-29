@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 public class CityMap{
 	private List<Road> roads;
     private List<Intersection> intersections;
-    private ArrayList<Map.Entry<Integer,Double>> adjacence[];
+    //private ArrayList<Map.Entry<Integer,Double>> adjacence[];
 
     public CityMap(List<Road> roads,List<Intersection> intersections){
         //roads=new ArrayList<Road>();
@@ -20,27 +20,27 @@ public class CityMap{
     	this.roads=roads;
     	this.intersections=intersections;
     	int s=intersections.size();
-    	adjacence=new ArrayList[s];
-    	for (int i=0;i<s;i++) {
-    		adjacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
-    	}
+//    	adjacence=new ArrayList[s];
+//    	for (int i=0;i<s;i++) {
+//    		adjacence[i]=new ArrayList<Map.Entry<Integer,Double>>();
+//    	}
     	//int originIndex=0,destinationIndex=0;
-    	for (Road r:roads) {
-    		/*for (int i=0;i<s;i++) {
-    			if(intersections.get(i).getId().equals(r.getOriginId()))
-    			{
-    				originIndex=i;
-    			}
-    			if(intersections.get(i).getId().equals(r.getDestinationId()))
-    			{
-    				destinationIndex=i;
-    			}
-    		}*/
-    		//Map.Entry<r.getDestinationIndex(), r.getLength()>
-    		
-    		Entry<Integer, Double> entry = Map.entry(r.getDestinationIndex(), r.getLength());
-    		adjacence[r.getOriginIndex()].add(entry);
-    	}
+//    	for (Road r:roads) {
+//    		/*for (int i=0;i<s;i++) {
+//    			if(intersections.get(i).getId().equals(r.getOriginId()))
+//    			{
+//    				originIndex=i;
+//    			}
+//    			if(intersections.get(i).getId().equals(r.getDestinationId()))
+//    			{
+//    				destinationIndex=i;
+//    			}
+//    		}*/
+//    		//Map.Entry<r.getDestinationIndex(), r.getLength()>
+//    		
+//    		Entry<Integer, Double> entry = Map.entry(r.getDestinationIndex(), r.getLength());
+//    		adjacence[r.getOriginIndex()].add(entry);
+//    	}
     }
 
     public List<Road> getRoads()
@@ -53,10 +53,10 @@ public class CityMap{
         return intersections;
     }
     
-    public List<Map.Entry<Integer,Double>>[] getAdjacence()
-    {
-    	return adjacence;
-    }
+//    public List<Map.Entry<Integer,Double>>[] getAdjacence()
+//    {
+//    	return adjacence;
+//    }
     
     public Intersection searchById(String id){
         for (Intersection i:intersections)
