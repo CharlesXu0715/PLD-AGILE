@@ -59,9 +59,9 @@ public class TestTSP {
 		String mapName = "src/main/resources/smallMap.xml";
 		String requestName = "src/main/resources/requestsSmall1.xml";
 		FileLoader fileLoader = new FileLoader();
-		List<Intersection> intersections=fileLoader.loadIntersection(mapName);
-        List<Road> roads=fileLoader.loadRoad(mapName);
-        intersections = fileLoader.chargeRoad(intersections, roads);
+		fileLoader.loadMap(mapName);
+		List<Intersection> intersections=fileLoader.getIntersections();
+        List<Road> roads=fileLoader.getRoads();
 		CityMap cityMap = new CityMap(roads,intersections);
 		RequestList requestList = fileLoader.loadRequest(requestName);
 		Graph g = new ShortestPathGraph(requestList,cityMap);
