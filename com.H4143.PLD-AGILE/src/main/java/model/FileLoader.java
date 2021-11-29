@@ -149,4 +149,11 @@ public class FileLoader {
         }
         return requests; 
     }
+    
+    public List<Intersection> chargeRoad(List<Intersection> intersections,List<Road> roads) {
+    	for (Road r:roads) {
+    		intersections.get(r.getOriginIndex()).addAdjacence(r);
+    	}
+    	return intersections;
+    }
 }

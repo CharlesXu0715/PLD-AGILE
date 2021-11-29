@@ -22,8 +22,10 @@ public class Test{
         FileLoader l=new FileLoader();
         List<Intersection> intersections=l.loadIntersection(filemap);
         List<Road> roads=l.loadRoad(filemap);
+        intersections=l.chargeRoad(intersections, roads);
         RequestList requests=l.loadRequest(filerequest);
         CityMap citymap=new CityMap(roads,intersections);
+        
 //        System.out.println(intersections.size());
 //        System.out.println(roads.size());
 //        System.out.println(requests.getRequests().size());
@@ -33,16 +35,17 @@ public class Test{
 //        for (Road i:roads) {
 //            System.out.println(i.getOriginIndex()+"->"+i.getDestinationIndex());
 //        }
-        for (Request i:requests.getRequests()) {
-            System.out.println("delivDur:"+i.getDelivPoint().getDuration());
-            System.out.println("delivIndex:"+i.getDelivPoint().getIntersection().getIndex());
-            System.out.println("pickDur:"+i.getPickPoint().getDuration());
-            System.out.println("pickIndex:"+i.getPickPoint().getIntersection().getIndex());
-            System.out.println("-----");
-            System.out.println("delivId:"+intersections.get(i.getDelivPoint().getIntersection().getIndex()).getId());
-            System.out.println("pickId:"+intersections.get(i.getPickPoint().getIntersection().getIndex()).getId());
-
-        }
+        
+//        for (Request i:requests.getRequests()) {
+//            System.out.println("delivDur:"+i.getDelivPoint().getDuration());
+//            System.out.println("delivIndex:"+i.getDelivPoint().getIntersection().getIndex());
+//            System.out.println("pickDur:"+i.getPickPoint().getDuration());
+//            System.out.println("pickIndex:"+i.getPickPoint().getIntersection().getIndex());
+//            System.out.println("-----");
+//            System.out.println("delivId:"+intersections.get(i.getDelivPoint().getIntersection().getIndex()).getId());
+//            System.out.println("pickId:"+intersections.get(i.getPickPoint().getIntersection().getIndex()).getId());
+//
+//        }
         
         
 //        int s=intersections.size();
@@ -71,31 +74,42 @@ public class Test{
 //        	System.out.println();
 //        }
         
-        final int WIDTH = 640;
-    	final int HEIGHT = 480;
+        for (Intersection i:intersections) {
+        	ArrayList<Road> a=i.getAdjacence();
+        	System.out.print(i.getIndex()+":");
+        	for (int j=0;j<a.size();j++) {
+        		if (a.get(j).getOriginIndex()!=i.getIndex())
+        			System.out.print("NOOOO");
+        		System.out.print(intersections.get(a.get(j).getDestinationIndex()).getId()+" ");
+        	}
+        	System.out.println();
+        }
         
-        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests, null);
-        
-        JFrame frame = new JFrame();
-		frame.setSize(WIDTH, HEIGHT);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		JLabel jLabel;
-		try {
-			jLabel = new JLabel(new ImageIcon(googleMap.getBufferedImage()));
-			jLabel.setBounds(0, 0, WIDTH, HEIGHT);
-			frame.getContentPane().add(jLabel);
-			frame.setVisible(true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//        final int WIDTH = 640;
+//    	final int HEIGHT = 480;
+//        
+//        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests, null);
+//        
+//        JFrame frame = new JFrame();
+//		frame.setSize(WIDTH, HEIGHT);
+//		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//		frame.getContentPane().setLayout(null);
+//		JLabel jLabel;
+//		try {
+//			jLabel = new JLabel(new ImageIcon(googleMap.getBufferedImage()));
+//			jLabel.setBounds(0, 0, WIDTH, HEIGHT);
+//			frame.getContentPane().add(jLabel);
+//			frame.setVisible(true);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ApiException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
     }
 }
