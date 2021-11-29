@@ -70,14 +70,7 @@ public class CityMap{
     }
     
     public Intersection searchByIndex(int index){
-        for (Intersection i:intersections)
-        {
-            if (i.getIndex()==index)
-            {
-                return i;
-            }
-        }
-        return null;
+    	return intersections.get(index);
     }
     
     public String toString()
