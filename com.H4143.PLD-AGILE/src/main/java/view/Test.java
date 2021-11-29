@@ -17,6 +17,7 @@ import model.*;
 
 public class Test{
     public static void main(String[] args) {
+    	//codes needed for reading the xml files
         String filemap="src/main/resources/smallMap.xml";
         String filerequest="src/main/resources/requestsSmall1.xml";
         FileLoader l=new FileLoader();
@@ -25,6 +26,7 @@ public class Test{
         intersections=l.chargeRoad(intersections, roads);
         RequestList requests=l.loadRequest(filerequest);
         CityMap citymap=new CityMap(roads,intersections);
+        //until here
         
 //        System.out.println(intersections.size());
 //        System.out.println(roads.size());
