@@ -9,13 +9,13 @@ public class Intersection {
     private double latitude;
     private int index;
     private String id;
-    private ArrayList<Map.Entry<Integer,Double>> adjacence;
+    private ArrayList<Road> adjacence;
     public Intersection(double longitude,double latitude,String id,int index){
         this.longitude=longitude;
         this.latitude=latitude;
         this.id=id;
         this.index=index;
-        adjacence=new ArrayList<Map.Entry<Integer,Double>>();
+        adjacence=new ArrayList<Road>();
     }
     
     public Intersection() {
@@ -60,11 +60,11 @@ public class Intersection {
     	return ans;
     }
     
-    public void addAdjacence(int index,double distance) {
-    	adjacence.add(Map.entry(index,distance));
+    public void addAdjacence(Road r) {
+    	adjacence.add(r);
     }
     
-    public ArrayList<Map.Entry<Integer,Double>> getAdjacence(){
+    public ArrayList<Road> getAdjacence(){
     	return adjacence;
     } 
 }
