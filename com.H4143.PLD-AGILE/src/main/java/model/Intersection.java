@@ -1,15 +1,21 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class Intersection {
 	private double longitude;
     private double latitude;
     private int index;
     private String id;
+    private ArrayList<Road> adjacence;
     public Intersection(double longitude,double latitude,String id,int index){
         this.longitude=longitude;
         this.latitude=latitude;
         this.id=id;
         this.index=index;
+        adjacence=new ArrayList<Road>();
     }
     
     public Intersection() {
@@ -53,4 +59,12 @@ public class Intersection {
     	ans+="  latitude : "+latitude+"\n";
     	return ans;
     }
+    
+    public void addAdjacence(Road r) {
+    	adjacence.add(r);
+    }
+    
+    public ArrayList<Road> getAdjacence(){
+    	return adjacence;
+    } 
 }

@@ -1,8 +1,6 @@
 package tsp;
 
-import java.util.List;
-
-import model.Road;
+import model.Path;
 
 public interface Graph {
 	/**
@@ -37,6 +35,6 @@ public interface Graph {
 	 * @return a list of edges that go from vertex <code>i</code> to vertex <code>j</code>
 	 */
 	
-	public abstract List<Integer> getPath(int i, int j);
+	public abstract Path getPath(int i, int j);
 
 }
