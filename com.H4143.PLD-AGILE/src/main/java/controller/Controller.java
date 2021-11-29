@@ -18,6 +18,10 @@ public class Controller {
 		this.currentState=INITIAL_STATE;
 	}
 	
+	public void buttonLoadMap(String file)
+	{
+		this.currentState.loadMap(this,file);
+	}
 	
 	public void undo() {
 		this.currentState.undo(l);

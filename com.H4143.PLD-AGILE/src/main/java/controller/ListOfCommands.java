@@ -16,5 +16,4 @@ public class ListOfCommands {
 		l.add(i,c);
 		c.doCommand();
 	}
-
 }

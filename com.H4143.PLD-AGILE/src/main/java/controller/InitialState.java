@@ -6,7 +6,7 @@ public class InitialState implements State {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void loadMap() {
+	public void loadMap(Controller c,String file) {
 		
 	}
 
