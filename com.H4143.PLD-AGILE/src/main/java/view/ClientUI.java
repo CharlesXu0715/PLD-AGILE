@@ -126,7 +126,7 @@ public class ClientUI extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e) {
             	//int result = fileChooser.showOpenDialog(divRequestBox);
             	//chooseFile(result, "request");
-            	calculateTour();
+            	map.drawTour(map.getGraphics());
             	}
             }
         );
@@ -170,19 +170,20 @@ public class ClientUI extends JFrame implements ActionListener
     	    File selectedFile = fileChooser.getSelectedFile();
     	    switch(loadWhat) {
     	    case "map":
-    	    	List<Intersection> intersections = fileLoader.loadIntersection(selectedFile.getAbsolutePath());
-        	    List<Road> roads = fileLoader.loadRoad(selectedFile.getAbsolutePath());
+    	    	fileLoader.loadMap(selectedFile.getAbsolutePath());
+    			List<Intersection> intersections = fileLoader.getIntersections();
+    			List<Road> roads = fileLoader.getRoads();
         	    CityMap map = new CityMap(roads,intersections);
         	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         	    this.map = new MapUI(map);
-        	   this.map.setMinimumSize(new Dimension(400,600));
-        	   this.divMap.add(this.map);
+        	    this.map.setMinimumSize(new Dimension(400,600));
+        	   	this.divMap.add(this.map);
         		this.setVisible(true);
     	    	break;
     	    case "request":
     	    	this.map.setRequests(fileLoader.loadRequest(selectedFile.getAbsolutePath()));
         	    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-        	    this.map.paintRequest(this.map.getGraphics());
+        	    this.map.paintRequests(this.map.getGraphics());
     	    	break;
     	    }
     	    
