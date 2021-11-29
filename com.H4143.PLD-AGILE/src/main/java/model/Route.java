@@ -30,6 +30,15 @@ public class Route {
 		return duration;
 	}
 	
+	public List<Integer> getAllPointIndices(){
+		List<Integer> result = new ArrayList<Integer>();
+		for (Path path : paths) {
+			result.addAll(path.getAllPointIndices());
+		}
+		result.add(paths.get(0).getStart().getIndex());
+		return result;
+	}
+	
 	public String toString()
     {
     	String ans="";

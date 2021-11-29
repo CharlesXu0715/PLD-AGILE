@@ -84,12 +84,12 @@ public class TestTSP {
 //		}
 //		System.out.println("Returned to: "+intersections.get(g.getVertexIndex(tsp.getSolution(0))).getId());
 		
+		List<Integer> toDraw = tsp.getRoute().getAllPointIndices();
 		List<Intersection> intersections2 = new ArrayList<Intersection>();
 		
-		for (int i=0; i<g.getNbVertices(); i++) {
-			intersections2.add(intersections.get(g.getVertexIndex(tsp.getSolution(i))));
+		for (int i : toDraw) {
+			intersections2.add(intersections.get(i));
 		}
-		
 		
 		
 		final int WIDTH = 600;

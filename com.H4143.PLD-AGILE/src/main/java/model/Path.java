@@ -46,6 +46,15 @@ public class Path {
 		return end;
 	}
 	
+	public List<Integer> getAllPointIndices(){
+		//return a list of all indices aside from the destination
+		List<Integer> result = new ArrayList<Integer>();
+		for (Road road : roads) {
+			result.add(road.getOriginIndex());
+		}
+		return result;
+	}
+	
 	public String toString()
     {
     	String ans="";
