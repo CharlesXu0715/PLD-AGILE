@@ -28,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.*;
 import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
@@ -39,9 +40,8 @@ import model.Road;
 */
 public class ClientUI extends JFrame implements ActionListener
 {
-   /**
-	 * 
-	 */
+   private Controller controller;
+   private ButtonListener buttonlistener;
 	private static final long serialVersionUID = 1L;
 	//panel1
 	private Button loadMap;
@@ -58,8 +58,10 @@ public class ClientUI extends JFrame implements ActionListener
    
    private MapUI map;
    
-   public ClientUI()
+   public ClientUI(Controller controller)
    {
+	   this.controller=controller;
+	   this.buttonlistener=new ButtonListener(controller);
    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
    	fileChooser.setFileFilter(filter);
    	
@@ -80,14 +82,16 @@ public class ClientUI extends JFrame implements ActionListener
        loadMap = new Button("Load Map");
        this.divMap.add(loadMap,BorderLayout.SOUTH);
        
-       loadMap.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-           	int result = fileChooser.showOpenDialog(divMap);
-           	chooseFile(result, "map");
-           	}
-           }
-       );
+//       loadMap.addActionListener(new ActionListener() {
+//           @Override
+//           public void actionPerformed(ActionEvent e) {
+//           	int result = fileChooser.showOpenDialog(divMap);
+//           	chooseFile(result, "map");
+//           	}
+//           }
+//       );
+       loadMap.addActionListener(buttonlistener);
+       
        
        
        //div request

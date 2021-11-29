@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JPanel;
+
 public class Controller {
 	
 	protected static final InitialState INITIAL_STATE = new InitialState();
@@ -18,9 +20,11 @@ public class Controller {
 		this.currentState=INITIAL_STATE;
 	}
 	
-	public void buttonLoadMap(String file)
+	public void loadMap(JPanel divmap)
 	{
-		this.currentState.loadMap(this,file);
+		this.currentState.loadMap(this,divmap);
+		
+		//this.currentState=INITIAL_STATE;
 	}
 	
 	public void undo() {

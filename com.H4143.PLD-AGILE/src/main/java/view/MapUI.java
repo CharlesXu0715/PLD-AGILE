@@ -63,7 +63,7 @@ public class MapUI extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 
-		System.out.println("Test fonction paintComponent");
+		//System.out.println("Test fonction paintComponent");
 		super.paintComponent(g);
 		Graphics2D graphic2D = (Graphics2D) g;
 		graphic2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
