@@ -5,33 +5,37 @@ import java.util.List;
 import java.util.Map;
 
 import model.CityMap;
+import model.Intersection;
+import model.Path;
 import model.RequestList;
-import model.Road;
 
 public class ShortestPathGraph implements Graph{
 
 	private int nbVertices;
 	private int[] vertexIndices;
-	private double[][] costs;
-	private List<Integer> paths[][];
+	private Intersection toVisit[];
+	private Path paths[][];
 	
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
 		vertexIndices = new int[nbVertices];
 		vertexIndices[0] = requestList.getDepartIndex();
-		costs = new double[nbVertices][nbVertices];
-		paths = new ArrayList[nbVertices][nbVertices];
-		for (int i=0;i<nbVertices;i++) {
-			for (int j=0;j<nbVertices;j++) {
-				paths[i][j] = new ArrayList<Integer>();
-			}
-		}
+		toVisit = new Intersection[nbVertices];
+		toVisit[0] = requestList.getDepartPoint();
+		paths = new Path[nbVertices][nbVertices];
 		int j=0;
 		for (int i=0;i<requestList.getRequests().size();i++) {
 			j++;
-			vertexIndices[j]=requestList.getRequests().get(i).getPickPoint().getIntersection().getIndex();
+			toVisit[j]=requestList.getRequests().get(i).getPickPoint().getIntersection();
+			vertexIndices[j]=toVisit[j].getIndex();
 			j++;
-			vertexIndices[j]=requestList.getRequests().get(i).getDelivPoint().getIntersection().getIndex();
+			toVisit[j]=requestList.getRequests().get(i).getPickPoint().getIntersection();
+			vertexIndices[j]=toVisit[j].getIndex();
+		}
+		for (int i=0;i<nbVertices;i++) {
+			for (int k=0;k<nbVertices;k++) {
+				paths[i][k] = new Path(toVisit[i],toVisit[k]);
+			}
 		}
 		List<Map.Entry<Integer,Double>> adjacence[] = cityMap.getAdjacence();
 		
@@ -47,45 +51,45 @@ public class ShortestPathGraph implements Graph{
 	}
 	
 	private List<Integer> dijkstra(List<Map.Entry<Integer,Double>> adjacence[], int source, List<Integer> toExplore) {
-		double dist[] = new double [adjacence.length];
-		boolean visited[] = new boolean [adjacence.length];
-		int prev[] = new int [adjacence.length];
-		for (int i = 0;i<adjacence.length;i++) {
-			dist[i] = Double.MAX_VALUE;
-		}
-		dist[source]=0;
-		int i=source;
-		int indexSource=0, indexi=0;
-		for (int j=0;j<vertexIndices.length;j++) {
-			if (vertexIndices[j]==source) indexSource=j;
-		}
-		while (!toExplore.isEmpty()) {
-			for (int j=0;j<adjacence.length;j++) {
-				if (visited[i] && !visited[j]) {
-					i=j;
-				} else if (!visited[j] && dist[j]<dist[i]) {
-					i=j;
-				}
-			}
-			visited[i]=true;
-			for (Map.Entry<Integer, Double> e : adjacence[i]) {
-				if (dist[i]+e.getValue()<dist[e.getKey()]) {
-					dist[e.getKey()]=dist[i]+e.getValue();
-					prev[e.getKey()]=i;
-				}
-			}
-			
-			if (toExplore.contains(i)) {
-				for (int j=0;j<vertexIndices.length;j++) {
-					if (vertexIndices[j]==i) indexi=j;
-				}
-				toExplore.remove(toExplore.indexOf(i));
-				costs[indexSource][indexi]=dist[i];
-				for (int j=prev[i]; j!=source;j=prev[j]) {
-					paths[indexSource][indexi].add(0, j);
-				}
-			}
-		}
+//		double dist[] = new double [adjacence.length];
+//		boolean visited[] = new boolean [adjacence.length];
+//		int prev[] = new int [adjacence.length];
+//		for (int i = 0;i<adjacence.length;i++) {
+//			dist[i] = Double.MAX_VALUE;
+//		}
+//		dist[source]=0;
+//		int i=source;
+//		int indexSource=0, indexi=0;
+//		for (int j=0;j<vertexIndices.length;j++) {
+//			if (vertexIndices[j]==source) indexSource=j;
+//		}
+//		while (!toExplore.isEmpty()) {
+//			for (int j=0;j<adjacence.length;j++) {
+//				if (visited[i] && !visited[j]) {
+//					i=j;
+//				} else if (!visited[j] && dist[j]<dist[i]) {
+//					i=j;
+//				}
+//			}
+//			visited[i]=true;
+//			for (Map.Entry<Integer, Double> e : adjacence[i]) {
+//				if (dist[i]+e.getValue()<dist[e.getKey()]) {
+//					dist[e.getKey()]=dist[i]+e.getValue();
+//					prev[e.getKey()]=i;
+//				}
+//			}
+//			
+//			if (toExplore.contains(i)) {
+//				for (int j=0;j<vertexIndices.length;j++) {
+//					if (vertexIndices[j]==i) indexi=j;
+//				}
+//				toExplore.remove(toExplore.indexOf(i));
+//				costs[indexSource][indexi]=dist[i];
+//				for (int j=prev[i]; j!=source;j=prev[j]) {
+//					paths[indexSource][indexi].add(0, j);
+//				}
+//			}
+//		}
 		
 		return toExplore;
 	}	
@@ -99,7 +103,7 @@ public class ShortestPathGraph implements Graph{
 	public double getCost(int i, int j) {
 		if (!isArc(i,j))
 			return -1;
-		return costs[i][j];
+		return paths[i][j].getCost();
 	}
 
 	@Override
@@ -115,7 +119,7 @@ public class ShortestPathGraph implements Graph{
 	}
 	
 	@Override
-	public List<Integer> getPath(int i, int j){
+	public Path getPath(int i, int j){
 		return paths[i][j];
 	}
 	 
