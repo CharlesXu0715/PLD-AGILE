@@ -21,9 +21,9 @@ public class Test{
         String filemap="src/main/resources/smallMap.xml";
         String filerequest="src/main/resources/requestsSmall1.xml";
         FileLoader l=new FileLoader();
-        List<Intersection> intersections=l.loadIntersection(filemap);
-        List<Road> roads=l.loadRoad(filemap);
-        intersections=l.chargeRoad(intersections, roads);
+        l.loadMap(filemap);
+        List<Intersection> intersections=l.getIntersections();
+        List<Road> roads=l.getRoads();
         RequestList requests=l.loadRequest(filerequest);
         CityMap citymap=new CityMap(roads,intersections);
         //until here

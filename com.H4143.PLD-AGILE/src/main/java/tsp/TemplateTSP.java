@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import model.Path;
+import model.Route;
+
 public abstract class TemplateTSP implements TSP {
 
 	private Integer[] bestSol;
@@ -12,6 +15,7 @@ public abstract class TemplateTSP implements TSP {
 	private double bestSolCost;
 	private int timeLimit;
 	private long startTime;
+	private Route route;
 	
 	public void searchSolution(int timeLimit, Graph g){
 		if (timeLimit <= 0) return;
@@ -25,6 +29,9 @@ public abstract class TemplateTSP implements TSP {
 		visited.add(0); // The first visited vertex is 0
 		bestSolCost = Integer.MAX_VALUE;
 		branchAndBound(0, unvisited, visited, 0);
+		route = new Route();
+		for (int i=0;i<g.getNbVertices();i++)
+			route.addPath(getPath(i));
 	}
 	
 	public Integer getSolution(int i){
@@ -39,7 +46,7 @@ public abstract class TemplateTSP implements TSP {
 		return -1;
 	}
 	
-	public List<Integer> getPath(int i){
+	public Path getPath(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
 			if (i==g.getNbVertices()-1) {
 				return g.getPath(bestSol[i], bestSol[0]);
@@ -47,6 +54,10 @@ public abstract class TemplateTSP implements TSP {
 				return g.getPath(bestSol[i], bestSol[i+1]);
 			}
 		return null;
+	}
+	
+	public Route getRoute() {
+		return route;
 	}
 	
 	/**

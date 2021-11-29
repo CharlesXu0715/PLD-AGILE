@@ -24,8 +24,26 @@ public class FileLoader {
         intersections=new ArrayList<Intersection>();
         roads=new ArrayList<Road>();
     }
+    
+    public void loadMap(String filename) {
+    	loadIntersection(filename);
+    	loadRoad(filename);
+    	chargeRoad();
+    }
 
-    public List<Intersection> loadIntersection(String filename){
+    public List<Intersection> getIntersections() {
+		return intersections;
+	}
+
+	public List<Road> getRoads() {
+		return roads;
+	}
+
+	public RequestList getRequests() {
+		return requests;
+	}
+
+	public void loadIntersection(String filename){
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try { 
@@ -46,10 +64,9 @@ public class FileLoader {
         } catch (IOException e) { 
             e.printStackTrace(); 
         }
-        return intersections; 
     }
 
-    public List<Road> loadRoad(String filename){
+    public void loadRoad(String filename){
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try {
@@ -82,7 +99,6 @@ public class FileLoader {
         } catch (IOException e) { 
             e.printStackTrace(); 
         }
-        return roads; 
     }
 
     public RequestList loadRequest(String filename){
@@ -150,10 +166,9 @@ public class FileLoader {
         return requests; 
     }
     
-    public List<Intersection> chargeRoad(List<Intersection> intersections,List<Road> roads) {
+    public void chargeRoad() {
     	for (Road r:roads) {
     		intersections.get(r.getOriginIndex()).addAdjacence(r);
     	}
-    	return intersections;
     }
 }

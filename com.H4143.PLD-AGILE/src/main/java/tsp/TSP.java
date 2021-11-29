@@ -2,6 +2,9 @@ package tsp;
 
 import java.util.List;
 
+import model.Path;
+import model.Route;
+
 public interface TSP {
 	/**
 	 * Search for a shortest cost hamiltonian circuit in <code>g</code> within <code>timeLimit</code> milliseconds
@@ -30,6 +33,12 @@ public interface TSP {
 	 * @return the path from the ith visited vertex to the i+1 th visited vertex in the solution computed by <code>searchSolution</code> 
 	 * (null if <code>searcheSolution</code> has not been called yet, or if i < 0 or i >= g.getNbSommets())
 	 */
-	public List<Integer> getPath(int i);
+	public Path getPath(int i);
+	
+	/**
+	 * @return the route of the solution computed by <code>searchSolution</code> 
+	 * (null if <code>searcheSolution</code> has not been called yet)
+	 */
+	public Route getRoute();
 
 }

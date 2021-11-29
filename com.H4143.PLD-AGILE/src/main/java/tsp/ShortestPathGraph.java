@@ -8,18 +8,17 @@ import model.CityMap;
 import model.Intersection;
 import model.Path;
 import model.RequestList;
+import model.Road;
 
 public class ShortestPathGraph implements Graph{
 
 	private int nbVertices;
-	private int[] vertexIndices;
 	private Intersection toVisit[];
 	private Path paths[][];
+	private List<Intersection> intersections;
 	
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
-		vertexIndices = new int[nbVertices];
-		vertexIndices[0] = requestList.getDepartIndex();
 		toVisit = new Intersection[nbVertices];
 		toVisit[0] = requestList.getDepartPoint();
 		paths = new Path[nbVertices][nbVertices];
@@ -27,72 +26,71 @@ public class ShortestPathGraph implements Graph{
 		for (int i=0;i<requestList.getRequests().size();i++) {
 			j++;
 			toVisit[j]=requestList.getRequests().get(i).getPickPoint().getIntersection();
-			vertexIndices[j]=toVisit[j].getIndex();
 			j++;
-			toVisit[j]=requestList.getRequests().get(i).getPickPoint().getIntersection();
-			vertexIndices[j]=toVisit[j].getIndex();
+			toVisit[j]=requestList.getRequests().get(i).getDelivPoint().getIntersection();
 		}
 		for (int i=0;i<nbVertices;i++) {
 			for (int k=0;k<nbVertices;k++) {
 				paths[i][k] = new Path(toVisit[i],toVisit[k]);
 			}
 		}
-		List<Map.Entry<Integer,Double>> adjacence[] = cityMap.getAdjacence();
+		intersections = cityMap.getIntersections();
 		
-		List<Integer> toExplore=new ArrayList<Integer>();
-		for (int source : vertexIndices) {
-			for (int indexExplore : vertexIndices) {
-				toExplore.add(indexExplore);
+		List<Intersection> toExplore=new ArrayList<Intersection>();
+		for (Intersection source : toVisit) {
+			for (Intersection destination : toVisit) {
+				if (!destination.equals(source))
+					toExplore.add(destination);
 			}
-			toExplore.remove(toExplore.indexOf(source));
-			toExplore = dijkstra(adjacence,source,toExplore);
+			dijkstra(source,toExplore);
 		}
 		
 	}
 	
-	private List<Integer> dijkstra(List<Map.Entry<Integer,Double>> adjacence[], int source, List<Integer> toExplore) {
-//		double dist[] = new double [adjacence.length];
-//		boolean visited[] = new boolean [adjacence.length];
-//		int prev[] = new int [adjacence.length];
-//		for (int i = 0;i<adjacence.length;i++) {
-//			dist[i] = Double.MAX_VALUE;
-//		}
-//		dist[source]=0;
-//		int i=source;
-//		int indexSource=0, indexi=0;
-//		for (int j=0;j<vertexIndices.length;j++) {
-//			if (vertexIndices[j]==source) indexSource=j;
-//		}
-//		while (!toExplore.isEmpty()) {
-//			for (int j=0;j<adjacence.length;j++) {
-//				if (visited[i] && !visited[j]) {
-//					i=j;
-//				} else if (!visited[j] && dist[j]<dist[i]) {
-//					i=j;
-//				}
-//			}
-//			visited[i]=true;
-//			for (Map.Entry<Integer, Double> e : adjacence[i]) {
-//				if (dist[i]+e.getValue()<dist[e.getKey()]) {
-//					dist[e.getKey()]=dist[i]+e.getValue();
-//					prev[e.getKey()]=i;
-//				}
-//			}
-//			
-//			if (toExplore.contains(i)) {
-//				for (int j=0;j<vertexIndices.length;j++) {
-//					if (vertexIndices[j]==i) indexi=j;
-//				}
-//				toExplore.remove(toExplore.indexOf(i));
-//				costs[indexSource][indexi]=dist[i];
-//				for (int j=prev[i]; j!=source;j=prev[j]) {
-//					paths[indexSource][indexi].add(0, j);
-//				}
-//			}
-//		}
-		
-		return toExplore;
-	}	
+	private void dijkstra(Intersection source, List<Intersection> toExplore) {
+		double dist[] = new double [intersections.size()];
+		boolean visited[] = new boolean [intersections.size()];
+		int prev[] = new int [intersections.size()];
+		Road usingRoad[] = new Road [intersections.size()];
+		for (int i = 0;i<intersections.size();i++) {
+			dist[i] = Double.MAX_VALUE;
+		}
+		dist[source.getIndex()]=0;
+		Intersection destination = source;
+		int indexSource=getGraphIndex(source.getIndex()), indexDest=0;
+		while (!toExplore.isEmpty()) {
+			for (int i=0;i<intersections.size();i++) {
+				if (visited[destination.getIndex()] || dist[i]<dist[destination.getIndex()] && !visited[i]) {
+					destination=intersections.get(i);
+				}
+			}
+			int i = destination.getIndex();
+			visited[destination.getIndex()]=true;
+			for (Road road : destination.getAdjacence()) {
+				if (dist[i]+road.getLength()<dist[road.getDestinationIndex()]) {
+					dist[road.getDestinationIndex()]=dist[i]+road.getLength();
+					prev[road.getDestinationIndex()]=i;
+					usingRoad[road.getDestinationIndex()]=road;
+				}
+			}
+			
+			if (toExplore.contains(destination)) {
+				indexDest = getGraphIndex(destination.getIndex());
+				toExplore.remove(destination);
+				paths[indexSource][indexDest].addRoad(usingRoad[i]);
+				for (int j=prev[i]; j!=source.getIndex();j=prev[j]) {
+					paths[indexSource][indexDest].addRoad(usingRoad[j]);
+				}
+			}
+		}
+	}
+	
+	private int getGraphIndex(int index) {
+		for (int i=0;i<toVisit.length;i++) {
+			if (toVisit[i].getIndex()==index) return i;
+		}
+		return -1;
+	}
 	
 	@Override
 	public int getNbVertices() {
@@ -113,9 +111,10 @@ public class ShortestPathGraph implements Graph{
 		return i != j;
 	}
 	
+	//get the index of the i-th Intersection
 	@Override
 	public int getVertexIndex(int i) {
-		return vertexIndices[i];
+		return toVisit[i].getIndex();
 	}
 	
 	@Override
