@@ -15,10 +15,11 @@ import com.google.maps.errors.ApiException;
 
 import model.*;
 
+
 public class Test{
     public static void main(String[] args) {
     	//codes needed for reading the xml files
-        String filemap="src/main/resources/smallMap.xml";
+        String filemap="src/main/resources/largeMap.xml";
         String filerequest="src/main/resources/requestsSmall1.xml";
         FileLoader l=new FileLoader();
         l.loadMap(filemap);
