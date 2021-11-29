@@ -24,7 +24,8 @@ public class Path {
 	}
 
 	public void addRoads(Road road) {
-		this.roads.add(road);
+		//the road list is added inversely
+		this.roads.add(0,road);
 		cost += road.getLength();
 		duration += road.getLength()/15;
 	}
