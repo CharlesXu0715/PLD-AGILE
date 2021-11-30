@@ -46,7 +46,7 @@ public class MapUI extends JPanel {
 	double xScale, yScale;
 	
 	private CityMap cityMap;
-	private static RequestList requests;
+	private RequestList requests;
 	private TSP tsp;
 	private Graph graphTSP;
 
@@ -121,7 +121,7 @@ public class MapUI extends JPanel {
 	 * creating the method createAndShowGui in the main method, where we create the
 	 * frame too and pack it in the panel
 	 */
-	private static void createAndShowGui() {
+	/*private static void createAndShowGui() {
 
 		JFrame frame = new JFrame();
 		frame.setBounds(100, 100, 866, 562);
@@ -137,14 +137,14 @@ public class MapUI extends JPanel {
 
 		/*System.out.println("roads.size() = " + roads.size());
 		System.out.println("intersections.size() = " + intersections.size());*/
-		CityMap map = new CityMap(roads, intersections);
+		/*CityMap map = new CityMap(roads, intersections);
 
 		File fileRequest = new File(
 				"C:\\Users\\jinfr\\git\\PLD-AGILE\\com.H4143.PLD-AGILE\\src\\main\\resources\\requestsLarge7.xml");
 		MapUI.requests = fileLoader.loadRequest(fileRequest.getAbsolutePath());
 		
 		/* Main panel */
-		MapUI mainPanel = new MapUI(map);
+		/*MapUI mainPanel = new MapUI(map);
 		
 		mainPanel.setPreferredSize(new Dimension(1300, 1200));
 		frame.setBounds(100, 100, 1100, 780);
@@ -155,7 +155,7 @@ public class MapUI extends JPanel {
 
 		/* creating the frame */
 
-		frame.getContentPane().add(mainPanel);
+		/*frame.getContentPane().add(mainPanel);
 		frame.setBounds(100, 100, 800, 800);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -166,7 +166,7 @@ public class MapUI extends JPanel {
 	}
 
 	/* the main method runs createAndShowGui */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -178,7 +178,7 @@ public class MapUI extends JPanel {
 			}
 		});
 	}
-
+*/
 	
 	public int weightLatitude(double coord, double xScale) {
 		return (int) ((MapUI.getMaxCoordinates(cityMap.getIntersections())[1] - coord) * xScale + padding);
@@ -217,12 +217,12 @@ public class MapUI extends JPanel {
 		
 		for (int i = 0; i < listRequests.size(); i++) {
 			Intersection pickPoint = listRequests.get(i).getPickPoint().getIntersection();
-			String addressPickup = pickPoint.getAdjacence().get(0).getName();
+			//String addressPickup = pickPoint.getAdjacence().get(0).getName();
 			System.out.println("listRequests.get(i).getPickPoint().getPointId() : " + listRequests.get(i).getPickPoint().getIntersection());
 			int startX = weightLatitude(pickPoint.getLatitude(), xScale);
 			int startY = weightLongitude(pickPoint.getLongitude(), yScale);
 			Intersection delivPoint = listRequests.get(i).getDelivPoint().getIntersection();
-			String addressDeliver = delivPoint.getAdjacence().get(0).getName();
+			//String addressDeliver = delivPoint.getAdjacence().get(0).getName();
 			System.out.println("listRequests.get(i).getDelivPoint().getPointId() : " + listRequests.get(i).getDelivPoint().getIntersection());
 			int endX = weightLatitude(delivPoint.getLatitude(), xScale);
 			int endY = weightLongitude(delivPoint.getLongitude(), yScale);
@@ -368,6 +368,7 @@ public class MapUI extends JPanel {
 	
 	public void drawTour(Graphics g) {
 		
+		super.paintComponent(g);
 		/*
 		 System.out.println("Test fonction paintComponent");
 		 
