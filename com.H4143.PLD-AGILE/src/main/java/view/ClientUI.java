@@ -75,15 +75,15 @@ public class ClientUI extends JFrame implements ActionListener
        loadMap = new Button("Load Map");
        this.divMap.add(loadMap,BorderLayout.SOUTH);
        
-//       loadMap.addActionListener(new ActionListener() {
-//           @Override
-//           public void actionPerformed(ActionEvent e) {
-//           	int result = fileChooser.showOpenDialog(divMap);
-//           	chooseFile(result, "map");
-//           	}
-//           }
-//       );
-       loadMap.addActionListener(buttonlistener);
+       loadMap.addActionListener(new ActionListener() {
+          @Override
+           public void actionPerformed(ActionEvent e) {
+           	int result = fileChooser.showOpenDialog(divMap);
+           	chooseFile(result, "map");
+           	}
+           }
+       );
+       //loadMap.addActionListener(buttonlistener);
        
        
        
@@ -153,7 +153,7 @@ public class ClientUI extends JFrame implements ActionListener
    }
    
    public void calculateTour() {
-   	
+   		this.map.drawTour(getGraphics());
    }
 
 	@Override

@@ -49,6 +49,8 @@ public class MapUI extends JPanel {
 	private RequestList requests;
 	private TSP tsp;
 	private Graph graphTSP;
+	
+	private static Stroke stroke;
 
 
 	public MapUI(CityMap map) {
@@ -62,8 +64,8 @@ public class MapUI extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-
-		//System.out.println("Test fonction paintComponent");
+		//this.repaint();
+		System.out.println("Test fonction paintComponent");
 		super.paintComponent(g);
 		Graphics2D graphic2D = (Graphics2D) g;
 		graphic2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -101,6 +103,7 @@ public class MapUI extends JPanel {
 
 		}
 		graphic2D.setStroke(oldStroke);
+		MapUI.stroke = graphic2D.getStroke();
 
 		/* Requests */
 
@@ -234,8 +237,8 @@ public class MapUI extends JPanel {
 	}
 
 	public void paintRequests(Graphics g/*, Stroke oldStroke*/) {
-		this.validate();
-		paintComponent(g);
+		//this.validate();
+		//paintComponent(g);
 		System.out.println(g);
 		Graphics2D graphic2D = (Graphics2D) g;
 		
