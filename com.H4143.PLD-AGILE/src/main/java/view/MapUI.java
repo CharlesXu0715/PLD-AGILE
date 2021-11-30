@@ -29,6 +29,7 @@ import tsp.Graph;
 import tsp.ShortestPathGraph;
 import tsp.TSP;
 import tsp.TSP1;
+import view.widgets.Panel;
 
 public class MapUI extends JPanel {
 
@@ -38,24 +39,32 @@ public class MapUI extends JPanel {
 	private Color lineColor = new Color(0, 0, 0);
 	private Color pointColorDepot = new Color(250, 213, 244);
 
-	private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
+	//private Stroke GRAPH_STROKE = new BasicStroke(2f);
 	private static int pointWidth = 15;
 
 
 	private int padding = 0;
 	double xScale, yScale;
+	private int width;
+	private int height;
 	
 	private CityMap cityMap;
 	private RequestList requests;
 	private TSP tsp;
 	private Graph graphTSP;
 	
-	private static Stroke stroke;
+	private Stroke defaultStroke;
+	
 
 
-	public MapUI(CityMap map) {
+	public MapUI(CityMap map, int containerWidth, int containerHeight, Panel container) {
 		super();
 		this.cityMap = map;
+		this.width = containerWidth;
+		this.height = containerHeight;
+		this.setPreferredSize(new Dimension(containerWidth,containerHeight));
+		setLayout(null);
+		container.add(this);	
 	}
 
 	public void setRequests(RequestList requests) {
@@ -64,8 +73,7 @@ public class MapUI extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		//this.repaint();
-		System.out.println("Test fonction paintComponent");
+		//System.out.println("Test fonction paintComponent");
 		super.paintComponent(g);
 		Graphics2D graphic2D = (Graphics2D) g;
 		graphic2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -75,20 +83,24 @@ public class MapUI extends JPanel {
 		Double[] minCoordinates = MapUI.getMinCoordinates(mapIntersection);
 
 
-		xScale = ((double) getWidth() - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
+		/*xScale = ((double) getWidth() - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
 
-		yScale = ((double) getHeight() - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);
-
+		yScale = ((double) getHeight() - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);*/
+		
+		xScale = ((double) width - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
+		yScale = ((double) height - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);
+		
 		graphic2D.setColor(Color.WHITE);
 		// fill the rect
 		graphic2D.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
 				getHeight() - 2 * padding - labelPadding);
-		//g2.setColor(Color.BLUE);
 
-		Stroke oldStroke = graphic2D.getStroke(); // keep in memory the stroke ("state") to draw points
 
-		//g2.setColor(pointColorPickUp);
-		graphic2D.setStroke(GRAPH_STROKE);
+		//Stroke oldStroke = graphic2D.getStroke(); // keep in memory the stroke ("state") to draw points
+		//this.defaultStroke = oldStroke;
+
+
+		//graphic2D.setStroke(GRAPH_STROKE);
 
 		// Initialisation des segments
 
@@ -102,12 +114,15 @@ public class MapUI extends JPanel {
 					getWidth() - ((int) line[1].getY()), ((int) line[1].getX()));
 
 		}
-		graphic2D.setStroke(oldStroke);
-		MapUI.stroke = graphic2D.getStroke();
+		//graphic2D.setStroke(oldStroke);
+		//this.defaultStroke = graphic2D.getStroke();
 
 		/* Requests */
-
-
+		
+		if(requests!=null) {
+			paintRequests(g);
+		}
+		
 		//paintRequests(g);
 	}
 	
@@ -221,12 +236,12 @@ public class MapUI extends JPanel {
 		for (int i = 0; i < listRequests.size(); i++) {
 			Intersection pickPoint = listRequests.get(i).getPickPoint().getIntersection();
 			//String addressPickup = pickPoint.getAdjacence().get(0).getName();
-			System.out.println("listRequests.get(i).getPickPoint().getPointId() : " + listRequests.get(i).getPickPoint().getIntersection());
+			//System.out.println("listRequests.get(i).getPickPoint().getPointId() : " + listRequests.get(i).getPickPoint().getIntersection());
 			int startX = weightLatitude(pickPoint.getLatitude(), xScale);
 			int startY = weightLongitude(pickPoint.getLongitude(), yScale);
 			Intersection delivPoint = listRequests.get(i).getDelivPoint().getIntersection();
 			//String addressDeliver = delivPoint.getAdjacence().get(0).getName();
-			System.out.println("listRequests.get(i).getDelivPoint().getPointId() : " + listRequests.get(i).getDelivPoint().getIntersection());
+			//System.out.println("listRequests.get(i).getDelivPoint().getPointId() : " + listRequests.get(i).getDelivPoint().getIntersection());
 			int endX = weightLatitude(delivPoint.getLatitude(), xScale);
 			int endY = weightLongitude(delivPoint.getLongitude(), yScale);
 			graphRequestPoint.add(new Point(getWidth() - startY, startY));
@@ -237,14 +252,14 @@ public class MapUI extends JPanel {
 	}
 
 	public void paintRequests(Graphics g/*, Stroke oldStroke*/) {
-		//this.validate();
+
 		//paintComponent(g);
-		System.out.println(g);
+		//System.out.println(g);
 		Graphics2D graphic2D = (Graphics2D) g;
 		
-		graphic2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		//graphic2D.setStroke(oldStroke);
-		graphic2D.setStroke(GRAPH_STROKE);
+		//graphic2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//graphic2D.setStroke(this.defaultStroke);
+		//graphic2D.setStroke(GRAPH_STROKE);
 		List<Point> graphRequestPoint = loadRequests();
 		
 		//Coloration Departure
@@ -286,7 +301,7 @@ public class MapUI extends JPanel {
 
 	}
 
-	public void colorBackground(Color color) {
+	/*public void colorBackground(Color color) {
 		Graphics g = this.getGraphics();
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -294,7 +309,7 @@ public class MapUI extends JPanel {
 		// fill the rect
 		g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
 				getHeight() - 2 * padding - labelPadding);
-	}
+	}*/
 
 	/*public void printK() {
 		// TODO Auto-generated method stub
