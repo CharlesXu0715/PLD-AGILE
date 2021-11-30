@@ -2,6 +2,8 @@ package controller;
 
 import javax.swing.JPanel;
 
+import view.MapUI;
+
 public class Controller {
 	
 	protected static final InitialState INITIAL_STATE = new InitialState();
@@ -20,11 +22,14 @@ public class Controller {
 		this.currentState=INITIAL_STATE;
 	}
 	
-	public void loadMap(JPanel divmap)
+	public MapUI loadMap(JPanel divmap,MapUI map)
 	{
-		this.currentState.loadMap(this,divmap);
-		
-		//this.currentState=INITIAL_STATE;
+		MapUI newmap=this.currentState.loadMap(this,divmap,map);
+		if (currentState==INITIAL_STATE && newmap!=null) {
+			currentState=LOAD_MAP_STATE;
+		}
+		System.out.println(currentState);
+		return newmap;
 	}
 	
 	public void undo() {
@@ -33,5 +38,14 @@ public class Controller {
 	
 	public void redo() {
 		this.currentState.redo(l);
+	}
+
+	public void loadRequest(JPanel divrequestbox,MapUI map) {
+		// TODO Auto-generated method stub
+		boolean pass=this.currentState.loadRequest(this,divrequestbox,map);
+		if (currentState==LOAD_MAP_STATE && pass) {
+			currentState=LOAD_REQUEST_STATE;
+		}
+		System.out.println(currentState);
 	}
 }

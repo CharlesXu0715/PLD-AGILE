@@ -16,4 +16,17 @@ public class ListOfCommands {
 		l.add(i,c);
 		c.doCommand();
 	}
+	
+	public void undo() {
+		if (i>=0) {
+			l.get(i).undoCommand();
+			i--;
+		}
+	}
+	
+	public void redo() {
+		i++;
+		l.get(i).doCommand();
+	}
+	
 }

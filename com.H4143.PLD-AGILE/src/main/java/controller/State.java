@@ -2,10 +2,13 @@ package controller;
 
 import javax.swing.JPanel;
 
+import view.MapUI;
+
 public interface State {
-	public default boolean loadMap(Controller c,JPanel divmap) {
+	public default MapUI loadMap(Controller c,JPanel divmap,MapUI map) {
+		return null;};
+	public default boolean loadRequest(Controller c,JPanel divrequestbox,MapUI map) {
 		return false;};
-	public default void loadRequest() {};
 	public default void newRequest() {};
 	public default void newMap() {};
 	public default void calculateRoute() {};

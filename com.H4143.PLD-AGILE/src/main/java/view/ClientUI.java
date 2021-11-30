@@ -34,7 +34,6 @@ import model.Road;
 public class ClientUI extends JFrame implements ActionListener
 {
    private Controller controller;
-   private ButtonListener buttonlistener;
 	private static final long serialVersionUID = 1L;
 	//panel1
 	private Button loadMap;
@@ -54,7 +53,6 @@ public class ClientUI extends JFrame implements ActionListener
    public ClientUI(Controller controller)
    {
 	   this.controller=controller;
-	   this.buttonlistener=new ButtonListener(controller);
    	fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
    	fileChooser.setFileFilter(filter);
    	
@@ -75,15 +73,16 @@ public class ClientUI extends JFrame implements ActionListener
        loadMap = new Button("Load Map");
        this.divMap.add(loadMap,BorderLayout.SOUTH);
        
-//       loadMap.addActionListener(new ActionListener() {
-//           @Override
-//           public void actionPerformed(ActionEvent e) {
+       loadMap.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
 //           	int result = fileChooser.showOpenDialog(divMap);
 //           	chooseFile(result, "map");
-//           	}
-//           }
-//       );
-       loadMap.addActionListener(buttonlistener);
+        	   map=controller.loadMap(divMap,map);
+           	}
+           }
+       );
+//       loadMap.addActionListener(buttonlistener);
        
        
        
@@ -105,11 +104,13 @@ public class ClientUI extends JFrame implements ActionListener
        loadRequest.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
-           	int result = fileChooser.showOpenDialog(divRequestBox);
-           	chooseFile(result, "request");
+//           	int result = fileChooser.showOpenDialog(divRequestBox);
+//           	chooseFile(result, "request");
+           		controller.loadRequest(divRequestBox,map);
            	}
            }
        );
+//       loadRequest.addActionListener(buttonlistener);
        
        calculateTour.addActionListener(new ActionListener() {
            @Override

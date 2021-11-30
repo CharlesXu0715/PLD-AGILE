@@ -56,6 +56,10 @@ public class MapUI extends JPanel {
 		this.cityMap = map;
 	}
 
+	public CityMap getCityMap() {
+		return cityMap;
+	}
+
 	public void setRequests(RequestList requests) {
 		this.requests = requests;
 	}
