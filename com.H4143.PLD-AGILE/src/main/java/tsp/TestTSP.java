@@ -56,8 +56,8 @@ public class TestTSP {
 		TSP tsp = new TSP1();
 //		String mapName = "./target/test-classes/testMap.xml";
 //		String requestName = "./target/test-classes/testRequests.xml";
-		String mapName = "src/main/resources/smallMap.xml";
-		String requestName = "src/main/resources/requestsSmall1.xml";
+		String mapName = "src/main/resources/largeMap.xml";
+		String requestName = "src/main/resources/requestsLarge7.xml";
 		FileLoader fileLoader = new FileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();
@@ -84,39 +84,39 @@ public class TestTSP {
 //		}
 //		System.out.println("Returned to: "+intersections.get(g.getVertexIndex(tsp.getSolution(0))).getId());
 		
-		List<Integer> toDraw = tsp.getRoute().getAllPointIndices();
-		List<Intersection> intersections2 = new ArrayList<Intersection>();
-		
-		for (int i : toDraw) {
-			intersections2.add(intersections.get(i));
-		}
-		
-		
-		final int WIDTH = 600;
-    	final int HEIGHT = 600;
-        
-        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requestList, intersections2);
-        
-        JFrame frame = new JFrame();
-		frame.setSize(WIDTH, HEIGHT);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		JLabel jLabel;
-		try {
-			jLabel = new JLabel(new ImageIcon(googleMap.getBufferedImage()));
-			jLabel.setBounds(0, 0, WIDTH, HEIGHT);
-			frame.getContentPane().add(jLabel);
-			frame.setVisible(true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		List<Integer> toDraw = tsp.getRoute().getAllPointIndices();
+//		List<Intersection> intersections2 = new ArrayList<Intersection>();
+//		
+//		for (int i : toDraw) {
+//			intersections2.add(intersections.get(i));
+//		}
+//		
+//		
+//		final int WIDTH = 600;
+//    	final int HEIGHT = 600;
+//        
+//        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requestList, intersections2);
+//        
+//        JFrame frame = new JFrame();
+//		frame.setSize(WIDTH, HEIGHT);
+//		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//		frame.getContentPane().setLayout(null);
+//		JLabel jLabel;
+//		try {
+//			jLabel = new JLabel(new ImageIcon(googleMap.getBufferedImage()));
+//			jLabel.setBounds(0, 0, WIDTH, HEIGHT);
+//			frame.getContentPane().add(jLabel);
+//			frame.setVisible(true);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ApiException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 
