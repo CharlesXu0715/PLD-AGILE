@@ -2,36 +2,26 @@ package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import model.CityMap;
-import model.FileLoader;
 import model.Intersection;
-import model.Path;
 import model.Request;
 import model.RequestList;
 import model.Road;
-import model.Route;
 import tsp.Graph;
 import tsp.ShortestPathGraph;
 import tsp.TSP;
 import tsp.TSP1;
-import view.widgets.Panel;
 
 public class MapUI extends JPanel {
 
@@ -86,7 +76,7 @@ public class MapUI extends JPanel {
 		graphic2D.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
 				getHeight() - 2 * padding - labelPadding);
 
-		Stroke oldStroke = graphic2D.getStroke(); // keep in memory the stroke ("state") to draw points
+		//Stroke oldStroke = graphic2D.getStroke(); // keep in memory the stroke ("state") to draw points
 		// this.defaultStroke = oldStroke;
 
 		graphic2D.setStroke(GRAPH_STROKE);
@@ -172,10 +162,10 @@ public class MapUI extends JPanel {
 		List<Point> graphRequestPoint = loadRequests();
 
 		// Coloration Departure
-		g.setColor(pointColorDepot);
+		graphic2D.setColor(pointColorDepot);
 		int Dx = graphRequestPoint.get(0).x;
 		int Dy = graphRequestPoint.get(0).y;
-		g.fillRect(Dx, Dy, pointWidth, pointWidth);
+		graphic2D.fillRect(Dx, Dy, pointWidth, pointWidth);
 
 		Random rand = new Random();
 		Color color = new Color(0, 0, 0);
@@ -195,12 +185,12 @@ public class MapUI extends JPanel {
 			if (i % 2 == 1) {
 				// pickup color
 				color = new Color(red, green, blue);
-				g.setColor(color);
-				g.fillOval(x, y, shapeWidth, shapeHeight);
+				graphic2D.setColor(color);
+				graphic2D.fillOval(x, y, shapeWidth, shapeHeight);
 
 			} else {
-				g.setColor(color);
-				g.fillRect(x, y, shapeWidth, shapeHeight);
+				graphic2D.setColor(color);
+				graphic2D.fillRect(x, y, shapeWidth, shapeHeight);
 			}
 
 		}
