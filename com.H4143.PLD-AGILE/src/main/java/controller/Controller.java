@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JPanel;
 
+import view.ClientUI;
 import view.MapUI;
 import model.*;
 
@@ -17,6 +18,7 @@ public class Controller {
 	private ListOfCommands l;
 	private State currentState;
 	
+	private ClientUI mainWindow;
 	private CityMap citymap;
 	private RequestList requestlist;
 	
@@ -24,6 +26,11 @@ public class Controller {
 		// TODO Auto-generated constructor stub
 		this.l=new ListOfCommands();
 		this.currentState=INITIAL_STATE;
+	}
+	
+	public void initialise() {
+		mainWindow = new ClientUI(this);
+		mainWindow.setVisible(true);
 	}
 	
 	public CityMap getCitymap() {
