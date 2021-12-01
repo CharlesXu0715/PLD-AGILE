@@ -11,12 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import model.CityMap;
-import model.FileLoader;
-import model.Intersection;
-import model.Request;
-import model.RequestList;
-import model.Road;
+import model.*;
 import view.MapUI;
 
 public class LoadMapState implements State {
