@@ -27,11 +27,10 @@ public class InitialState implements State {
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileFilter(filter);
 		fileloader=new FileLoader();
-		
-		
 	}
 	
-	public boolean loadMap(Controller controller,JPanel divmap) {
+	@Override
+	public MapUI loadMap(Controller controller,JPanel divmap,MapUI map) {
 		try {
 			int result = fileChooser.showOpenDialog(divmap);
 			if (result == JFileChooser.APPROVE_OPTION)		//require more judging conditions
@@ -43,7 +42,7 @@ public class InitialState implements State {
 		   	    List<Intersection> intersections = fileloader.getIntersections();
 				List<Road> roads = fileloader.getRoads();
 	    	    CityMap citymap = new CityMap(roads,intersections);
-	    	    MapUI map=new MapUI(citymap);
+	    	    map=new MapUI(citymap);
 	    	    map.setPreferredSize(new Dimension(800,660));
 	    	    divmap.add(map);
 	    	    Container c=divmap.getParent();
@@ -52,14 +51,14 @@ public class InitialState implements State {
 	    	    }
 	    	    JFrame frame=(JFrame)c;
 	    	    frame.pack();
-	    	    return true;
+	    	    return map;
 			}
 		}
 		catch (HeadlessException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
-		return false;
+		return null;
 	}
 
 }

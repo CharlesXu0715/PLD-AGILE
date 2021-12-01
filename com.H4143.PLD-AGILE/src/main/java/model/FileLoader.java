@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class FileLoader {
-	private List<Intersection> intersections;
+	private static List<Intersection> intersections;
     private List<Road> roads;
     private RequestList requests;
     public FileLoader(){

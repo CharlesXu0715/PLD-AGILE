@@ -29,6 +29,11 @@ public class Test{
         CityMap citymap=new CityMap(roads,intersections);
         //until here
         
+        System.out.println(requests.getRequests().size());
+        for (Request r:requests.getRequests()) {
+        	System.out.println(r.getPickPoint());
+        }
+        
 //        System.out.println(intersections.size());
 //        System.out.println(roads.size());
 //        System.out.println(requests.getRequests().size());
@@ -77,16 +82,16 @@ public class Test{
 //        	System.out.println();
 //        }
         
-        for (Intersection i:intersections) {
-        	ArrayList<Road> a=i.getAdjacence();
-        	System.out.print(i.getIndex()+":");
-        	for (int j=0;j<a.size();j++) {
-        		if (a.get(j).getOriginIndex()!=i.getIndex())
-        			System.out.print("NOOOO");
-        		System.out.print(intersections.get(a.get(j).getDestinationIndex()).getId()+" ");
-        	}
-        	System.out.println();
-        }
+//        for (Intersection i:intersections) {
+//        	ArrayList<Road> a=i.getAdjacence();
+//        	System.out.print(i.getIndex()+":");
+//        	for (int j=0;j<a.size();j++) {
+//        		if (a.get(j).getOriginIndex()!=i.getIndex())
+//        			System.out.print("NOOOO");
+//        		System.out.print(intersections.get(a.get(j).getDestinationIndex()).getId()+" ");
+//        	}
+//        	System.out.println();
+//        }
         
 //        final int WIDTH = 640;
 //    	final int HEIGHT = 480;

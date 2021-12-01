@@ -22,9 +22,11 @@ import javax.swing.SwingUtilities;
 import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
+import model.Path;
 import model.Request;
 import model.RequestList;
 import model.Road;
+import model.Route;
 import tsp.Graph;
 import tsp.ShortestPathGraph;
 import tsp.TSP;
@@ -39,7 +41,7 @@ public class MapUI extends JPanel {
 	private Color lineColor = new Color(0, 0, 0);
 	private Color pointColorDepot = new Color(250, 213, 244);
 
-	//private Stroke GRAPH_STROKE = new BasicStroke(2f);
+	private Stroke GRAPH_STROKE = new BasicStroke(2f);
 	private static int pointWidth = 15;
 
 
@@ -57,14 +59,19 @@ public class MapUI extends JPanel {
 	
 
 
-	public MapUI(CityMap map, int containerWidth, int containerHeight, Panel container) {
+	public MapUI(CityMap map/*, int containerWidth, int containerHeight, JPanel container*/) {
 		super();
 		this.cityMap = map;
-		this.width = containerWidth;
-		this.height = containerHeight;
-		this.setPreferredSize(new Dimension(containerWidth,containerHeight));
+		/*this.width = containerWidth;
+		this.height = containerHeight;*/
+		this.requests = null;
+		//this.setPreferredSize(new Dimension(containerWidth,containerHeight));
 		setLayout(null);
-		container.add(this);	
+		//container.add(this);	
+	}
+
+	public CityMap getCityMap() {
+		return cityMap;
 	}
 
 	public void setRequests(RequestList requests) {
@@ -83,24 +90,24 @@ public class MapUI extends JPanel {
 		Double[] minCoordinates = MapUI.getMinCoordinates(mapIntersection);
 
 
-		/*xScale = ((double) getWidth() - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
+		xScale = ((double) getWidth() - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
 
-		yScale = ((double) getHeight() - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);*/
+		yScale = ((double) getHeight() - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);
 		
-		xScale = ((double) width - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
+		/*xScale = ((double) width - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
 		yScale = ((double) height - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);
-		
+		*/
 		graphic2D.setColor(Color.WHITE);
 		// fill the rect
 		graphic2D.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
 				getHeight() - 2 * padding - labelPadding);
 
 
-		//Stroke oldStroke = graphic2D.getStroke(); // keep in memory the stroke ("state") to draw points
+		Stroke oldStroke = graphic2D.getStroke(); // keep in memory the stroke ("state") to draw points
 		//this.defaultStroke = oldStroke;
 
 
-		//graphic2D.setStroke(GRAPH_STROKE);
+		graphic2D.setStroke(GRAPH_STROKE);
 
 		// Initialisation des segments
 
@@ -244,7 +251,7 @@ public class MapUI extends JPanel {
 			//System.out.println("listRequests.get(i).getDelivPoint().getPointId() : " + listRequests.get(i).getDelivPoint().getIntersection());
 			int endX = weightLatitude(delivPoint.getLatitude(), xScale);
 			int endY = weightLongitude(delivPoint.getLongitude(), yScale);
-			graphRequestPoint.add(new Point(getWidth() - startY, startY));
+			graphRequestPoint.add(new Point(getWidth() - startY, startX));
 			graphRequestPoint.add(new Point(getWidth() - endY, endX));
 		}
 		
@@ -264,8 +271,10 @@ public class MapUI extends JPanel {
 		
 		//Coloration Departure
 		g.setColor(pointColorDepot);
-		int Dx = graphRequestPoint.get(0).x - pointWidth + 2 / 2;
-		int Dy = graphRequestPoint.get(0).y - pointWidth + 2 / 2;
+//		int Dx = graphRequestPoint.get(0).x - pointWidth + 2 / 2;
+//		int Dy = graphRequestPoint.get(0).y - pointWidth + 2 / 2;
+		int Dx = graphRequestPoint.get(0).x;
+		int Dy = graphRequestPoint.get(0).y;
 		g.fillRect(Dx, Dy, pointWidth, pointWidth);
 		
 		Random rand = new Random();
@@ -386,58 +395,34 @@ public class MapUI extends JPanel {
 	
 	public void drawTour(Graphics g) {
 		
-		super.paintComponent(g);
-		/*
-		 System.out.println("Test fonction paintComponent");
-		 
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		List<Intersection> mapIntersection = cityMap.getIntersections();
-		Double[] maxCoordinates = MapUI.getMaxCoordinates(mapIntersection);
-		Double[] minCoordinates = MapUI.getMinCoordinates(mapIntersection);
-		/*
-		 * System.out.println("maxCoordinates.get(0)" +maxCoordinates.get(0));
-		 * System.out.println("minCoordinates.get(0)" +minCoordinates.get(0));
-		 * System.out.println("maxCoordinates.get(1)" +maxCoordinates.get(1));
-		 * System.out.println("minCoordinates.get(1)" +minCoordinates.get(1));
-		 */
-
-		/*xScale = ((double) getWidth() - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
-
-		yScale = ((double) getHeight() - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);
-
-		g2.setColor(Color.WHITE);
-		// fill the rect
-		g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
-				getHeight() - 2 * padding - labelPadding);
-		//g2.setColor(Color.BLUE);
-
-		oldStroke = g2.getStroke(); // keep in memory the stroke ("state") to draw points
-
-		//g2.setColor(pointColorPickUp);
-		g2.setStroke(GRAPH_STROKE);
-
-		// Initialisation des segments
-
-		List<Intersection[]> listLineDouble = MapUI.getAllLine(cityMap.getRoads(), cityMap.getIntersections());
-		List<Point[]> listLinePoint = weightAllPoint(listLineDouble, xScale, yScale); //
-
-		g2.setColor(lineColor);
-		for (Point[] line : listLinePoint) {
-			
-			g2.drawLine(getWidth() - ((int) line[0].getY()), ((int) line[0].getX()),
-					getWidth() - ((int) line[1].getY()), ((int) line[1].getX()));
-
-		}
-		g2.setStroke(oldStroke);
+		
+		//g2.setStroke(oldStroke);
 		
 		graphTSP = new ShortestPathGraph(requests,cityMap);
 		tsp = new TSP1();
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(20000, graphTSP);
-		List<Integer> path;
+		tsp.searchSolution(2000000, graphTSP);
+		
+		List<Intersection> intersectionsSolution = new ArrayList<Intersection>();
+		List<Intersection[]> convertedIntersections = new ArrayList<Intersection[]>();
+		List<Intersection> allIntersections = cityMap.getIntersections();
+		Intersection[] pair;
+		List<Integer> indices;
+		indices = tsp.getRoute().getAllPointIndices();
+
+		for (int i : indices) {
+			intersectionsSolution.add(allIntersections.get(i));
+//			System.out.println(allIntersections.get(i).getId());
+		}
+		
+		for (int i=1;i<intersectionsSolution.size();i++) {
+			pair  = new Intersection[2];
+			pair[0] = intersectionsSolution.get(i-1);
+			pair[1] = intersectionsSolution.get(i);
+			convertedIntersections.add(pair);
+		}
+		
+		/*Path path;
 		List<Intersection> intersections = new ArrayList<Intersection>();
 		List<Intersection[]> convertedIntersections = new ArrayList<Intersection[]>();
 		List<Intersection> allIntersections = cityMap.getIntersections();
@@ -454,13 +439,55 @@ public class MapUI extends JPanel {
 			pair[0] = intersections.get(i-1);
 			pair[1] = intersections.get(i);
 			convertedIntersections.add(pair);
-		}
-		List<Point[]> points = weightAllPoint(convertedIntersections,xScale,yScale);
-		for (Point[] line : points) {
-			g2.setColor(Color.BLUE);
+		}*/
+		/*super.paintComponent(g);
+		/*
+		 System.out.println("Test fonction paintComponent");
+		 
+		super.paintComponent(g);*/
+		Graphics2D g2 = (Graphics2D) g;
+		/*g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		List<Intersection> mapIntersection = cityMap.getIntersections();
+		Double[] maxCoordinates = MapUI.getMaxCoordinates(mapIntersection);
+		Double[] minCoordinates = MapUI.getMinCoordinates(mapIntersection);
+
+
+		xScale = ((double) getWidth() - 2 * padding - labelPadding) / (maxCoordinates[1] - minCoordinates[1]);
+
+		yScale = ((double) getHeight() - 2 * padding - labelPadding) / (maxCoordinates[0] - minCoordinates[0]);
+
+		g2.setColor(Color.WHITE);
+		// fill the rect
+		g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
+				getHeight() - 2 * padding - labelPadding);*/
+
+
+		//oldStroke = g2.getStroke(); // keep in memory the stroke ("state") to draw points
+
+
+		//g2.setStroke(GRAPH_STROKE);
+
+		// Initialisation des segments
+
+		/*List<Intersection[]> listLineDouble = MapUI.getAllLine(cityMap.getRoads(), cityMap.getIntersections());
+		List<Point[]> listLinePoint = weightAllPoint(listLineDouble, xScale, yScale); //
+
+		g2.setColor(lineColor);
+		for (Point[] line : listLinePoint) {
+			
 			g2.drawLine(getWidth() - ((int) line[0].getY()), ((int) line[0].getX()),
 					getWidth() - ((int) line[1].getY()), ((int) line[1].getX()));
+
 		}*/
+		List<Point[]> points = weightAllPoint(convertedIntersections,xScale,yScale);
+		for (Point[] line : points) {
+			g2.setColor(Color.RED);
+			g2.setStroke(new BasicStroke(2f));
+			g2.drawLine(getWidth() - ((int) line[0].getY()), ((int) line[0].getX()),
+					getWidth() - ((int) line[1].getY()), ((int) line[1].getX()));
+		}
+		this.revalidate();
 	}
 
 }
