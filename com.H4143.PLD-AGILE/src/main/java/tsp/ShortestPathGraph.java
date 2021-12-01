@@ -9,40 +9,41 @@ import model.Intersection;
 import model.Path;
 import model.RequestList;
 import model.Road;
+import model.VisitPoint;
 
 public class ShortestPathGraph implements Graph{
 
 	private int nbVertices;
-	private Intersection toVisit[];
+	private VisitPoint toVisit[];
 	private Path paths[][];
 	private List<Intersection> intersections;
 	
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
-		toVisit = new Intersection[nbVertices];
-		toVisit[0] = requestList.getDepartPoint();
+		toVisit = new VisitPoint[nbVertices];
+		toVisit[0] = requestList.getDepotPoint();
 		paths = new Path[nbVertices][nbVertices];
 		int j=0;
 		for (int i=0;i<requestList.getRequests().size();i++) {
 			j++;
-			toVisit[j]=requestList.getRequests().get(i).getPickPoint().getIntersection();
+			toVisit[j]=requestList.getRequests().get(i).getPickPoint();
 			j++;
-			toVisit[j]=requestList.getRequests().get(i).getDelivPoint().getIntersection();
+			toVisit[j]=requestList.getRequests().get(i).getDelivPoint();
 		}
 		for (int i=0;i<nbVertices;i++) {
 			for (int k=0;k<nbVertices;k++) {
-				paths[i][k] = new Path(toVisit[i],toVisit[k]);
+				paths[i][k] = new Path(toVisit[i].getIntersection(),toVisit[k].getIntersection());
 			}
 		}
 		intersections = cityMap.getIntersections();
 		
 		List<Intersection> toExplore=new ArrayList<Intersection>();
-		for (Intersection source : toVisit) {
-			for (Intersection destination : toVisit) {
+		for (VisitPoint source : toVisit) {
+			for (VisitPoint destination : toVisit) {
 				if (!destination.equals(source))
-					toExplore.add(destination);
+					toExplore.add(destination.getIntersection());
 			}
-			dijkstra(source,toExplore);
+			dijkstra(source.getIntersection(),toExplore);
 		}
 		
 	}
@@ -87,7 +88,7 @@ public class ShortestPathGraph implements Graph{
 	
 	private int getGraphIndex(int index) {
 		for (int i=0;i<toVisit.length;i++) {
-			if (toVisit[i].getIndex()==index) return i;
+			if (toVisit[i].getIntersection().getIndex()==index) return i;
 		}
 		return -1;
 	}
@@ -111,10 +112,16 @@ public class ShortestPathGraph implements Graph{
 		return i != j;
 	}
 	
+	//get the VisitPoint of the i-th Intersection
+	@Override
+	public VisitPoint getVertex(int i) {
+		return toVisit[i];
+	}
+	
 	//get the index of the i-th Intersection
 	@Override
 	public int getVertexIndex(int i) {
-		return toVisit[i].getIndex();
+		return toVisit[i].getIntersection().getIndex();
 	}
 	
 	@Override

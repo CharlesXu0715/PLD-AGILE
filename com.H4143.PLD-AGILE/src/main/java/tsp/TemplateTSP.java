@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Path;
 import model.Route;
+import model.VisitPoint;
 
 public abstract class TemplateTSP implements TSP {
 
@@ -27,11 +28,13 @@ public abstract class TemplateTSP implements TSP {
 		for (int i=1; i<g.getNbVertices(); i=i+2) unvisited.add(i);
 		Collection<Integer> visited = new ArrayList<Integer>(g.getNbVertices());
 		visited.add(0); // The first visited vertex is 0
-		bestSolCost = Integer.MAX_VALUE;
+		bestSolCost = Double.MAX_VALUE;
 		branchAndBound(0, unvisited, visited, 0);
 		route = new Route();
-		for (int i=0;i<g.getNbVertices();i++)
+		for (int i=0;i<g.getNbVertices();i++) {
 			route.addPath(getPath(i));
+			route.addVisitPoint(getVisitPoint(i));
+		}
 	}
 	
 	public Integer getSolution(int i){
@@ -42,7 +45,7 @@ public abstract class TemplateTSP implements TSP {
 	
 	public double getSolutionCost(){
 		if (g != null)
-			return bestSolCost;
+			return route.getDuration();
 		return -1;
 	}
 	
@@ -53,6 +56,12 @@ public abstract class TemplateTSP implements TSP {
 			} else {
 				return g.getPath(bestSol[i], bestSol[i+1]);
 			}
+		return null;
+	}
+	
+	public VisitPoint getVisitPoint(int i){
+		if (g != null && i>=0 && i<g.getNbVertices())
+			return g.getVertex(bestSol[i]);
 		return null;
 	}
 	
