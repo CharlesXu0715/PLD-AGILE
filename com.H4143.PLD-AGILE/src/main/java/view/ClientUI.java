@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -25,6 +26,7 @@ import controller.*;
 import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
+import model.Path;
 import model.Road;
 
 /**
@@ -41,7 +43,6 @@ public class ClientUI extends JFrame implements ActionListener {
 	Panel divRequest = new Panel();
 	JPanel divMap = new Panel();
 
-	private FileLoader fileLoader = new FileLoader();
 	private FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier .xml", "xml");
 
 	private JFileChooser fileChooser = new JFileChooser();
@@ -76,7 +77,7 @@ public class ClientUI extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 //           	int result = fileChooser.showOpenDialog(divMap);
 //           	chooseFile(result, "map");
-				map = controller.loadMap(divMap, map);
+				controller.loadMap(divMap, map);
 			}
 		});
 //       loadMap.addActionListener(buttonlistener);
@@ -109,7 +110,12 @@ public class ClientUI extends JFrame implements ActionListener {
 		calculateTour.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				calculateTour();
+				controller.calculateTour();
+				List<Road> roads = new ArrayList<Road>();
+				for (Path p : controller.getTsp().getRoute().getPaths()) {
+					roads.addAll(p.getRoads());
+					//TODO: add roads to the Map
+				}
 			}
 		});
 
@@ -118,9 +124,13 @@ public class ClientUI extends JFrame implements ActionListener {
 
 		this.add(splitContainer);
 	}
+	
+	public MapUI getMap() {
+		return map;
+	}
 
-	public void calculateTour() {
-		this.map.drawTour(this.map.getGraphics());
+	public void setMap(MapUI map) {
+		this.map = map;
 	}
 
 	@Override

@@ -1,24 +1,12 @@
 package tsp;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.WindowConstants;
-
-import com.google.maps.errors.ApiException;
 
 import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
-import model.Path;
-import model.Request;
 import model.RequestList;
 import model.Road;
-import view.GoogleMap;
 
 public class TestTSP {
 
