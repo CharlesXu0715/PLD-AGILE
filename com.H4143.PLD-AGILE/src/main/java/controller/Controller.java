@@ -26,9 +26,6 @@ public class Controller {
 		// TODO Auto-generated constructor stub
 		this.l=new ListOfCommands();
 		this.currentState=INITIAL_STATE;
-	}
-	
-	public void initialise() {
 		mainWindow = new ClientUI(this);
 		mainWindow.setVisible(true);
 	}

@@ -1,8 +1,5 @@
 package controller;
 
-import model.*;
-import view.MapUI;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
@@ -13,6 +10,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import model.CityMap;
+import model.FileLoader;
+import model.Intersection;
+import model.Road;
+import view.MapUI;
 
 public class InitialState implements State {
 

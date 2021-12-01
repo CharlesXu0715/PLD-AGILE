@@ -119,32 +119,6 @@ public class ClientUI extends JFrame implements ActionListener {
 		this.add(splitContainer);
 	}
 
-	public void chooseFile(int result, String loadWhat) {
-		if (result == JFileChooser.APPROVE_OPTION) {
-			File selectedFile = fileChooser.getSelectedFile();
-			switch (loadWhat) {
-			case "map":
-				fileLoader.loadMap(selectedFile.getAbsolutePath());
-				List<Intersection> intersections = fileLoader.getIntersections();
-				List<Road> roads = fileLoader.getRoads();
-				CityMap map = new CityMap(roads, intersections);
-				System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				this.map = new MapUI(map);
-				this.map.setPreferredSize(new Dimension(800, 660));
-				this.divMap.add(this.map);
-				pack();
-				this.setVisible(true);
-				break;
-			case "request":
-				this.map.setRequests(fileLoader.loadRequest(selectedFile.getAbsolutePath()));
-				System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				this.map.paintRequests(this.map.getGraphics());
-				break;
-			}
-
-		}
-	}
-
 	public void calculateTour() {
 		this.map.drawTour(this.map.getGraphics());
 	}
