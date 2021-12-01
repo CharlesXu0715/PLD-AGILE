@@ -5,11 +5,13 @@ import java.util.List;
 
 public class Route {
 	private List<Path> paths;
+	private List<VisitPoint> visitPoints;
 	private double cost;
 	private double duration;
 	
 	public Route () {
 		paths = new ArrayList<Path>();
+		visitPoints = new ArrayList<VisitPoint>();
 	}
 
 	public List<Path> getPaths() {
@@ -20,6 +22,22 @@ public class Route {
 		this.paths.add(path);
 		cost += path.getCost();
 		duration += path.getDuration();
+	}
+	
+	public void removePath(Path path) {
+		this.paths.add(path);
+		cost += path.getCost();
+		duration += path.getDuration();
+	}
+	
+	public void addVisitPoint(VisitPoint visitPoint) {
+		this.visitPoints.add(visitPoint);
+		duration += visitPoint.getDuration();
+	}
+	
+	public void removeVisitPoint(VisitPoint visitPoint) {
+		this.visitPoints.remove(visitPoint);
+		duration -= visitPoint.getDuration();
 	}
 
 	public double getCost() {

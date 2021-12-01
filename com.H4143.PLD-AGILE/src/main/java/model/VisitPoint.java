@@ -2,17 +2,21 @@ package model;
 
 import java.util.Observable;
 
+@SuppressWarnings("deprecation")
 public class VisitPoint extends Observable{
 //	private String pointId; //id of intersection
 	private boolean selected;
 	private Intersection intersection;
-    private int duration;
+    //type 0 = depot point, type 1 = pickup point, type 2 = delivery point
+	private int type;
+	private int duration;
 
-    public VisitPoint(Intersection intersection,int duration) {
+	public VisitPoint(Intersection intersection,int duration, int type) {
     	super();
         this.intersection=intersection;
         this.duration=duration;
         this.selected=false;
+        this.type = type;
     }
 
 //    public String getPointId(){
@@ -33,6 +37,10 @@ public class VisitPoint extends Observable{
 
 	public Intersection getIntersection() {
 		return intersection;
+	}
+	
+    public int getType() {
+		return type;
 	}
 
 	public String toString()

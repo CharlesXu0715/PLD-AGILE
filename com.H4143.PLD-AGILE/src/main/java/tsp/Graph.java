@@ -1,6 +1,7 @@
 package tsp;
 
 import model.Path;
+import model.VisitPoint;
 
 public interface Graph {
 	/**
@@ -21,6 +22,13 @@ public interface Graph {
 	 * @return true if <code>(i,j)</code> is an arc of <code>this</code>
 	 */
 	public abstract boolean isArc(int i, int j);
+	
+	/**
+	 * @param i
+	 * @return the VisitPoint at vertex <code>i</code>
+	 */
+	
+	public abstract VisitPoint getVertex(int i);
 	
 	/**
 	 * @param i

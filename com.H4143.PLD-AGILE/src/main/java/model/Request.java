@@ -16,8 +16,8 @@ public class Request {
 //        System.out.println("delivId:"+delivAdd);
 //        System.out.println("pickDur:"+pickDur);
 //        System.out.println("pickId:"+pickAdd);
-        this.pickPoint=new VisitPoint(pickP, pickDur);
-        this.delivPoint=new VisitPoint(delivP, delivDur);
+        this.pickPoint=new VisitPoint(pickP, pickDur,1);
+        this.delivPoint=new VisitPoint(delivP, delivDur,2);
     }
     
     public VisitPoint getPickPoint() {
