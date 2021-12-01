@@ -11,8 +11,8 @@ public class Controller {
 	protected static final LoadMapState LOAD_MAP_STATE = new LoadMapState();
 	protected static final LoadRequestState LOAD_REQUEST_STATE = new LoadRequestState();
 	protected static final DisplayRouteState DISPLAY_ROUTE_STATE = new DisplayRouteState();
-	protected static final AddPointState ADD_POINT_STATE = new AddPointState();
-	protected static final DeletePointState DELETE_POINT_STATE = new DeletePointState();
+	protected static final AddRequestState ADD_REQUEST_STATE = new AddRequestState();
+	protected static final DeleteRequestState DELETE_REQUEST_STATE = new DeleteRequestState();
 	
 	private ListOfCommands l;
 	private State currentState;
