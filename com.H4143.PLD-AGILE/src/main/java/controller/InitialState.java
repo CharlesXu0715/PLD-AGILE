@@ -42,6 +42,7 @@ public class InitialState implements State {
 		   	    List<Intersection> intersections = fileloader.getIntersections();
 				List<Road> roads = fileloader.getRoads();
 	    	    CityMap citymap = new CityMap(roads,intersections);
+	    	    controller.setCitymap(citymap);
 	    	    map=new MapUI(citymap);
 	    	    map.setPreferredSize(new Dimension(800,660));
 	    	    divmap.add(map);

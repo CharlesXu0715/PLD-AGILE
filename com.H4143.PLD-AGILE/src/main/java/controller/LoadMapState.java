@@ -43,24 +43,15 @@ public class LoadMapState implements State {
 		   	    File selectedFile = fileChooser.getSelectedFile();
 		   	    String path=selectedFile.getAbsolutePath();
 	       	    System.out.println("Selected file: " + path);
-	       	    
 	       	    RequestList rl=fileloader.loadRequest(path);
+	    	    controller.setRequestlist(rl);
+	       	    if (rl==null) {
+		   	    	System.out.println("Request file invalid!");
+					return false;
+				}
 	       	    //System.out.println(map.getCityMap().getIntersections().size());
 		   	    map.setRequests(rl);
 	       	    map.paintRequests(map.getGraphics());
-	       	    
-//		   	    List<Intersection> intersections = fileloader.getIntersections();
-//				List<Road> roads = fileloader.getRoads();
-//	    	    CityMap citymap = new CityMap(roads,intersections);
-//	    	    MapUI map=new MapUI(citymap);
-//	    	    map.setPreferredSize(new Dimension(800,660));
-//	    	    divrequest.add(map);
-//	    	    Container c=divrequest.getParent();
-//	    	    while (c.getParent() != null) {
-//	    	    	c = c.getParent();
-//	    	    }
-//	    	    JFrame frame=(JFrame)c;
-//	    	    frame.pack();
 	    	    return true;
 			}
 		}
@@ -81,10 +72,14 @@ public class LoadMapState implements State {
 		   	    File selectedFile = fileChooser.getSelectedFile();
 		   	    String path=selectedFile.getAbsolutePath();
 	       	    System.out.println("Selected file: " + path);
-		   	    fileloader.loadMap(path);
+		   	    if (fileloader.loadMap(path)==false) {
+		   	    	System.out.println("Map file invalid!");
+					return null;
+				}
 		   	    List<Intersection> intersections = fileloader.getIntersections();
 				List<Road> roads = fileloader.getRoads();
 	    	    CityMap citymap = new CityMap(roads,intersections);
+	    	    controller.setCitymap(citymap);
 	    	    map=new MapUI(citymap);
 	    	    map.setPreferredSize(new Dimension(800,660));
 	    	    divmap.add(map);
