@@ -102,6 +102,8 @@ public class ClientUI extends JFrame implements ActionListener {
 //           	int result = fileChooser.showOpenDialog(divRequestBox);
 //           	chooseFile(result, "request");
 				controller.loadRequest(divRequestBox, map);
+				TextUI requestsDisplay = new TextUI(controller.getRequestlist());
+				divRequest.add(requestsDisplay.displayRequests(), BorderLayout.CENTER);
 			}
 		});
 //       loadRequest.addActionListener(buttonlistener);
