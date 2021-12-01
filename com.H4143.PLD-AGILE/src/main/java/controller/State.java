@@ -2,6 +2,8 @@ package controller;
 
 import javax.swing.JPanel;
 
+import model.CityMap;
+import model.RequestList;
 import view.MapUI;
 
 public interface State {
@@ -11,7 +13,8 @@ public interface State {
 		return false;};
 	public default void newRequest() {};
 	public default void newMap() {};
-	public default void calculateRoute() {};
+	public default boolean calculateRoute(Controller controller, CityMap cityMap, RequestList requestList) {
+		return false;};
 	public default void undo(ListOfCommands l) {};
 	public default void redo(ListOfCommands l) {};
 }

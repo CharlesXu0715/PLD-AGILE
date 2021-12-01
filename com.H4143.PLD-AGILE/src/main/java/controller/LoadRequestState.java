@@ -16,6 +16,10 @@ import model.FileLoader;
 import model.Intersection;
 import model.RequestList;
 import model.Road;
+import tsp.Graph;
+import tsp.ShortestPathGraph;
+import tsp.TSP;
+import tsp.TSP1;
 import view.MapUI;
 
 public class LoadRequestState implements State {
@@ -34,9 +38,19 @@ public class LoadRequestState implements State {
 	}
 	
 	@Override
-	public void calculateRoute() {
+	public boolean calculateRoute(Controller controller, CityMap cityMap, RequestList requestList) {
 		// TODO Auto-generated method stub
-		
+		try {
+			TSP tsp = new TSP1();
+			Graph g = new ShortestPathGraph(requestList,cityMap);
+			tsp.searchSolution(Controller.TIME_LIMIT, g);
+			controller.setTsp(tsp);
+			controller.setGraph(g);
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 	
 	@Override

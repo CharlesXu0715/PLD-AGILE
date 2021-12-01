@@ -2,6 +2,7 @@ package model;
 
 import java.util.Observable;
 
+@SuppressWarnings("deprecation")
 public class VisitPoint extends Observable{
 //	private String pointId; //id of intersection
 	private boolean selected;

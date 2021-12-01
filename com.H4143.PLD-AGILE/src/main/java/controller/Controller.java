@@ -2,9 +2,12 @@ package controller;
 
 import javax.swing.JPanel;
 
+import model.CityMap;
+import model.RequestList;
+import tsp.Graph;
+import tsp.TSP;
 import view.ClientUI;
 import view.MapUI;
-import model.*;
 
 public class Controller {
 	
@@ -14,6 +17,7 @@ public class Controller {
 	protected static final DisplayRouteState DISPLAY_ROUTE_STATE = new DisplayRouteState();
 	protected static final AddRequestState ADD_REQUEST_STATE = new AddRequestState();
 	protected static final DeleteRequestState DELETE_REQUEST_STATE = new DeleteRequestState();
+	protected static final int TIME_LIMIT = 20000;
 	
 	private ListOfCommands l;
 	private State currentState;
@@ -21,6 +25,8 @@ public class Controller {
 	private ClientUI mainWindow;
 	private CityMap citymap;
 	private RequestList requestlist;
+	private TSP tsp;
+	private Graph graph;
 	
 	public Controller() {
 		// TODO Auto-generated constructor stub
@@ -30,6 +36,22 @@ public class Controller {
 		mainWindow.setVisible(true);
 	}
 	
+	public TSP getTsp() {
+		return tsp;
+	}
+
+	public void setTsp(TSP tsp) {
+		this.tsp = tsp;
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+
 	public CityMap getCitymap() {
 		return citymap;
 	}
@@ -46,14 +68,13 @@ public class Controller {
 		this.requestlist = requestlist;
 	}
 
-	public MapUI loadMap(JPanel divmap,MapUI map)
+	public void loadMap(JPanel divmap,MapUI map)
 	{
 		MapUI newmap=this.currentState.loadMap(this,divmap,map);
 		if (newmap!=null) {		//load successful
 			currentState=LOAD_MAP_STATE;
 		}
-		System.out.println(currentState);
-		return newmap;
+		mainWindow.setMap(newmap);
 	}
 	
 	public void undo() {
@@ -75,4 +96,14 @@ public class Controller {
 		}
 		System.out.println(currentState);
 	}
+	
+	public void calculateTour() {
+		if (currentState==LOAD_REQUEST_STATE) {
+			boolean pass=this.currentState.calculateRoute(this,citymap,requestlist);
+			if (pass) {
+				currentState=DISPLAY_ROUTE_STATE;
+			}
+		}
+	}
+	
 }
