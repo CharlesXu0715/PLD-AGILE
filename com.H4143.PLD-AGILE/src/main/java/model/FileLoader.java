@@ -25,10 +25,11 @@ public class FileLoader {
         roads=new ArrayList<Road>();
     }
     
-    public void loadMap(String filename) {
-    	loadIntersection(filename);
-    	loadRoad(filename);
+    public boolean loadMap(String filename) {
+    	if(loadIntersection(filename)==false) return false;
+    	if(loadRoad(filename)==false) return false;
     	chargeRoad();
+    	return true;
     }
 
     public List<Intersection> getIntersections() {
@@ -43,13 +44,14 @@ public class FileLoader {
 		return requests;
 	}
 
-	public void loadIntersection(String filename){
+	public boolean loadIntersection(String filename){
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try { 
             DocumentBuilder db = dbf.newDocumentBuilder(); 
             org.w3c.dom.Document document = db.parse(f);
             NodeList nl = document.getElementsByTagName("intersection"); 
+            if(nl.getLength()==0) return false;
             for(int i = 0; i < nl.getLength(); i++) { 
                 Node intersec = nl.item(i); 
                 NamedNodeMap nnm = intersec.getAttributes();
@@ -59,20 +61,25 @@ public class FileLoader {
         } 
         catch (ParserConfigurationException e) { 
             e.printStackTrace(); 
+            return false;
         } catch (SAXException e) { 
             e.printStackTrace(); 
+            return false;
         } catch (IOException e) { 
             e.printStackTrace(); 
+            return false;
         }
+        return true;
     }
 
-    public void loadRoad(String filename){
+    public boolean loadRoad(String filename){
         File f=new File(filename);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); 
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             org.w3c.dom.Document document = db.parse(f);
             NodeList nl = document.getElementsByTagName("segment"); 
+            if(nl.getLength()==0) return false;
             for(int i = 0; i < nl.getLength(); i++) {
                 Node segment = nl.item(i);
                 NamedNodeMap nnm = segment.getAttributes();
@@ -94,11 +101,15 @@ public class FileLoader {
         } 
         catch (ParserConfigurationException e) { 
             e.printStackTrace(); 
+            return false;
         } catch (SAXException e) { 
             e.printStackTrace(); 
+            return false;
         } catch (IOException e) { 
             e.printStackTrace(); 
+            return false;
         }
+        return true;
     }
 
     public RequestList loadRequest(String filename){
@@ -109,6 +120,7 @@ public class FileLoader {
             DocumentBuilder db = dbf.newDocumentBuilder();
             org.w3c.dom.Document document = db.parse(f);
             NodeList nl = document.getElementsByTagName("request"); 
+            if(nl.getLength()==0) return null;
             for(int i = 0; i < nl.getLength(); i++) {
                 Node req = nl.item(i);
                 NamedNodeMap nnm = req.getAttributes();
@@ -121,8 +133,8 @@ public class FileLoader {
                 String delivId=nnm.item(0).getNodeValue();
 //                int pickIndex=0;
 //                int delivIndex=0;
-                Intersection pickPoint=new Intersection();
-                Intersection delivPoint=new Intersection();
+                Intersection pickPoint=null;
+                Intersection delivPoint=null;
                 for (int j=0;j<intersections.size();j++) {
                 	if (intersections.get(j).getId().equals(pickId)) {
                 		pickPoint=intersections.get(j);
@@ -130,6 +142,10 @@ public class FileLoader {
                 	if (intersections.get(j).getId().equals(delivId)) {
                 		delivPoint=intersections.get(j);
                 	}
+                }
+                if(pickPoint==null||delivPoint==null)
+                {
+                	return null;
                 }
                 int pickDur= Integer.parseInt(nnm.item(3).getNodeValue());
                 int delivDur=Integer.parseInt(nnm.item(1).getNodeValue());
