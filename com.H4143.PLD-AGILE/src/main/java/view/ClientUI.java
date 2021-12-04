@@ -40,6 +40,7 @@ public class ClientUI extends JFrame implements ActionListener {
 	private Button loadMap;
 	private Button loadRequest;
 	private Button calculateTour;
+	private Button newMap;
 	Panel divRequest = new Panel();
 	JPanel divMap = new Panel();
 
@@ -48,6 +49,7 @@ public class ClientUI extends JFrame implements ActionListener {
 	private JFileChooser fileChooser = new JFileChooser();
 
 	private MapUI map;
+	private TextUI requestsDisplay;
 
 	public ClientUI(Controller controller) {
 		this.controller = controller;
@@ -71,16 +73,9 @@ public class ClientUI extends JFrame implements ActionListener {
 		loadMap = new Button("Load Map");
 		this.divMap.add(loadMap, BorderLayout.SOUTH);
 
-		loadMap.addActionListener(new ActionListener() {
+		newMap = new Button("New Map");
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//           	int result = fileChooser.showOpenDialog(divMap);
-//           	chooseFile(result, "map");
-				controller.loadMap(divMap, map);
-			}
-		});
-//       loadMap.addActionListener(buttonlistener);
+		
 
 		// div request
 		this.divMap.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -96,6 +91,38 @@ public class ClientUI extends JFrame implements ActionListener {
 		calculateTour = new Button("Calculate Tour");
 		this.divRequest.add(loadRequest, BorderLayout.SOUTH);
 		this.divRequest.add(calculateTour, BorderLayout.NORTH);
+		loadRequest.setEnabled(false);
+		calculateTour.setEnabled(false);
+		
+		loadMap.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.loadMap(divMap, map);
+				if(!controller.currentState.getClass().getSimpleName().equals("InitialState")/*if file is loaded*/) {
+					loadMap.setEnabled(false);
+					loadMap.setVisible(false);
+					loadRequest.setEnabled(true);
+					divMap.add(newMap, BorderLayout.SOUTH);
+				}
+			}
+		});
+		
+		newMap.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadMap.setEnabled(true);
+				loadMap.setVisible(true);
+				newMap.setEnabled(false);
+				newMap.setVisible(false);
+				divMap.add(loadMap, BorderLayout.SOUTH);
+				divRequest.add(new JPanel(), BorderLayout.CENTER);
+				loadRequest.setEnabled(false);
+				calculateTour.setEnabled(false);
+				//TODO delete map 
+			}
+		});
 
 		loadRequest.addActionListener(new ActionListener() {
 			@Override
@@ -103,15 +130,16 @@ public class ClientUI extends JFrame implements ActionListener {
 //           	int result = fileChooser.showOpenDialog(divRequestBox);
 //           	chooseFile(result, "request");
 				controller.loadRequest(divRequestBox, map);
-				TextUI requestsDisplay = new TextUI(controller.getRequestlist());
+				requestsDisplay = new TextUI(controller.getRequestlist());
 				divRequest.add(requestsDisplay.displayRequests(), BorderLayout.CENTER);
+				calculateTour.setEnabled(true);
 			}
 		});
-//       loadRequest.addActionListener(buttonlistener);
 
 		calculateTour.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				(requestsDisplay.displayRequests()).setVisible(false);
 				controller.calculateTour();
 				List<Road> roads = new ArrayList<Road>();
 				for (Path p : controller.getTsp().getRoute().getPaths()) {

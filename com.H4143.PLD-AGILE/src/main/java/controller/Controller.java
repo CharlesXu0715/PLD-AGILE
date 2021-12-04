@@ -20,7 +20,7 @@ public class Controller {
 	protected static final int TIME_LIMIT = 20000;
 	
 	private ListOfCommands l;
-	private State currentState;
+	public State currentState;
 	
 	private ClientUI mainWindow;
 	private CityMap citymap;
