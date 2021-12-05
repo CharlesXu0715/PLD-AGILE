@@ -105,6 +105,7 @@ public class TextUI extends JPanel {
 		display.add(display1);
 		display.add(display2);
 		display.add(display3);
+//		display.setVisible(true);
 		return display;
 	}
 

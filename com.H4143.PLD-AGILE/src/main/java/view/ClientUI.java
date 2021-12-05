@@ -70,6 +70,7 @@ public class ClientUI extends JFrame implements ActionListener {
 		this.divRequest.setBackground(Color.GRAY);
 		this.divMap.setBackground(Color.DARK_GRAY);
 		this.divMap.setPreferredSize(new Dimension(810, 825));
+		this.divRequest.setPreferredSize(new Dimension(545, 825));
 		add(this.divMap);
 
 		loadMap = new Button("Load Map");
@@ -87,7 +88,7 @@ public class ClientUI extends JFrame implements ActionListener {
 		Panel divRequestBox = new Panel();
 		divRequestBox.setPreferredSize(new Dimension(545, 250));
 
-		this.divRequest.add(divRequestBox);
+//		this.divRequest.add(divRequestBox);
 
 		loadRequest = new Button("Load Request");
 		calculateTour = new Button("Calculate Tour");
@@ -134,6 +135,7 @@ public class ClientUI extends JFrame implements ActionListener {
 				controller.loadRequest(divRequestBox, map);
 				requestsDisplay = new TextUI(controller.getRequestlist());
 				divRequest.add(requestsDisplay.displayRequests(), BorderLayout.CENTER);
+				divRequest.revalidate();
 				calculateTour.setEnabled(true);
 			}
 		});
@@ -146,7 +148,7 @@ public class ClientUI extends JFrame implements ActionListener {
 				List<Road> roads = new ArrayList<Road>();
 				for (Path p : controller.getTsp().getRoute().getPaths()) {
 					roads.addAll(p.getRoads());
-					//TODO: add roads to the Map
+					map.setResult(roads);
 				}
 			}
 		});

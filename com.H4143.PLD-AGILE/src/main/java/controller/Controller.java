@@ -107,11 +107,6 @@ public class Controller {
 		if (currentState==LOAD_REQUEST_STATE) {
 			boolean pass=this.currentState.calculateRoute(this,citymap,requestlist);
 			if (pass) {
-				List<Road> roads=new ArrayList<Road>();
-				for (Path p : tsp.getRoute().getPaths()) {
-					roads.addAll(p.getRoads());
-				}
-				mainWindow.getMap().setResult(roads);
 				currentState=DISPLAY_ROUTE_STATE;
 			}
 		}
