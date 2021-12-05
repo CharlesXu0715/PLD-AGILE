@@ -15,6 +15,8 @@ import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
 import model.Road;
+import view.ClientUI;
+import view.Map;
 import view.MapUI;
 
 public class InitialState implements State {
@@ -33,7 +35,7 @@ public class InitialState implements State {
 	}
 	
 	@Override
-	public MapUI loadMap(Controller controller,JPanel divmap,MapUI map) {
+	public Map loadMap(Controller controller,JPanel divmap,Map map) {
 		try {
 			int result = fileChooser.showOpenDialog(divmap);
 			if (result == JFileChooser.APPROVE_OPTION)		//require more judging conditions
@@ -41,13 +43,16 @@ public class InitialState implements State {
 		   	    File selectedFile = fileChooser.getSelectedFile();
 		   	    String path=selectedFile.getAbsolutePath();
 	       	    System.out.println("Selected file: " + path);
-		   	    fileloader.loadMap(path);
+		   	    if (fileloader.loadMap(path)==false) {
+		   	    	System.out.println("Map file invalid!");
+					return null;
+				}
 		   	    List<Intersection> intersections = fileloader.getIntersections();
 				List<Road> roads = fileloader.getRoads();
 	    	    CityMap citymap = new CityMap(roads,intersections);
 	    	    controller.setCitymap(citymap);
-	    	    map=new MapUI(citymap);
-	    	    map.setPreferredSize(new Dimension(800,660));
+	    	    map=new Map(ClientUI.MAP_WIDTH,ClientUI.MAP_HEIGHT);
+	    	    map.setCityMap(citymap);
 	    	    divmap.add(map);
 	    	    Container c=divmap.getParent();
 	    	    while (c.getParent() != null) {

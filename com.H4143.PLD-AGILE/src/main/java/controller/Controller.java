@@ -1,12 +1,18 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import model.CityMap;
+import model.Path;
 import model.RequestList;
+import model.Road;
 import tsp.Graph;
 import tsp.TSP;
 import view.ClientUI;
+import view.Map;
 import view.MapUI;
 
 public class Controller {
@@ -68,9 +74,9 @@ public class Controller {
 		this.requestlist = requestlist;
 	}
 
-	public void loadMap(JPanel divmap,MapUI map)
+	public void loadMap(JPanel divmap,Map map)
 	{
-		MapUI newmap=this.currentState.loadMap(this,divmap,map);
+		Map newmap=this.currentState.loadMap(this,divmap,map);
 		if (newmap!=null) {		//load successful
 			currentState=LOAD_MAP_STATE;
 		}
@@ -85,7 +91,7 @@ public class Controller {
 		this.currentState.redo(l);
 	}
 
-	public void loadRequest(JPanel divrequestbox,MapUI map) {
+	public void loadRequest(JPanel divrequestbox,Map map) {
 		// TODO Auto-generated method stub
 		if (currentState!=INITIAL_STATE) {
 			System.out.println("entrer!");
@@ -101,6 +107,11 @@ public class Controller {
 		if (currentState==LOAD_REQUEST_STATE) {
 			boolean pass=this.currentState.calculateRoute(this,citymap,requestlist);
 			if (pass) {
+				List<Road> roads=new ArrayList<Road>();
+				for (Path p : tsp.getRoute().getPaths()) {
+					roads.addAll(p.getRoads());
+				}
+				mainWindow.getMap().setResult(roads);
 				currentState=DISPLAY_ROUTE_STATE;
 			}
 		}

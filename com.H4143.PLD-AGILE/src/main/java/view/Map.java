@@ -88,9 +88,9 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 			double[] destinationXY = convertLatLngToXY(destinationIntersection.getLatitude(),
 					destinationIntersection.getLongitude());
 
-			if (!result.contains(road)) {
+//			if (!result.contains(road)) {
 				g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
-			}
+//			}
 
 		}
 	}

@@ -36,6 +36,8 @@ import model.Road;
 public class ClientUI extends JFrame implements ActionListener {
 	private Controller controller;
 	private static final long serialVersionUID = 1L;
+	public static final int MAP_WIDTH = 800;
+	public static final int MAP_HEIGHT = 660;
 	// panel1
 	private Button loadMap;
 	private Button loadRequest;
@@ -48,7 +50,7 @@ public class ClientUI extends JFrame implements ActionListener {
 
 	private JFileChooser fileChooser = new JFileChooser();
 
-	private MapUI map;
+	private Map map;
 	private TextUI requestsDisplay;
 
 	public ClientUI(Controller controller) {
@@ -155,11 +157,11 @@ public class ClientUI extends JFrame implements ActionListener {
 		this.add(splitContainer);
 	}
 	
-	public MapUI getMap() {
+	public Map getMap() {
 		return map;
 	}
 
-	public void setMap(MapUI map) {
+	public void setMap(Map map) {
 		this.map = map;
 	}
 

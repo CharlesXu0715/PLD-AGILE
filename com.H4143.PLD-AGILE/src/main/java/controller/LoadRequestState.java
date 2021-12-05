@@ -20,6 +20,8 @@ import tsp.Graph;
 import tsp.ShortestPathGraph;
 import tsp.TSP;
 import tsp.TSP1;
+import view.ClientUI;
+import view.Map;
 import view.MapUI;
 
 public class LoadRequestState implements State {
@@ -54,7 +56,7 @@ public class LoadRequestState implements State {
 	}
 	
 	@Override
-	public boolean loadRequest(Controller controller,JPanel divrequestbox,MapUI map) {
+	public boolean loadRequest(Controller controller,JPanel divrequestbox,Map map) {
 		try {
 			int result = fileChooser.showOpenDialog(divrequestbox);
 			if (result == JFileChooser.APPROVE_OPTION)		//require more judging conditions
@@ -69,8 +71,7 @@ public class LoadRequestState implements State {
 					return false;
 				}
 	       	    //System.out.println(map.getCityMap().getIntersections().size());
-		   	    map.setRequests(rl);
-	       	    map.paintRequests(map.getGraphics());
+		   	    map.setRequestList(rl);
 	    	    return true;
 			}
 		}
@@ -83,7 +84,7 @@ public class LoadRequestState implements State {
 	}
 	
 	@Override
-	public MapUI loadMap(Controller controller,JPanel divmap,MapUI map) {
+	public Map loadMap(Controller controller,JPanel divmap,Map map) {
 		try {
 			int result = fileChooser.showOpenDialog(divmap);
 			if (result == JFileChooser.APPROVE_OPTION)		//require more judging conditions
@@ -99,8 +100,8 @@ public class LoadRequestState implements State {
 				List<Road> roads = fileloader.getRoads();
 	    	    CityMap citymap = new CityMap(roads,intersections);
 	    	    controller.setCitymap(citymap);
-	    	    map=new MapUI(citymap);
-	    	    map.setPreferredSize(new Dimension(800,660));
+	    	    map=new Map(ClientUI.MAP_WIDTH,ClientUI.MAP_HEIGHT);
+	    	    map.setCityMap(citymap);
 	    	    divmap.add(map);
 	    	    Container c=divmap.getParent();
 	    	    while (c.getParent() != null) {
