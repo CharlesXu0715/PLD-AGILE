@@ -44,5 +44,12 @@ public interface Graph {
 	 */
 	
 	public abstract Path getPath(int i, int j);
+	
+	/**
+	 * @param pickup: the VisitPoint corresponding to the pickup address and time
+	 * @param delivery: the VisitPoint corresponding to the delivery address and time
+	 */
+	
+	public abstract void addVisitPoints(VisitPoint pickup, VisitPoint delivery);
 
 }

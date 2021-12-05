@@ -14,25 +14,25 @@ import model.VisitPoint;
 public class ShortestPathGraph implements Graph{
 
 	private int nbVertices;
-	private VisitPoint toVisit[];
+	private List<VisitPoint> toVisit;
 	private Path paths[][];
 	private List<Intersection> intersections;
 	
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
-		toVisit = new VisitPoint[nbVertices];
-		toVisit[0] = requestList.getDepotPoint();
+		toVisit = new ArrayList<VisitPoint>();
+		toVisit.add(requestList.getDepotPoint());
 		paths = new Path[nbVertices][nbVertices];
 		int j=0;
 		for (int i=0;i<requestList.getRequests().size();i++) {
 			j++;
-			toVisit[j]=requestList.getRequests().get(i).getPickPoint();
+			toVisit.add(requestList.getRequests().get(i).getPickPoint());
 			j++;
-			toVisit[j]=requestList.getRequests().get(i).getDelivPoint();
+			toVisit.add(requestList.getRequests().get(i).getDelivPoint());
 		}
 		for (int i=0;i<nbVertices;i++) {
 			for (int k=0;k<nbVertices;k++) {
-				paths[i][k] = new Path(toVisit[i].getIntersection(),toVisit[k].getIntersection());
+				paths[i][k] = new Path(toVisit.get(i).getIntersection(),toVisit.get(k).getIntersection());
 			}
 		}
 		intersections = cityMap.getIntersections();
@@ -87,8 +87,8 @@ public class ShortestPathGraph implements Graph{
 	}
 	
 	private int getGraphIndex(int index) {
-		for (int i=0;i<toVisit.length;i++) {
-			if (toVisit[i].getIntersection().getIndex()==index) return i;
+		for (int i=0;i<toVisit.size();i++) {
+			if (toVisit.get(i).getIntersection().getIndex()==index) return i;
 		}
 		return -1;
 	}
@@ -115,18 +115,56 @@ public class ShortestPathGraph implements Graph{
 	//get the VisitPoint of the i-th Intersection
 	@Override
 	public VisitPoint getVertex(int i) {
-		return toVisit[i];
+		return toVisit.get(i);
 	}
 	
 	//get the index of the i-th Intersection
 	@Override
 	public int getVertexIndex(int i) {
-		return toVisit[i].getIntersection().getIndex();
+		return toVisit.get(i).getIntersection().getIndex();
 	}
 	
 	@Override
 	public Path getPath(int i, int j){
 		return paths[i][j];
+	}
+
+	@Override
+	public void addVisitPoints(VisitPoint pickup, VisitPoint delivery) {
+		nbVertices = nbVertices+2;
+		toVisit.add(pickup);
+		toVisit.add(delivery);
+		Path[][] paths2 = new Path[nbVertices][nbVertices];
+		for (int i=0;i<nbVertices;i++) {
+			for (int j=0;j<nbVertices;j++) {
+				if (i<paths.length&&j<paths.length) {
+					paths2[i][j]=paths[i][j];
+				} else {
+					paths2[i][j]=new Path(toVisit.get(i).getIntersection(),toVisit.get(j).getIntersection());
+				}
+				
+			}
+		}
+		paths=paths2;
+		
+		List<Intersection> toExplore=new ArrayList<Intersection>();
+		for (VisitPoint source : toVisit) {
+			if (!source.equals(pickup))
+			toExplore.add(pickup.getIntersection());
+			if (!source.equals(delivery))
+			toExplore.add(delivery.getIntersection());
+			dijkstra(source.getIntersection(),toExplore);
+		}
+		for (VisitPoint destination : toVisit) {
+			if (!destination.equals(pickup))
+			toExplore.add(destination.getIntersection());
+		}
+		dijkstra(pickup.getIntersection(),toExplore);
+		for (VisitPoint destination : toVisit) {
+			if (!destination.equals(delivery))
+			toExplore.add(destination.getIntersection());
+		}
+		dijkstra(delivery.getIntersection(),toExplore);
 	}
 	 
 }

@@ -19,15 +19,21 @@ public class Route {
 	}
 
 	public void addPath(Path path) {
-		this.paths.add(path);
+		paths.add(path);
 		cost += path.getCost();
 		duration += path.getDuration();
 	}
 	
 	public void removePath(Path path) {
-		this.paths.add(path);
-		cost += path.getCost();
-		duration += path.getDuration();
+		paths.remove(path);
+		cost -= path.getCost();
+		duration -= path.getDuration();
+	}
+	
+	public void removeLastPath() {
+		cost -= paths.get(paths.size()).getCost();
+		duration -= paths.get(paths.size()).getDuration();
+		paths.remove(paths.size()-1);
 	}
 	
 	public void addVisitPoint(VisitPoint visitPoint) {

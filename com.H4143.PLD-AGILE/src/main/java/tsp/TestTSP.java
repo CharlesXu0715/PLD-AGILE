@@ -7,10 +7,16 @@ import model.FileLoader;
 import model.Intersection;
 import model.RequestList;
 import model.Road;
+import model.VisitPoint;
 
 public class TestTSP {
 
 	public static void main(String[] args) {
+//		testLoad();
+		testAddVisitPoint();
+	}
+	
+	public static void testLoad() {
 //		Intersection iA = new Intersection(0,0,"A",0);
 //		Intersection iB = new Intersection(0,0,"B",1);
 //		Intersection iC = new Intersection(0,0,"C",2);
@@ -61,51 +67,39 @@ public class TestTSP {
 			System.out.print(g.getVertexIndex(tsp.getSolution(i))+" ");
 		System.out.println();
 		System.out.println(tsp.getRoute());
-//		for (int i=0; i<g.getNbVertices(); i++) {
-//			System.out.println("Visisted: "+intersections.get(g.getVertexIndex(tsp.getSolution(i))).getId());
-//			System.out.print("Crossing:");
-//			path = tsp.getPath(i);
-//			for (int inter : path) {
-//				System.out.print(" "+intersections.get(inter).getId());
-//			}
-//			System.out.print(". ");
-//		}
-//		System.out.println("Returned to: "+intersections.get(g.getVertexIndex(tsp.getSolution(0))).getId());
-		
-//		List<Integer> toDraw = tsp.getRoute().getAllPointIndices();
-//		List<Intersection> intersections2 = new ArrayList<Intersection>();
-//		
-//		for (int i : toDraw) {
-//			intersections2.add(intersections.get(i));
-//		}
-//		
-//		
-//		final int WIDTH = 600;
-//    	final int HEIGHT = 600;
-//        
-//        GoogleMap googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requestList, intersections2);
-//        
-//        JFrame frame = new JFrame();
-//		frame.setSize(WIDTH, HEIGHT);
-//		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//		frame.getContentPane().setLayout(null);
-//		JLabel jLabel;
-//		try {
-//			jLabel = new JLabel(new ImageIcon(googleMap.getBufferedImage()));
-//			jLabel.setBounds(0, 0, WIDTH, HEIGHT);
-//			frame.getContentPane().add(jLabel);
-//			frame.setVisible(true);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ApiException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 	}
 
+	public static void testAddVisitPoint() {
+//		TSP tsp = new TSP1();
+		String mapName = "src/main/resources/smallMap.xml";
+		String requestName = "src/main/resources/requestsSmall2.xml";
+		FileLoader fileLoader = new FileLoader();
+		fileLoader.loadMap(mapName);
+		List<Intersection> intersections=fileLoader.getIntersections();
+        List<Road> roads=fileLoader.getRoads();
+		CityMap cityMap = new CityMap(roads,intersections);
+		RequestList requestList = fileLoader.loadRequest(requestName);
+		Graph g = new ShortestPathGraph(requestList,cityMap);
+//		tsp.searchSolution(20000, g);
+		System.out.println("----------\r\nBefore:\r\n----------");
+		for (int i=0;i<g.getNbVertices();i++) {
+			for (int j=0;j<g.getNbVertices();j++) {
+				if (i!=j)
+//				System.out.println("From: "+g.getPath(i, j).getStart().getId()+" to: "+g.getPath(i, j).getEnd().getId());
+				System.out.println(g.getPath(i, j));
+			}
+		}
+		VisitPoint pickup = new VisitPoint(intersections.get(10),100,1);
+		VisitPoint delivery = new VisitPoint(intersections.get(11),200,2);
+		g.addVisitPoints(pickup, delivery);
+		System.out.println("----------\r\nAfter:\r\n----------");
+		for (int i=0;i<g.getNbVertices();i++) {
+			for (int j=0;j<g.getNbVertices();j++) {
+				if (i!=j)
+//				System.out.println("From: "+g.getPath(i, j).getStart().getId()+" to: "+g.getPath(i, j).getEnd().getId());
+				System.out.println(g.getPath(i, j));
+			}
+		}
+	}
+	
 }
