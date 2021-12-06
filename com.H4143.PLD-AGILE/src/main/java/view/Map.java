@@ -51,8 +51,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
-		System.out.println(setNull);
-		
+		//System.out.println(setNull);
 		if(setNull==true) this.drawEmpty(g2);
 		else
 		{
@@ -216,7 +215,8 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	
 	public void setEmpty()
 	{
-		this.setNull=true;
+		//System.out.println("EMPTY");
+		setNull=true;
 		repaint();
 	}
 
