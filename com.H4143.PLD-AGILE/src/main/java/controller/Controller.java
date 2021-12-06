@@ -86,7 +86,6 @@ public class Controller {
 		if (newmap!=null) {		//load successful
 			currentState=LOAD_MAP_STATE;
 		}
-		mainWindow.setMap(newmap);
 	}
 	
 	public void undo() {
@@ -131,15 +130,15 @@ public class Controller {
 	}
 
 	public void addRequest(Intersection start,int startDuration, Intersection end, int endDuration) {
-		boolean pass = this.currentState.addRequestValidate(this, start, startDuration, end, endDuration);
-		if (pass) {
-			int lastVisitPoint = tsp.getSolution(graph.getNbVertices()-2);
-			route.removeLastPath();
-			route.addPath(graph.getPath(lastVisitPoint, graph.getNbVertices()-1));
-			route.addPath(graph.getPath(graph.getNbVertices()-1, graph.getNbVertices()));
-			route.addPath(graph.getPath(graph.getNbVertices(), 0));
-			currentState=DISPLAY_ROUTE_STATE;
-		}
+//		boolean pass = this.currentState.addRequestValidate(this, start, startDuration, end, endDuration);
+//		if (pass) {
+//			int lastVisitPoint = tsp.getSolution(graph.getNbVertices()-2);
+//			route.removeLastPath();
+//			route.addPath(graph.getPath(lastVisitPoint, graph.getNbVertices()-1));
+//			route.addPath(graph.getPath(graph.getNbVertices()-1, graph.getNbVertices()));
+//			route.addPath(graph.getPath(graph.getNbVertices(), 0));
+//			currentState=DISPLAY_ROUTE_STATE;
+//		}
 	}
 	
 	public void newMap() {
