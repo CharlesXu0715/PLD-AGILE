@@ -51,7 +51,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
-		//System.out.println(setNull);
+		//System.out.println("paint "+setNull);
 		if(setNull==true) this.drawEmpty(g2);
 		else
 		{
@@ -207,19 +207,12 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		repaint();
 		
 	}
-	
+
 	public void setRequestList(RequestList requestList) {
 		this.requestList = requestList;
 		repaint();
 	}
 	
-	public void setEmpty()
-	{
-		//System.out.println("EMPTY");
-		setNull=true;
-		repaint();
-	}
-
 	public void setResult(List<Path> result) {
 		this.result = result;
 		repaint();
@@ -230,6 +223,12 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		repaint();
 	}
 	
+	public void setEmpty()
+	{
+		this.setNull=true;
+		repaint();
+	}
+	/*
 	public static void main(String[] args) {
 	
 
@@ -269,7 +268,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		frame.getContentPane().add(jLabel);
 		frame.pack();
 		frame.setVisible(true);
-	}
+	}*/
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

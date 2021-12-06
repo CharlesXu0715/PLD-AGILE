@@ -86,6 +86,7 @@ public class Controller {
 		if (newmap!=null) {		//load successful
 			currentState=LOAD_MAP_STATE;
 		}
+		//if(map==null) System.out.println("map null!")
 	}
 	
 	public void undo() {

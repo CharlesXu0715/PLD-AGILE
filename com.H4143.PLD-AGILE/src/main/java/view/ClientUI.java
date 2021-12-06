@@ -50,7 +50,7 @@ public class ClientUI extends JFrame implements ActionListener {
 
 	private JFileChooser fileChooser = new JFileChooser();
 
-	private Map map = new Map(MAP_WIDTH, MAP_HEIGHT) ;
+	private Map map/* = new Map(MAP_WIDTH, MAP_HEIGHT) */;
 	private TextUI requestsDisplay;
 
 	public ClientUI(Controller controller) {
@@ -122,7 +122,12 @@ public class ClientUI extends JFrame implements ActionListener {
 				//divMap.remove(map);
 				map.setEmpty();
 				controller.newMap();
-				requestsDisplay.setEmpty();
+				if(requestsDisplay!=null)
+				{
+					requestsDisplay.setEmpty();
+					divRequest.revalidate();
+					divRequest.repaint();
+				}
 				loadRequest.setEnabled(false);
 				calculateTour.setEnabled(false);
 				loadMap.setEnabled(true);
@@ -132,6 +137,7 @@ public class ClientUI extends JFrame implements ActionListener {
 				divMap.remove(newMap);
 				divMap.add(loadMap, BorderLayout.SOUTH);
 				divMap.revalidate();
+				//divMap.repaint();
 				//TODO delete map 
 			}
 		});
