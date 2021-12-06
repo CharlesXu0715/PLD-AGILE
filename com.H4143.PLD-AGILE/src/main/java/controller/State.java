@@ -15,7 +15,9 @@ public interface State {
 		return false;};
 	public default boolean addRequestStart(Controller c) {
 		return false;};
-	public default boolean addRequestValidate(Controller c, ClientUI window, Intersection start,int startDuration, Intersection end, int endDuration) {
+	public default boolean addRequestValidatePoint(Controller c, ClientUI window) {
+		return false;};
+	public default boolean addRequestValidateAll(Controller c, ClientUI window, ListOfCommands listOfCommands) {
 		return false;};
 	public default void leftClick(Controller c, ClientUI window) {};
 	public default void newRequest() {};

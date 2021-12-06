@@ -98,7 +98,7 @@ public class DisplayRouteState implements State{
 	
 	@Override
 	public boolean addRequestStart(Controller c) {
-		
+		c.setCurrentState(Controller.ADD_REQUEST_STATE);
 		return true;
 	}
 
