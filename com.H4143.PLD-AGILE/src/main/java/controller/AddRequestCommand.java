@@ -1,11 +1,9 @@
 package controller;
 
 import model.CityMap;
-import model.Intersection;
 import model.Request;
 import model.RequestList;
 import model.Route;
-import model.VisitPoint;
 import tsp.Graph;
 import tsp.TSP;
 

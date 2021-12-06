@@ -1,7 +1,13 @@
 package controller;
 
+import model.CityMap;
 import model.Intersection;
+import model.Request;
+import model.RequestList;
+import model.Route;
 import model.VisitPoint;
+import tsp.Graph;
+import tsp.TSP;
 import view.ClientUI;
 
 public class AddRequestState implements State {
@@ -11,6 +17,7 @@ public class AddRequestState implements State {
 	private int startDuration;
 	private Intersection end;
 	private int endDuration;
+	private Request newRequest;
 	
 	public AddRequestState() {
 		// TODO Auto-generated constructor stub
@@ -50,8 +57,11 @@ public class AddRequestState implements State {
 	}
 	
 	@Override
-	public boolean addRequestValidateAll(Controller c, ClientUI window, ListOfCommands listOfCommands) {
-		listOfCommands.add(new AddRequestCommand());
+	public boolean addRequestValidateAll(Controller c, ClientUI window, ListOfCommands listOfCommands,
+			CityMap cityMap, RequestList requestList,
+			TSP tsp, Route route, Graph graph) {
+		Request newRequest = new Request(endDuration,startDuration,end,start);
+		listOfCommands.add(new AddRequestCommand(cityMap,requestList,tsp,route,graph,newRequest));
 		return true;
 	}
 
