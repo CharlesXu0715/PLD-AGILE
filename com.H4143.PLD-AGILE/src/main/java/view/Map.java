@@ -35,7 +35,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	int rectSize = 20;
 	
 	private List<Observer> observers = new ArrayList<>();
-	boolean setNull=false;
+	private boolean setNull=false;
 
 	public Map(int width, int height) {
 		this.width = width;
@@ -50,6 +50,8 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		
+		System.out.println(setNull);
 		
 		if(setNull==true) this.drawEmpty(g2);
 		else
