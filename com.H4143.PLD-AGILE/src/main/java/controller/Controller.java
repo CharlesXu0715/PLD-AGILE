@@ -134,4 +134,10 @@ public class Controller {
 			currentState=DISPLAY_ROUTE_STATE;
 		}
 	}
+	
+	public void newMap() {
+		if (currentState!=INITIAL_STATE) {
+			currentState=INITIAL_STATE;
+		}
+	}
 }
