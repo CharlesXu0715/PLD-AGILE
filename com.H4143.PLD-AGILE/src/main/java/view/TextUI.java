@@ -50,7 +50,7 @@ public class TextUI extends JPanel {
 		BoxLayout boxlayout1 = new BoxLayout(display1, BoxLayout.Y_AXIS);
 		BoxLayout boxlayout2 = new BoxLayout(display2, BoxLayout.Y_AXIS);
 		BoxLayout boxlayout3 = new BoxLayout(display3, BoxLayout.Y_AXIS);
-		Dimension first = new Dimension(200,30);
+		Dimension first = new Dimension(250,30);
 		Dimension other = new Dimension(100,30);
 		display1.setLayout(boxlayout1);
 		display2.setLayout(boxlayout2);
@@ -143,6 +143,9 @@ public class TextUI extends JPanel {
 					name.get(j).setForeground(Color.BLUE);
 					time.get(j).setForeground(Color.BLUE);
 					space.get(j).setForeground(Color.BLUE);
+					name.get(selected).setForeground(Color.BLACK);
+					time.get(selected).setForeground(Color.BLACK);
+					space.get(selected).setForeground(Color.BLACK);
 					display1.add(blank3);
 					display2.add(supprimer);
 					display3.add(ajouter);
