@@ -16,7 +16,8 @@ public class AddRequestState implements State {
 	}
 	
 	@Override
-	public boolean addRequestValidate(Controller c,Intersection start,int startDuration, Intersection end, int endDuration) {
+	public boolean addRequestValidate(Controller c, ClientUI window,
+			Intersection start,int startDuration, Intersection end, int endDuration) {
 		VisitPoint pointStart = new VisitPoint(start,startDuration,1);
 		VisitPoint pointEnd = new VisitPoint(end,endDuration,2);
 		c.getGraph().addVisitPoints(pointStart, pointEnd);

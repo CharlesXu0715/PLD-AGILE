@@ -13,9 +13,9 @@ public interface State {
 		return null;};
 	public default boolean loadRequest(Controller c,JPanel divrequestbox,Map map) {
 		return false;};
-	public default boolean addRequestSelectPoint() {
+	public default boolean addRequestStart(Controller c) {
 		return false;};
-	public default boolean addRequestValidate(Controller c,Intersection start,int startDuration, Intersection end, int endDuration) {
+	public default boolean addRequestValidate(Controller c, ClientUI window, Intersection start,int startDuration, Intersection end, int endDuration) {
 		return false;};
 	public default void leftClick(Controller c, ClientUI window) {};
 	public default void newRequest() {};
