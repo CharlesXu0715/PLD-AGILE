@@ -17,12 +17,13 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	private CityMap cityMap;
 	private RequestList requestList;
 	private List<Path> result;
+	
 
 	double minLat = Double.POSITIVE_INFINITY;
 	double minLng = Double.POSITIVE_INFINITY;
 	double maxLat = Double.NEGATIVE_INFINITY;
 	double maxLng = Double.NEGATIVE_INFINITY;
-
+	
 	double minLatInitial = Double.POSITIVE_INFINITY;
 	double minLngInitial = Double.POSITIVE_INFINITY;
 	double maxLatInitial = Double.NEGATIVE_INFINITY;
@@ -34,6 +35,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	int rectSize = 20;
 	
 	private List<Observer> observers = new ArrayList<>();
+	boolean setNull=false;
 
 	public Map(int width, int height) {
 		this.width = width;
@@ -48,21 +50,20 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-
-		this.drawBorder(g2);
-		if (cityMap != null)
-			this.drawCityMap(g2);
-		if (requestList != null)
-			this.drawRequestList(g2);
-		if (result != null)
-			this.drawResult(g2);
-		if (this.intersectionSelected != null)
-			this.drawIntersectionSelected(g2);
-
+		
+		if(setNull==true) this.drawEmpty(g2);
+		else
+		{
+			this.drawBorder(g2);
+			if (cityMap != null) this.drawCityMap(g2);
+			if (requestList != null) this.drawRequestList(g2);
+			if (result != null) this.drawResult(g2);
+			if (this.intersectionSelected != null) this.drawIntersectionSelected(g2);
+		}
 		g2.dispose();
 
 	}
-
+	
 	private double[] convertLatLngToXY(double lat, double lng) {
 		double y = (maxLat - lat) / (maxLat - minLat) * height;
 		double x = (lng - minLng) / (maxLng - minLng) * width;
@@ -74,7 +75,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		double lat = maxLat - y * (maxLat - minLat) / height;
 		return new double[] { lat, lng };
 	}
-
+	
 	private void drawBorder(Graphics2D g2) {
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(10.0f));
@@ -83,7 +84,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		g2.drawLine(1, 1, width - 1, 1);
 		g2.drawLine(1, height - 1, width - 1, height - 1);
 	}
-
+	
 	private void drawCityMap(Graphics2D g2) {
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke(2.0f));
@@ -98,16 +99,15 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 			g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
 
 		}
-		
 		this.drawBorder(g2);
 	}
-
+	
 	private void drawRequestList(Graphics2D g2) {
 		Color[] colors = { Color.YELLOW, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.GREEN,
 				Color.MAGENTA, Color.ORANGE, Color.PINK, Color.BLACK };
 		int count = 0;
-		
 		g2.setColor(colors[count++]);
+		
 		Intersection depot = this.requestList.getDepartPoint();
 		double[] xY = convertLatLngToXY(depot.getLatitude(), depot.getLongitude());
 		
@@ -125,10 +125,11 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 			g2.fillOval((int) delivXY[0] - rectSize / 2, (int) delivXY[1] - rectSize / 2, rectSize, rectSize);
 		}
 	}
-
+	
 	private void drawResult(Graphics2D g2) {
 		g2.setColor(Color.YELLOW);
 		g2.setStroke(new BasicStroke(4.0f));
+		
 
 		int count = 0;
 
@@ -158,6 +159,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		for (Path path : this.result) {
 			Road road = path.getRoads().get(0);
 			Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
+
 			double[] originXY = convertLatLngToXY(originIntersection.getLatitude(),
 					originIntersection.getLongitude());
 			g2.drawString((count < 10 ? "0" : "") + count++, (int) originXY[0] - rectSize / 3 , (int) originXY[1] + rectSize / 3);
@@ -165,17 +167,25 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		}
 
 	}
-
+	
 	private void drawIntersectionSelected(Graphics2D g2) {
 		g2.setColor(Color.YELLOW);
 		double[] xY = convertLatLngToXY(this.intersectionSelected.getLatitude(),
 				this.intersectionSelected.getLongitude());
 		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
 	}
-
+	
+	private void drawEmpty(Graphics2D g2)
+	{
+		g2.setColor(Color.DARK_GRAY);
+		g2.fillRect(0,0,width+200,height+200);
+		//this.setNull=false;
+	}
+	
 	public void setCityMap(CityMap cityMap) {
+		this.setNull=false;
 		this.cityMap = cityMap;
-
+		
 		for (Intersection intersection : this.cityMap.getIntersections()) {
 			if (intersection.getLatitude() < minLat)
 				minLat = intersection.getLatitude();
@@ -186,18 +196,24 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 			if (intersection.getLongitude() > maxLng)
 				maxLng = intersection.getLongitude();
 		}
-
+		
 		minLatInitial = minLat;
 		maxLatInitial = maxLat;
 		minLngInitial = minLng;
 		maxLngInitial = maxLng;
-
+		
 		repaint();
-
+		
 	}
-
+	
 	public void setRequestList(RequestList requestList) {
 		this.requestList = requestList;
+		repaint();
+	}
+	
+	public void setEmpty()
+	{
+		this.setNull=true;
 		repaint();
 	}
 
@@ -205,13 +221,14 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		this.result = result;
 		repaint();
 	}
-
+	
 	public void setIntersectionSelected(Intersection intersection) {
 		this.intersectionSelected = intersection;
 		repaint();
 	}
-
+	
 	public static void main(String[] args) {
+	
 
 		TSP tsp = new TSP1();
 		String mapName = "src/main/resources/largeMap.xml";
@@ -243,7 +260,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		jLabel.setCityMap(cityMap);
 		jLabel.setRequestList(requestList);
 		jLabel.setResult(paths);
-
+		
 		jLabel.setLocation(0, 0);
 
 		frame.getContentPane().add(jLabel);
@@ -257,12 +274,13 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		int x = e.getX();
 		int y = e.getY();
 		double[] latLng = convertXYToLatLng(x, y);
-		
+
 		for (Observer observer : observers) {
           observer.update(latLng[0], latLng[1]);
 		}
 
-		
+		repaint();
+		JOptionPane.showMessageDialog(this, this.intersectionSelected.getAdjacence().get(0).toString());
 
 	}
 
@@ -293,7 +311,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// TODO Auto-generated method stub
-
+		
 		if (e.getWheelRotation() == -1) {
 			if (e.getX() < width / 2 && e.getY() >= height / 2) {
 				if (zoom < 10) {
@@ -347,12 +365,10 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 				}
 			}
 		}
-
+		
 		repaint();
 
 	}
-
-	
 	@Override
     public void attach(Observer observer) {
         if (!observers.contains(observer))
