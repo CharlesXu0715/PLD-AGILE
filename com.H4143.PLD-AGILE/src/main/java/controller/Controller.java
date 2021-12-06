@@ -138,6 +138,12 @@ public class Controller {
 		}
 	}
 	
+	public void newMap() {
+		if (currentState!=INITIAL_STATE) {
+			currentState=INITIAL_STATE;
+		}
+	}
+	
 	public Intersection findNearestIntersection(double latitude,double longitude) {
 		return citymap.findNearestIntersection(latitude, longitude);
 	}
