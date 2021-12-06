@@ -30,6 +30,11 @@ public class LoadMapState implements State {
 		fileChooser.setFileFilter(filter);
 		fileloader=new FileLoader();
 	}
+	
+	@Override
+	public void leftClick(Controller c, ClientUI window) {
+		
+	}
 
 	@Override
 	public boolean loadRequest(Controller controller,JPanel divrequestbox,Map map) {
