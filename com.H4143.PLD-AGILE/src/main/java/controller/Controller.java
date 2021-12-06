@@ -1,22 +1,15 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JPanel;
 
 import model.CityMap;
 import model.Intersection;
-import model.Path;
 import model.RequestList;
-import model.Road;
 import model.Route;
-import model.VisitPoint;
 import tsp.Graph;
 import tsp.TSP;
 import view.ClientUI;
 import view.Map;
-import view.MapUI;
 
 public class Controller {
 	

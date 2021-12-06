@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import model.CityMap;
 import model.Intersection;
 import model.RequestList;
+import view.ClientUI;
 import view.Map;
 
 public interface State {
@@ -16,6 +17,7 @@ public interface State {
 		return false;};
 	public default boolean addRequestValidate(Controller c,Intersection start,int startDuration, Intersection end, int endDuration) {
 		return false;};
+	public default void leftClick(Controller c, ClientUI window) {};
 	public default void newRequest() {};
 	public default void newMap() {};
 	public default boolean calculateRoute(Controller controller, CityMap cityMap, RequestList requestList) {

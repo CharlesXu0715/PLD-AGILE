@@ -2,11 +2,17 @@ package controller;
 
 import model.Intersection;
 import model.VisitPoint;
+import view.ClientUI;
 
 public class AddRequestState implements State {
 
 	public AddRequestState() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void leftClick(Controller c, ClientUI window) {
+		
 	}
 	
 	@Override
