@@ -192,5 +192,10 @@ public class TextUI extends JPanel {
 		this.add(display3);
 		return this;
 	}
-
+	
+	public JPanel setEmpty()
+	{
+		this.removeAll();
+		return this;
+	}
 }

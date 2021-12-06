@@ -5,18 +5,19 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import controller.Observer;
 import model.*;
 import tsp.*;
 
-public class Map extends JLabel implements MouseListener, MouseWheelListener {
+public class Map extends JLabel implements MouseListener, MouseWheelListener, Subject {
 
 	private int width = 0;
 	private int height = 0;
 	private CityMap cityMap;
 	private RequestList requestList;
-	private List<Road> result;
-	private Color[] colors = { Color.BLACK, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.GREEN,
-			Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.YELLOW, Color.WHITE };
+	private List<Path> result;
+	
 
 	double minLat = Double.POSITIVE_INFINITY;
 	double minLng = Double.POSITIVE_INFINITY;
@@ -28,49 +29,56 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 	double maxLatInitial = Double.NEGATIVE_INFINITY;
 	double maxLngInitial = Double.NEGATIVE_INFINITY;
 
-	Intersection intersection = null;
+	Intersection intersectionSelected = null;
 
 	double zoom = 1;
+	int rectSize = 20;
+	
+	private List<Observer> observers = new ArrayList<>();
+	private boolean setNull=false;
 
 	public Map(int width, int height) {
 		this.width = width;
 		this.height = height;
 
 		this.setSize(width, height);
-
 		this.addMouseListener(this);
 		this.addMouseWheelListener(this);
-		
-		
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		int count = 0;
-
-		this.drawBorder(g2, count);
-
-		if (cityMap != null) this.drawCityMap(g2, count);
-		if (requestList != null) this.drawRequestList(g2, count);
-		if (result != null) this.drawResult(g2, count);
 		
-
-
-		
-
-		if (this.intersection != null) {
-			g2.setColor(colors[count++]);
-			double[] xY = convertLatLngToXY(intersection.getLatitude(), intersection.getLongitude());
-			g2.fillRect((int) xY[0] - 5, (int) xY[1] - 5, 10, 10);
+		//System.out.println(setNull);
+		if(setNull==true) this.drawEmpty(g2);
+		else
+		{
+			this.drawBorder(g2);
+			if (cityMap != null) this.drawCityMap(g2);
+			if (requestList != null) this.drawRequestList(g2);
+			if (result != null) this.drawResult(g2);
+			if (this.intersectionSelected != null) this.drawIntersectionSelected(g2);
 		}
 		g2.dispose();
 
 	}
 	
-	private void drawBorder(Graphics2D g2, int count) {
-		g2.setColor(colors[count++]);
+	private double[] convertLatLngToXY(double lat, double lng) {
+		double y = (maxLat - lat) / (maxLat - minLat) * height;
+		double x = (lng - minLng) / (maxLng - minLng) * width;
+		return new double[] { x, y };
+	}
+
+	private double[] convertXYToLatLng(double x, double y) {
+		double lng = x * (maxLng - minLng) / width + minLng;
+		double lat = maxLat - y * (maxLat - minLat) / height;
+		return new double[] { lat, lng };
+	}
+	
+	private void drawBorder(Graphics2D g2) {
+		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke(10.0f));
 		g2.drawLine(1, 1, 1, height - 1);
 		g2.drawLine(width - 1, 0, width - 1, height - 1);
@@ -78,7 +86,8 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 		g2.drawLine(1, height - 1, width - 1, height - 1);
 	}
 	
-	private void drawCityMap(Graphics2D g2, int count) {
+	private void drawCityMap(Graphics2D g2) {
+		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke(2.0f));
 		for (Road road : this.cityMap.getRoads()) {
 			Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
@@ -88,18 +97,22 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 			double[] destinationXY = convertLatLngToXY(destinationIntersection.getLatitude(),
 					destinationIntersection.getLongitude());
 
-//			if (!result.contains(road)) {
-				g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
-//			}
+			g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
 
 		}
+		this.drawBorder(g2);
 	}
 	
-	private void drawRequestList(Graphics2D g2, int count) {
+	private void drawRequestList(Graphics2D g2) {
+		Color[] colors = { Color.YELLOW, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.GREEN,
+				Color.MAGENTA, Color.ORANGE, Color.PINK, Color.BLACK };
+		int count = 0;
 		g2.setColor(colors[count++]);
+		
 		Intersection depot = this.requestList.getDepartPoint();
 		double[] xY = convertLatLngToXY(depot.getLatitude(), depot.getLongitude());
-		g2.fillRect((int) xY[0] - 5, (int) xY[1] - 5, 10, 10);
+		
+		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
 
 		for (Request request : this.requestList.getRequests()) {
 			g2.setColor(colors[count++]);
@@ -107,32 +120,72 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 			Intersection pickIntersection = request.getPickPoint().getIntersection();
 
 			double[] pickXY = convertLatLngToXY(pickIntersection.getLatitude(), pickIntersection.getLongitude());
-			g2.fillRect((int) pickXY[0] - 5, (int) pickXY[1] - 5, 10, 10);
+			g2.fillRect((int) pickXY[0] - rectSize / 2, (int) pickXY[1] - rectSize / 2, rectSize, rectSize);
 
 			double[] delivXY = convertLatLngToXY(delivIntersection.getLatitude(), delivIntersection.getLongitude());
-			g2.fillOval((int) delivXY[0] - 5, (int) delivXY[1] - 5, 10, 10);
+			g2.fillOval((int) delivXY[0] - rectSize / 2, (int) delivXY[1] - rectSize / 2, rectSize, rectSize);
 		}
 	}
 	
-	private void drawResult(Graphics2D g2, int count) {
+	private void drawResult(Graphics2D g2) {
+		g2.setColor(Color.YELLOW);
 		g2.setStroke(new BasicStroke(4.0f));
-		for (int i = 0; i < this.result.size(); i++) {
-			
-			Road road = this.result.get(i);
+		
+
+		int count = 0;
+
+		for (Path path : this.result) {
+			int length = path.getRoads().size();
+			for (int i = 0; i < length; i++) {
+				Road road = path.getRoads().get(i);
+				Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
+				Intersection destinationIntersection = this.cityMap.searchByIndex(road.getDestinationIndex());
+
+				double[] originXY = convertLatLngToXY(originIntersection.getLatitude(),
+						originIntersection.getLongitude());
+				double[] destinationXY = convertLatLngToXY(destinationIntersection.getLatitude(),
+						destinationIntersection.getLongitude());
+
+				g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
+			}
+		}
+
+		this.drawRequestList(g2);
+		
+
+		g2.setColor(Color.WHITE);
+		
+		
+		
+		for (Path path : this.result) {
+			Road road = path.getRoads().get(0);
 			Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
-			Intersection destinationIntersection = this.cityMap.searchByIndex(road.getDestinationIndex());
 
 			double[] originXY = convertLatLngToXY(originIntersection.getLatitude(),
 					originIntersection.getLongitude());
-			double[] destinationXY = convertLatLngToXY(destinationIntersection.getLatitude(),
-					destinationIntersection.getLongitude());
-
-			g2.setColor(new Color(1, 0, 0, (float)(1.0 / this.result.size() * i)));
-			g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
+			g2.drawString((count < 10 ? "0" : "") + count++, (int) originXY[0] - rectSize / 3 , (int) originXY[1] + rectSize / 3);
+			
 		}
+
 	}
 	
+	private void drawIntersectionSelected(Graphics2D g2) {
+		g2.setColor(Color.YELLOW);
+		double[] xY = convertLatLngToXY(this.intersectionSelected.getLatitude(),
+				this.intersectionSelected.getLongitude());
+		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
+	}
+	
+	private void drawEmpty(Graphics2D g2)
+	{
+		g2.setColor(Color.DARK_GRAY);
+		g2.fillRect(0,0,width+200,height+200);
+		//this.setNull=false;
+	}
+	
+	
 	public void setCityMap(CityMap cityMap) {
+		this.setNull=false;
 		this.cityMap = cityMap;
 		
 		for (Intersection intersection : this.cityMap.getIntersections()) {
@@ -151,7 +204,6 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 		minLngInitial = minLng;
 		maxLngInitial = maxLng;
 		
-		
 		repaint();
 		
 	}
@@ -161,23 +213,23 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 		repaint();
 	}
 	
-	public void setResult(List<Road> result) {
-		this.result = result;
+	public void setEmpty()
+	{
+		//System.out.println("EMPTY");
+		setNull=true;
 		repaint();
 	}
 
-	private double[] convertLatLngToXY(double lat, double lng) {
-		double y = (maxLat - lat) / (maxLat - minLat) * height;
-		double x = (lng - minLng) / (maxLng - minLng) * width;
-		return new double[] { x, y };
+	public void setResult(List<Path> result) {
+		this.result = result;
+		repaint();
 	}
-
-	private double[] convertXYToLatLng(double x, double y) {
-		double lng = x * (maxLng - minLng) / width + minLng;
-		double lat = maxLat - y * (maxLat - minLat) / height;
-		return new double[] { lat, lng };
+	
+	public void setIntersectionSelected(Intersection intersection) {
+		this.intersectionSelected = intersection;
+		repaint();
 	}
-
+	
 	public static void main(String[] args) {
 	
 
@@ -210,7 +262,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 		Map jLabel = new Map(WIDTH, HEIGHT);
 		jLabel.setCityMap(cityMap);
 		jLabel.setRequestList(requestList);
-		jLabel.setResult(roads2);
+		jLabel.setResult(paths);
 		
 		jLabel.setLocation(0, 0);
 
@@ -225,18 +277,13 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 		int x = e.getX();
 		int y = e.getY();
 		double[] latLng = convertXYToLatLng(x, y);
-		double minDistance = Double.POSITIVE_INFINITY;
 
-		for (Intersection intersection : cityMap.getIntersections()) {
-			double d = Math.hypot(latLng[0] - intersection.getLatitude(), latLng[1] - intersection.getLongitude());
-			if (d < minDistance) {
-				minDistance = d;
-				this.intersection = intersection;
-			}
+		for (Observer observer : observers) {
+          observer.update(latLng[0], latLng[1]);
 		}
 
 		repaint();
-		JOptionPane.showMessageDialog(this, this.intersection.getAdjacence().get(0).toString());
+		JOptionPane.showMessageDialog(this, this.intersectionSelected.getAdjacence().get(0).toString());
 
 	}
 
@@ -325,5 +372,24 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener {
 		repaint();
 
 	}
+	@Override
+    public void attach(Observer observer) {
+        if (!observers.contains(observer))
+            observers.add(observer);
+    }
+ 
+    @Override
+    public void detach(Observer observer) {
+        if (observers.contains(observer)) {
+            observers.remove(observer);
+        }
+    }
+ 
+    @Override
+    public void notifyAllObserver() {
+//        for (Observer observer : observers) {
+//            observer.update();
+//        }
+    }
 
 }

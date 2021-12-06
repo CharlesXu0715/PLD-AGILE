@@ -1,19 +1,15 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JPanel;
 
 import model.CityMap;
-import model.Path;
+import model.Intersection;
 import model.RequestList;
-import model.Road;
+import model.Route;
 import tsp.Graph;
 import tsp.TSP;
 import view.ClientUI;
 import view.Map;
-import view.MapUI;
 
 public class Controller {
 	
@@ -31,6 +27,8 @@ public class Controller {
 	private ClientUI mainWindow;
 	private CityMap citymap;
 	private RequestList requestlist;
+	private Route route;
+
 	private TSP tsp;
 	private Graph graph;
 	
@@ -73,6 +71,14 @@ public class Controller {
 	public void setRequestlist(RequestList requestlist) {
 		this.requestlist = requestlist;
 	}
+	
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
 
 	public void loadMap(JPanel divmap,Map map)
 	{
@@ -80,7 +86,6 @@ public class Controller {
 		if (newmap!=null) {		//load successful
 			currentState=LOAD_MAP_STATE;
 		}
-		mainWindow.setMap(newmap);
 	}
 	
 	public void undo() {
@@ -112,8 +117,37 @@ public class Controller {
 		}
 	}
 	
-	public State getCurrentState()
-	{
+	public State getCurrentState() {
 		return currentState;
+	}
+	
+	public void setCurrentState (State state) {
+		currentState = state;
+	}
+	
+	public void leftClick() {
+		currentState.leftClick(this, mainWindow);
+	}
+
+	public void addRequest(Intersection start,int startDuration, Intersection end, int endDuration) {
+//		boolean pass = this.currentState.addRequestValidate(this, start, startDuration, end, endDuration);
+//		if (pass) {
+//			int lastVisitPoint = tsp.getSolution(graph.getNbVertices()-2);
+//			route.removeLastPath();
+//			route.addPath(graph.getPath(lastVisitPoint, graph.getNbVertices()-1));
+//			route.addPath(graph.getPath(graph.getNbVertices()-1, graph.getNbVertices()));
+//			route.addPath(graph.getPath(graph.getNbVertices(), 0));
+//			currentState=DISPLAY_ROUTE_STATE;
+//		}
+	}
+	
+	public void newMap() {
+		if (currentState!=INITIAL_STATE) {
+			currentState=INITIAL_STATE;
+		}
+	}
+	
+	public Intersection findNearestIntersection(double latitude,double longitude) {
+		return citymap.findNearestIntersection(latitude, longitude);
 	}
 }

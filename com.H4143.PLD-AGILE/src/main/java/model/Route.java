@@ -31,8 +31,8 @@ public class Route {
 	}
 	
 	public void removeLastPath() {
-		cost -= paths.get(paths.size()).getCost();
-		duration -= paths.get(paths.size()).getDuration();
+		cost -= paths.get(paths.size()-1).getCost();
+		duration -= paths.get(paths.size()-1).getDuration();
 		paths.remove(paths.size()-1);
 	}
 	
@@ -61,6 +61,10 @@ public class Route {
 		}
 		result.add(paths.get(0).getStart().getIndex());
 		return result;
+	}
+	
+	public VisitPoint getLastVisitPoint() {
+		return visitPoints.get(visitPoints.size()-1);
 	}
 	
 	public String toString()

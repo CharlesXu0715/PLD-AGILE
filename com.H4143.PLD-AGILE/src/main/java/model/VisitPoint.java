@@ -1,11 +1,8 @@
 package model;
 
-import java.util.Observable;
 
-@SuppressWarnings("deprecation")
-public class VisitPoint extends Observable{
+public class VisitPoint {
 //	private String pointId; //id of intersection
-	private boolean selected;
 	private Intersection intersection;
     //type 0 = depot point, type 1 = pickup point, type 2 = delivery point
 	private int type;
@@ -15,7 +12,6 @@ public class VisitPoint extends Observable{
     	super();
         this.intersection=intersection;
         this.duration=duration;
-        this.selected=false;
         this.type = type;
     }
 
@@ -23,13 +19,6 @@ public class VisitPoint extends Observable{
 //        return pointId;
 //    }
 
-    public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
 
 	public int getDuration(){
         return duration;
@@ -51,7 +40,8 @@ public class VisitPoint extends Observable{
 		ans+="  point : "+intersection+"\n";
 		return ans;
 	}
-	
+
+
 //	public void setPointIndex(int pointIndex) {
 //		this.pointIndex = pointIndex;
 //	}

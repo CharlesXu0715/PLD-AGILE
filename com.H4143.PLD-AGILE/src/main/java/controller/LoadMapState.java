@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.util.List;
@@ -11,10 +10,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import model.*;
+import model.CityMap;
+import model.FileLoader;
+import model.Intersection;
+import model.RequestList;
+import model.Road;
 import view.ClientUI;
 import view.Map;
-import view.MapUI;
 
 public class LoadMapState implements State {
 
@@ -29,6 +31,11 @@ public class LoadMapState implements State {
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileFilter(filter);
 		fileloader=new FileLoader();
+	}
+	
+	@Override
+	public void leftClick(Controller c, ClientUI window) {
+		
 	}
 
 	@Override

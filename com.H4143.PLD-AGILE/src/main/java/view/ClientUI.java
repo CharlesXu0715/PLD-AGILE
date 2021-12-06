@@ -50,7 +50,7 @@ public class ClientUI extends JFrame implements ActionListener {
 
 	private JFileChooser fileChooser = new JFileChooser();
 
-	private Map map;
+	private Map map = new Map(MAP_WIDTH, MAP_HEIGHT) ;
 	private TextUI requestsDisplay;
 
 	public ClientUI(Controller controller) {
@@ -71,18 +71,18 @@ public class ClientUI extends JFrame implements ActionListener {
 		this.divMap.setBackground(Color.DARK_GRAY);
 		this.divMap.setPreferredSize(new Dimension(810, 825));
 		this.divRequest.setPreferredSize(new Dimension(545, 825));
-		add(this.divMap);
 
 		loadMap = new Button("Load Map");
-		this.divMap.add(loadMap, BorderLayout.SOUTH);
-
 		newMap = new Button("New Map");
-
+		loadMap.setEnabled(true);
+		loadMap.setVisible(true);
 		
+		this.divMap.add(loadMap, BorderLayout.SOUTH);
 
 		// div request
 		this.divMap.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		this.divRequest.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		add(this.divMap);
 		this.add(divRequest);
 
 		Panel divRequestBox = new Panel();
@@ -105,7 +105,12 @@ public class ClientUI extends JFrame implements ActionListener {
 					loadMap.setEnabled(false);
 					loadMap.setVisible(false);
 					loadRequest.setEnabled(true);
+					newMap.setEnabled(true);;
+					newMap.setVisible(true);
+					divMap.remove(loadMap);
 					divMap.add(newMap, BorderLayout.SOUTH);
+					divMap.revalidate();
+					divMap.repaint();
 				}
 			}
 		});
@@ -114,19 +119,19 @@ public class ClientUI extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				loadMap.setEnabled(true);
-				loadMap.setVisible(true);
-				//Container parent = buttonThatWasClicked.getParent();
-				divMap.remove(newMap);
-				divMap.revalidate();
-				divMap.repaint();
-				if(requestsDisplay != null) {
-					divRequest.remove(requestsDisplay.displayRequests());
-					divRequest.revalidate();
-					divRequest.repaint();
-				}
+				//divMap.remove(map);
+				map.setEmpty();
+				controller.newMap();
+				requestsDisplay.setEmpty();
 				loadRequest.setEnabled(false);
 				calculateTour.setEnabled(false);
+				loadMap.setEnabled(true);
+				loadMap.setVisible(true);
+				newMap.setEnabled(false);
+				newMap.setVisible(false);
+				divMap.remove(newMap);
+				divMap.add(loadMap, BorderLayout.SOUTH);
+				divMap.revalidate();
 				//TODO delete map 
 			}
 		});
