@@ -88,7 +88,6 @@ public class ClientUI extends JFrame implements ActionListener {
 		Panel divRequestBox = new Panel();
 		divRequestBox.setPreferredSize(new Dimension(545, 250));
 
-//		this.divRequest.add(divRequestBox);
 
 		loadRequest = new Button("Load Request");
 		calculateTour = new Button("Calculate Tour");
@@ -117,10 +116,15 @@ public class ClientUI extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				loadMap.setEnabled(true);
 				loadMap.setVisible(true);
-				newMap.setEnabled(false);
-				newMap.setVisible(false);
-				divMap.add(loadMap, BorderLayout.SOUTH);
-				divRequest.add(new JPanel(), BorderLayout.CENTER);
+				//Container parent = buttonThatWasClicked.getParent();
+				divMap.remove(newMap);
+				divMap.revalidate();
+				divMap.repaint();
+				if(requestsDisplay != null) {
+					divRequest.remove(requestsDisplay.displayRequests());
+					divRequest.revalidate();
+					divRequest.repaint();
+				}
 				loadRequest.setEnabled(false);
 				calculateTour.setEnabled(false);
 				//TODO delete map 
@@ -130,8 +134,6 @@ public class ClientUI extends JFrame implements ActionListener {
 		loadRequest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//           	int result = fileChooser.showOpenDialog(divRequestBox);
-//           	chooseFile(result, "request");
 				controller.loadRequest(divRequestBox, map);
 				requestsDisplay = new TextUI(controller.getRequestlist());
 				divRequest.add(requestsDisplay.displayRequests(), BorderLayout.CENTER);
@@ -143,7 +145,7 @@ public class ClientUI extends JFrame implements ActionListener {
 		calculateTour.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				(requestsDisplay.displayRequests()).setVisible(false);
+				requestsDisplay.displayRequests().setVisible(false);
 				controller.calculateTour();
 				List<Road> roads = new ArrayList<Road>();
 				for (Path p : controller.getTsp().getRoute().getPaths()) {

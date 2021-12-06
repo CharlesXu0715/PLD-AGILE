@@ -38,7 +38,7 @@ public class TextUI extends JPanel {
 	}
 	
 	public JPanel displayRequests() {
-		JPanel display = new JPanel();
+		//JPanel display = new JPanel();
 		JPanel display1 = new JPanel();
 		JPanel display2 = new JPanel();
 		JPanel display3 = new JPanel();
@@ -102,11 +102,11 @@ public class TextUI extends JPanel {
 			}
 			
 		}
-		display.add(display1);
-		display.add(display2);
-		display.add(display3);
+		this.add(display1);
+		this.add(display2);
+		this.add(display3);
 //		display.setVisible(true);
-		return display;
+		return this;
 	}
 
 }
