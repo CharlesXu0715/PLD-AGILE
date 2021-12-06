@@ -68,6 +68,11 @@ public class Route {
 		duration += path.getDuration();
 	}
 	
+	public void addVisitPointToPosition(VisitPoint visitPoint, int index) {
+		visitPoints.add(index, visitPoint);
+		duration += visitPoint.getDuration();
+	}
+	
 	public void addVisitPoint(VisitPoint visitPoint) {
 		this.visitPoints.add(visitPoint);
 		duration += visitPoint.getDuration();
@@ -76,6 +81,16 @@ public class Route {
 	public void removeVisitPoint(VisitPoint visitPoint) {
 		this.visitPoints.remove(visitPoint);
 		duration -= visitPoint.getDuration();
+	}
+	
+	public VisitPoint getVisitPointByIndex(int index) {
+		if (index<visitPoints.size()) {
+			return visitPoints.get(index);
+		} else if (index==visitPoints.size()) {
+			return visitPoints.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	public double getCost() {

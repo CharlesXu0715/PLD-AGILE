@@ -133,6 +133,39 @@ public abstract class TemplateTSP implements TSP {
 		route.removeVisitPoint(requestToRemove.getDelivPoint());
 	}
 	
+	public void changeVisitPointOrder(VisitPoint visitPoint, int newIndex) {
+		//first connect the 2 points around the visitPoint
+		
+		List<VisitPoint> toConnect = route.getConnectedPoints(visitPoint);
+		int oldIndex = route.getVisitPointIndex(visitPoint);
+		Path connect = g.getPath(g.getGraphVertexIndex(toConnect.get(0)),g.getGraphVertexIndex(toConnect.get(1)));
+		//remove the path from the point to remove to the next point
+		route.removePathByIndex(oldIndex);
+		//remove the path from the last point to the point to remove
+		route.removePathByIndex(oldIndex-1);
+		//add the connecting path to the correct position
+		route.addPathToPosition(connect, oldIndex-1);
+		//remove the visit point from the route's list
+		route.removeVisitPoint(visitPoint);
+		
+		//now remove the path at new index, add the point back in, and connect the paths to and from said point
+		//remove path connecting from before to after, which sits at newIndex-1
+		route.removePathByIndex(newIndex-1);
+		VisitPoint before = route.getVisitPointByIndex(newIndex-1);
+		VisitPoint after = route.getVisitPointByIndex(newIndex);
+		
+		//add back the VisitPoint
+		route.addVisitPointToPosition(visitPoint, newIndex);
+		
+		//connect the new paths
+		//add the visitPoint-after path first, then add the before-visitPoint path
+		connect = g.getPath(g.getGraphVertexIndex(visitPoint), g.getGraphVertexIndex(after));
+		route.addPathToPosition(connect, newIndex-1);
+		connect = g.getPath(g.getGraphVertexIndex(before), g.getGraphVertexIndex(visitPoint));
+		route.addPathToPosition(connect, newIndex-1);
+		
+	}
+	
 	/**
 	 * Method that must be defined in TemplateTSP subclasses
 	 * @param currentVertex

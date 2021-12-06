@@ -6,6 +6,7 @@ import model.Path;
 import model.Request;
 import model.Road;
 import model.Route;
+import model.VisitPoint;
 
 public interface TSP {
 	/**
@@ -60,5 +61,13 @@ public interface TSP {
 	 * @param requestToRemove is the request to be removed from the RequestList. Will do nothing if request is not present in the RequestList.
 	 */
 	public void removeRequest(Request requestToRemove);
+	
+	/**
+	 * change the order of the VisitPoint <code>visitPoint</code> in the Route to index <code>index</code>
+	 * @param visitPoint is the concerned VisitPoint, and should be present in the Route
+	 * @param index is the new visiting order for the <code>visitPoint</code>, and should be a positive number
+	 * or equal to the total number of VisitPoint
+	 */
+	public void changeVisitPointOrder(VisitPoint visitPoint, int newIndex);
 
 }
