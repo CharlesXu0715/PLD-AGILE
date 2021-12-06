@@ -1,7 +1,6 @@
 package controller;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.util.List;
@@ -22,7 +21,6 @@ import tsp.TSP;
 import tsp.TSP1;
 import view.ClientUI;
 import view.Map;
-import view.MapUI;
 
 public class LoadRequestState implements State {
 
