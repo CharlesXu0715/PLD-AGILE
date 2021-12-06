@@ -6,9 +6,12 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.CityMap;
+import model.Intersection;
 import model.Path;
 import model.RequestList;
 import model.Road;
+import model.Route;
+import model.VisitPoint;
 import tsp.Graph;
 import tsp.TSP;
 import view.ClientUI;
@@ -31,6 +34,8 @@ public class Controller {
 	private ClientUI mainWindow;
 	private CityMap citymap;
 	private RequestList requestlist;
+	private Route route;
+
 	private TSP tsp;
 	private Graph graph;
 	
@@ -72,6 +77,14 @@ public class Controller {
 	
 	public void setRequestlist(RequestList requestlist) {
 		this.requestlist = requestlist;
+	}
+	
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
 	}
 
 	public void loadMap(JPanel divmap,Map map)
@@ -115,5 +128,17 @@ public class Controller {
 	public State getCurrentState()
 	{
 		return currentState;
+	}
+
+	public void addRequest(Intersection start,int startDuration, Intersection end, int endDuration) {
+		boolean pass = this.currentState.addRequestValidate(this, start, startDuration, end, endDuration);
+		if (pass) {
+			int lastVisitPoint = tsp.getSolution(graph.getNbVertices()-2);
+			route.removeLastPath();
+			route.addPath(graph.getPath(lastVisitPoint, graph.getNbVertices()-1));
+			route.addPath(graph.getPath(graph.getNbVertices()-1, graph.getNbVertices()));
+			route.addPath(graph.getPath(graph.getNbVertices(), 0));
+			currentState=DISPLAY_ROUTE_STATE;
+		}
 	}
 }

@@ -93,5 +93,10 @@ public class DisplayRouteState implements State{
 		}
 		return null;
 	}
+	
+	@Override
+	public boolean addRequestSelectPoint() {
+		return true;
+	}
 
 }
