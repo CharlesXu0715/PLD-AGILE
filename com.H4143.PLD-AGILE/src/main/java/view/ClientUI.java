@@ -50,18 +50,16 @@ public class ClientUI extends JFrame implements ActionListener {
 
 	private JFileChooser fileChooser = new JFileChooser();
 
-	private Map map = new Map(MAP_WIDTH, MAP_HEIGHT) ;
+	private Map map;
 	private TextUI requestsDisplay;
-	
-	private TextUI2 requestsDisplay2;
-	
+
 	public ClientUI(Controller controller) {
 		this.controller = controller;
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileFilter(filter);
 
 		setTitle("ClientUI");
-		setSize(1400, 820);
+		setSize(1400, 858);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,17 +69,14 @@ public class ClientUI extends JFrame implements ActionListener {
 		this.divMap.setLayout(new BorderLayout());
 		this.divRequest.setBackground(Color.GRAY);
 		this.divMap.setBackground(Color.DARK_GRAY);
-		this.divMap.setPreferredSize(new Dimension(810, 800));
-		this.divMap.add(this.map, BorderLayout.SOUTH);
-		this.divRequest.setPreferredSize(new Dimension(545, 800));
+		this.divMap.setPreferredSize(new Dimension(810, 825));
+		this.divRequest.setPreferredSize(new Dimension(545, 825));
 		add(this.divMap);
 
 		loadMap = new Button("Load Map");
 		this.divMap.add(loadMap, BorderLayout.SOUTH);
 
 		newMap = new Button("New Map");
-		
-		
 
 		
 
@@ -140,12 +135,8 @@ public class ClientUI extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.loadRequest(divRequestBox, map);
-				//requestsDisplay = new TextUI(controller.getRequestlist());
-				requestsDisplay2 = new TextUI2();
-				//divRequest.add(requestsDisplay.displayRequests(), BorderLayout.CENTER);
-				requestsDisplay2.setList(controller.getRequestlist());
-				divRequest.add(requestsDisplay2.displayRequests(), BorderLayout.CENTER);
-				//divRequest.add(requestsDisplay2, BorderLayout.CENTER);
+				requestsDisplay = new TextUI(controller.getRequestlist());
+				divRequest.add(requestsDisplay.displayRequests(), BorderLayout.CENTER);
 				divRequest.revalidate();
 				calculateTour.setEnabled(true);
 			}
@@ -154,16 +145,13 @@ public class ClientUI extends JFrame implements ActionListener {
 		calculateTour.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				requestsDisplay.displayRequests().setVisible(false);
-
 				controller.calculateTour();
 				List<Road> roads = new ArrayList<Road>();
-				map.setResult(controller.getTsp().getRoute().getPaths());
-//				for (Path p : controller.getTsp().getRoute().getPaths()) {
-//					roads.addAll(p.getRoads());
-//					map.setResult(roads);
-//				}
+				for (Path p : controller.getTsp().getRoute().getPaths()) {
+					roads.addAll(p.getRoads());
+					map.setResult(roads);
+				}
 			}
 		});
 
@@ -177,7 +165,10 @@ public class ClientUI extends JFrame implements ActionListener {
 		return map;
 	}
 
-	
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
