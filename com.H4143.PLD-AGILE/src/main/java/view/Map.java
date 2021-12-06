@@ -182,6 +182,7 @@ public class Map extends JLabel implements MouseListener, MouseWheelListener, Su
 		//this.setNull=false;
 	}
 	
+	
 	public void setCityMap(CityMap cityMap) {
 		this.setNull=false;
 		this.cityMap = cityMap;
