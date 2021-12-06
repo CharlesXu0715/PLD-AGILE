@@ -54,5 +54,11 @@ public interface TSP {
 	 * @param newRequest: the new request to be added
 	 */
 	public void addNewRequest(Request newRequest);
+	
+	/**
+	 * remove a request from the route and graph, then connect the missing points together
+	 * @param requestToRemove is the request to be removed from the RequestList. Will do nothing if request is not present in the RequestList.
+	 */
+	public void removeRequest(Request requestToRemove);
 
 }

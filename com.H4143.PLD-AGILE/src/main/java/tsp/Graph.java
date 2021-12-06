@@ -60,6 +60,7 @@ public interface Graph {
 	public abstract void addVisitPoints(VisitPoint pickup, VisitPoint delivery);
 	
 	/**
+	 * remove the VisitPoints from the graph, also deleting the paths to and from said VisitPoints
 	 * @param pickup: the VisitPoint corresponding to the pickup address and time
 	 * @param delivery: the VisitPoint corresponding to the delivery address and time
 	 */

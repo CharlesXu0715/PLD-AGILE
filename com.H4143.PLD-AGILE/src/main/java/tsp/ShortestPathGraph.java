@@ -174,7 +174,7 @@ public class ShortestPathGraph implements Graph{
 	
 	public void removeVisitPoints(VisitPoint pickup, VisitPoint delivery) {
 		nbVertices = nbVertices-2;
-		//indexPickup is always < indexDelivery (2 indices should be consecutive)
+		//indexPickup is always < indexDelivery (the 2 indices should be consecutive)
 		int indexPickup=toVisit.lastIndexOf(pickup);
 		int indexDelivery=toVisit.lastIndexOf(delivery);
 		toVisit.remove(pickup);

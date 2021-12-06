@@ -98,9 +98,39 @@ public abstract class TemplateTSP implements TSP {
 		g.addVisitPoints(newRequest.getPickPoint(), newRequest.getDelivPoint());
 		int lastVisitPoint = g.getGraphVertexIndex(route.getLastVisitPoint());
 		route.removeLastPath();
-		route.addPath(g.getPath(lastVisitPoint, g.getNbVertices()-1));
+		route.addPath(g.getPath(lastVisitPoint, g.getNbVertices()-2));
 		route.addPath(g.getPath(g.getNbVertices()-2, g.getNbVertices()-1));
 		route.addPath(g.getPath(g.getNbVertices()-1, 0));
+	}
+	
+	@Override
+	public void removeRequest(Request requestToRemove) {
+		g.removeVisitPoints(requestToRemove.getPickPoint(), requestToRemove.getDelivPoint());
+		List<VisitPoint> toConnect = route.getConnectedPoints(requestToRemove.getPickPoint());
+		int index = route.getVisitPointIndex(requestToRemove.getPickPoint());
+		Path connect = g.getPath(g.getGraphVertexIndex(toConnect.get(0)),g.getGraphVertexIndex(toConnect.get(1)));
+		//remove the path from the point to remove to the next point
+		route.removePathByIndex(index);
+		//remove the path from the last point to the point to remove
+		route.removePathByIndex(index-1);
+		//add the connecting path to the correct position
+		route.addPathToPosition(connect, index-1);
+		//remove the visit point from the route's list
+		route.removeVisitPoint(requestToRemove.getPickPoint());
+		
+		//do the same to the Delivery Point
+		
+		toConnect = route.getConnectedPoints(requestToRemove.getDelivPoint());
+		index = route.getVisitPointIndex(requestToRemove.getDelivPoint());
+		connect = g.getPath(g.getGraphVertexIndex(toConnect.get(0)),g.getGraphVertexIndex(toConnect.get(1)));
+		//remove the path from the point to remove to the next point
+		route.removePathByIndex(index);
+		//remove the path from the last point to the point to remove
+		route.removePathByIndex(index-1);
+		//add the connecting path to the correct position
+		route.addPathToPosition(connect, index-1);
+		//remove the visit point from the route's list
+		route.removeVisitPoint(requestToRemove.getDelivPoint());
 	}
 	
 	/**

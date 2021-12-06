@@ -36,6 +36,38 @@ public class Route {
 		paths.remove(paths.size()-1);
 	}
 	
+	public int getPathIndex(Path path) {
+		return paths.indexOf(path);
+	}
+	
+	public int getVisitPointIndex(VisitPoint visitPoint) {
+		return visitPoints.indexOf(visitPoint);
+	}
+	
+	public void removePathByIndex(int index) {
+		cost -= paths.get(index).getCost();
+		duration -= paths.get(index).getDuration();
+		paths.remove(index);
+	}
+	
+	public List<VisitPoint> getConnectedPoints(VisitPoint intermediatePoint){
+		List<VisitPoint> beforeAfter = new ArrayList<VisitPoint>();
+		int index = visitPoints.indexOf(intermediatePoint);
+		beforeAfter.add(visitPoints.get(index-1));
+		if (index+1==visitPoints.size()) {
+			beforeAfter.add(visitPoints.get(0));
+		} else {
+			beforeAfter.add(visitPoints.get(index+1));
+		}
+		return beforeAfter;
+	}
+	
+	public void addPathToPosition(Path path,int index) {
+		paths.add(index, path);
+		cost += path.getCost();
+		duration += path.getDuration();
+	}
+	
 	public void addVisitPoint(VisitPoint visitPoint) {
 		this.visitPoints.add(visitPoint);
 		duration += visitPoint.getDuration();
