@@ -125,6 +125,11 @@ public class ShortestPathGraph implements Graph{
 	}
 	
 	@Override
+	public int getGraphVertexIndex(VisitPoint i) {
+		return toVisit.lastIndexOf(i);
+	}
+	
+	@Override
 	public Path getPath(int i, int j){
 		return paths[i][j];
 	}
@@ -165,6 +170,27 @@ public class ShortestPathGraph implements Graph{
 			toExplore.add(destination.getIntersection());
 		}
 		dijkstra(delivery.getIntersection(),toExplore);
+	}
+	
+	public void removeVisitPoints(VisitPoint pickup, VisitPoint delivery) {
+		nbVertices = nbVertices-2;
+		//indexPickup is always < indexDelivery (2 indices should be consecutive)
+		int indexPickup=toVisit.lastIndexOf(pickup);
+		int indexDelivery=toVisit.lastIndexOf(delivery);
+		toVisit.remove(pickup);
+		toVisit.remove(delivery);
+		Path[][] paths2 = new Path[nbVertices][nbVertices];
+		for (int i=0;i<indexPickup;i++) {
+			for (int j=0;j<indexPickup;j++) {
+				paths2[i][j]=paths[i][j];
+			}
+		}
+		for (int i=indexDelivery+1;i<nbVertices+2;i++) {
+			for (int j=indexDelivery+1;j<nbVertices+2;j++) {
+				paths2[i-2][j-2]=paths[i][j];
+			}
+		}
+		paths=paths2;
 	}
 	 
 }

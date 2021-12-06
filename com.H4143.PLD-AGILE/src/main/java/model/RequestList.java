@@ -40,6 +40,10 @@ public class RequestList {
         requests.add(r);
     }
     
+    public void removeRequest(Request r) {
+    	requests.remove(r);
+    }
+    
     public void setDepartIndex(int departIndex) {
     	this.departIndex = departIndex;
     }

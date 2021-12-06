@@ -5,6 +5,7 @@ import java.util.List;
 import model.CityMap;
 import model.FileLoader;
 import model.Intersection;
+import model.Request;
 import model.RequestList;
 import model.Road;
 import model.VisitPoint;
@@ -14,6 +15,7 @@ public class TestTSP {
 	public static void main(String[] args) {
 //		testLoad();
 		testAddVisitPoint();
+//		testRemoveVisitPoint();
 	}
 	
 	public static void testLoad() {
@@ -70,6 +72,45 @@ public class TestTSP {
 	}
 
 	public static void testAddVisitPoint() {
+		TSP tsp = new TSP1();
+		String mapName = "src/main/resources/smallMap.xml";
+		String requestName = "src/main/resources/requestsSmall2.xml";
+		FileLoader fileLoader = new FileLoader();
+		fileLoader.loadMap(mapName);
+		List<Intersection> intersections=fileLoader.getIntersections();
+        List<Road> roads=fileLoader.getRoads();
+		CityMap cityMap = new CityMap(roads,intersections);
+		RequestList requestList = fileLoader.loadRequest(requestName);
+		Graph g = new ShortestPathGraph(requestList,cityMap);
+		tsp.searchSolution(20000, g);
+		System.out.println("----------\r\nBefore:\r\n----------");
+//		for (int i=0;i<g.getNbVertices();i++) {
+//			for (int j=0;j<g.getNbVertices();j++) {
+//				if (i!=j)
+////				System.out.println("From: "+g.getPath(i, j).getStart().getId()+" to: "+g.getPath(i, j).getEnd().getId());
+//				System.out.println(g.getPath(i, j));
+//			}
+//		}
+		long startTime = System.currentTimeMillis();
+		System.out.print("Solution of cost "+tsp.getRoute().getDuration()+" found in "
+				+(System.currentTimeMillis() - startTime)+"ms : ");
+		System.out.println(tsp.getRoute());
+		Request newRequest = new Request(200,100,intersections.get(10),intersections.get(11));
+		tsp.addNewRequest(newRequest);
+		System.out.println("----------\r\nAfter:\r\n----------");
+//		for (int i=0;i<g.getNbVertices();i++) {
+//			for (int j=0;j<g.getNbVertices();j++) {
+//				if (i!=j)
+////				System.out.println("From: "+g.getPath(i, j).getStart().getId()+" to: "+g.getPath(i, j).getEnd().getId());
+//				System.out.println(g.getPath(i, j));
+//			}
+//		}
+		System.out.print("Solution of cost "+tsp.getRoute().getDuration()+" found in "
+				+(System.currentTimeMillis() - startTime)+"ms : ");
+		System.out.println(tsp.getRoute());
+	}
+	
+	public static void testRemoveVisitPoint() {
 //		TSP tsp = new TSP1();
 		String mapName = "src/main/resources/smallMap.xml";
 		String requestName = "src/main/resources/requestsSmall2.xml";
@@ -89,9 +130,9 @@ public class TestTSP {
 				System.out.println(g.getPath(i, j));
 			}
 		}
-		VisitPoint pickup = new VisitPoint(intersections.get(10),100,1);
-		VisitPoint delivery = new VisitPoint(intersections.get(11),200,2);
-		g.addVisitPoints(pickup, delivery);
+		VisitPoint pickup = requestList.getRequests().get(1).getPickPoint();
+		VisitPoint delivery = requestList.getRequests().get(1).getDelivPoint();
+//		Request toDelete=
 		System.out.println("----------\r\nAfter:\r\n----------");
 		for (int i=0;i<g.getNbVertices();i++) {
 			for (int j=0;j<g.getNbVertices();j++) {

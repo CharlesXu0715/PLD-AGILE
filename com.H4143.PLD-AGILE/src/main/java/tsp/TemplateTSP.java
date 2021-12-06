@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import model.Path;
+import model.Request;
+import model.Road;
 import model.Route;
 import model.VisitPoint;
 
@@ -37,6 +39,16 @@ public abstract class TemplateTSP implements TSP {
 		}
 	}
 	
+	private Path getPath(int i) {
+		if (g != null && i>=0 && i<g.getNbVertices())
+			if (i==g.getNbVertices()-1) {
+				return g.getPath(bestSol[i], bestSol[0]);
+			} else {
+				return g.getPath(bestSol[i], bestSol[i+1]);
+			}
+		return null;
+	}
+	
 	public Integer getSolution(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
 			return bestSol[i];
@@ -49,14 +61,26 @@ public abstract class TemplateTSP implements TSP {
 		return -1;
 	}
 	
-	public Path getPath(int i){
-		if (g != null && i>=0 && i<g.getNbVertices())
-			if (i==g.getNbVertices()-1) {
-				return g.getPath(bestSol[i], bestSol[0]);
-			} else {
-				return g.getPath(bestSol[i], bestSol[i+1]);
+	@Override
+	public List<Path> getPaths(){
+		if (route!=null) {
+			return route.getPaths();
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Road> getRoads(){
+		if (route!=null) {
+			List<Road> roads = new ArrayList<Road>();
+			for (Path p : route.getPaths()) {
+				roads.addAll(p.getRoads());
 			}
-		return null;
+			return roads;
+		} else {
+			return null;
+		}
 	}
 	
 	public VisitPoint getVisitPoint(int i){
@@ -67,6 +91,16 @@ public abstract class TemplateTSP implements TSP {
 	
 	public Route getRoute() {
 		return route;
+	}
+	
+	@Override
+	public void addNewRequest(Request newRequest) {
+		g.addVisitPoints(newRequest.getPickPoint(), newRequest.getDelivPoint());
+		int lastVisitPoint = g.getGraphVertexIndex(route.getLastVisitPoint());
+		route.removeLastPath();
+		route.addPath(g.getPath(lastVisitPoint, g.getNbVertices()-1));
+		route.addPath(g.getPath(g.getNbVertices()-2, g.getNbVertices()-1));
+		route.addPath(g.getPath(g.getNbVertices()-1, 0));
 	}
 	
 	/**

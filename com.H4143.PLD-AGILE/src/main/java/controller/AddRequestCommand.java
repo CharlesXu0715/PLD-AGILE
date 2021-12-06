@@ -28,20 +28,18 @@ public class AddRequestCommand implements Command{
 	
 	@Override
 	public void doCommand() {
-		// TODO Auto-generated method stub
 		requestList.addRequest(newRequest);
-		graph.addVisitPoints(newRequest.getPickPoint(), newRequest.getDelivPoint());
-		int lastVisitPoint = tsp.getSolution(graph.getNbVertices()-2);
-		route.removeLastPath();
-		route.addPath(graph.getPath(lastVisitPoint, graph.getNbVertices()-1));
-		route.addPath(graph.getPath(graph.getNbVertices()-1, graph.getNbVertices()));
-		route.addPath(graph.getPath(graph.getNbVertices(), 0));
 	}
 
 	@Override
 	public void undoCommand() {
-		// TODO Auto-generated method stub
-		
+		requestList.removeRequest(newRequest);
+//		graph.addVisitPoints(newRequest.getPickPoint(), newRequest.getDelivPoint());
+//		int lastVisitPoint = tsp.getSolution(graph.getNbVertices()-2);
+//		route.removeLastPath();
+//		route.addPath(graph.getPath(lastVisitPoint, graph.getNbVertices()-1));
+//		route.addPath(graph.getPath(graph.getNbVertices()-1, graph.getNbVertices()));
+//		route.addPath(graph.getPath(graph.getNbVertices(), 0));
 	}
 
 }

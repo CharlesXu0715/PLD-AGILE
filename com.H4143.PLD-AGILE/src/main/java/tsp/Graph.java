@@ -38,6 +38,13 @@ public interface Graph {
 	public abstract int getVertexIndex(int i);
 	
 	/**
+	 * @param i: the intersection to find index
+	 * @return the index of intersection <code>i</code> as stored in the graph
+	 */
+	
+	public abstract int getGraphVertexIndex(VisitPoint i);
+	
+	/**
 	 * @param i 
 	 * @param j 
 	 * @return a list of edges that go from vertex <code>i</code> to vertex <code>j</code>
@@ -51,5 +58,12 @@ public interface Graph {
 	 */
 	
 	public abstract void addVisitPoints(VisitPoint pickup, VisitPoint delivery);
+	
+	/**
+	 * @param pickup: the VisitPoint corresponding to the pickup address and time
+	 * @param delivery: the VisitPoint corresponding to the delivery address and time
+	 */
+	
+	public abstract void removeVisitPoints(VisitPoint pickup, VisitPoint delivery);
 
 }
