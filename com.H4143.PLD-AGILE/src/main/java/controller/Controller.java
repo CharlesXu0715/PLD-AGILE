@@ -118,9 +118,12 @@ public class Controller {
 		}
 	}
 	
-	public State getCurrentState()
-	{
+	public State getCurrentState() {
 		return currentState;
+	}
+	
+	public void leftClick() {
+		currentState.leftClick(this, mainWindow);
 	}
 
 	public void addRequest(Intersection start,int startDuration, Intersection end, int endDuration) {
@@ -133,5 +136,9 @@ public class Controller {
 			route.addPath(graph.getPath(graph.getNbVertices(), 0));
 			currentState=DISPLAY_ROUTE_STATE;
 		}
+	}
+	
+	public Intersection findNearestIntersection(double latitude,double longitude) {
+		return citymap.findNearestIntersection(latitude, longitude);
 	}
 }

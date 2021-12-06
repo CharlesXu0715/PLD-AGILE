@@ -73,6 +73,21 @@ public class CityMap{
     	return intersections.get(index);
     }
     
+    public Intersection findNearestIntersection(double latitude, double longitude) {
+    	double minDistance = Double.POSITIVE_INFINITY;
+		
+		Intersection intersection=null;
+		
+		for (Intersection inter : intersections) {
+			double d = Math.hypot(latitude - inter.getLatitude(), longitude - inter.getLongitude());
+			if (d < minDistance) {
+				minDistance = d;
+				intersection = inter;
+			}
+		}
+		return intersection;
+    }
+    
     public String toString()
     {
     	String ans="CityMap : \n";
