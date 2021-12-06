@@ -26,7 +26,7 @@ public class Controller {
 	protected static final int TIME_LIMIT = 20000;
 	
 	private ListOfCommands l;
-	public State currentState;
+	private State currentState;
 	
 	private ClientUI mainWindow;
 	private CityMap citymap;
@@ -112,4 +112,8 @@ public class Controller {
 		}
 	}
 	
+	public State getCurrentState()
+	{
+		return currentState;
+	}
 }

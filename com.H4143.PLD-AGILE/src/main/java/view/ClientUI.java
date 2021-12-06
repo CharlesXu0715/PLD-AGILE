@@ -102,7 +102,7 @@ public class ClientUI extends JFrame implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.loadMap(divMap, map);
-				if(!controller.currentState.getClass().getSimpleName().equals("InitialState")/*if file is loaded*/) {
+				if(!controller.getCurrentState().getClass().getSimpleName().equals("InitialState")/*if file is loaded*/) {
 					loadMap.setEnabled(false);
 					loadMap.setVisible(false);
 					loadRequest.setEnabled(true);
