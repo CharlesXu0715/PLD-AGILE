@@ -122,6 +122,10 @@ public class Controller {
 		return currentState;
 	}
 	
+	public void setCurrentState (State state) {
+		currentState = state;
+	}
+	
 	public void leftClick() {
 		currentState.leftClick(this, mainWindow);
 	}

@@ -97,7 +97,8 @@ public class DisplayRouteState implements State{
 	}
 	
 	@Override
-	public boolean addRequestSelectPoint() {
+	public boolean addRequestStart(Controller c) {
+		
 		return true;
 	}
 
