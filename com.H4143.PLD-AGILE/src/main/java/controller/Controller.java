@@ -1,6 +1,7 @@
 package controller;
 
 import model.Model;
+import model.Request;
 import tsp.TSP;
 import tsp.TSP1;
 import view.View;
@@ -45,12 +46,16 @@ public class Controller {
 		this.currentState.calculateRoute(this, view, model, tsp);
 	}
 	
-	public void deleteRequest() {
-		this.currentState.deleteRequest(this);
+	public void deleteRequest(Request request) {
+		this.currentState.deleteRequest(this, model, request, listOfCommands);
 	}
 	
 	public void addRequest() {
 		this.currentState.addRequest(this);
+	}
+	
+	public void validate() {
+		this.currentState.validate(this, view, model, tsp, listOfCommands);
 	}
 	
 	public void leftClick(double lat, double lng) {

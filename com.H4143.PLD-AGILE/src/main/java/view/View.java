@@ -19,19 +19,20 @@ public class View extends JFrame implements Observer {
 	
 	private GraphicalView graphicalView;
 	private TextualView textualView;
-	
+	private Controller controller;
 	
 	protected static final String LOADMAP = "Load a map";
 	protected static final String LOADREQUESTS = "Load requests";
 	protected static final String CALCULROUTE = "Calcul Route";
 	protected static final String DELETEREQUEST = "Delete Request";
 	protected static final String ADDREQUEST = "Add Request";
+	protected static final String VALIDATE = "Validate";
 	protected static final String REDO = "Redo";
 	protected static final String UNDO = "Undo";
 	
 	private ArrayList<JButton> buttons;
 	private ArrayList<JButton> buttonsRequest = new ArrayList<JButton>();;
-	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, UNDO, REDO};
+	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, VALIDATE, UNDO, REDO};
 	private ButtonListener buttonListener;
 	private final int buttonHeight = 40;
 	private final int buttonWidth = 150;
@@ -51,8 +52,9 @@ public class View extends JFrame implements Observer {
 		add(graphicalView);
 		
 		createButtons(controller);
-		createListRequest(model);
+		createListRequest(controller, model);
 		model.attach(this);
+		this.controller = controller;
 		
 		setVisible(true);
 		
@@ -75,7 +77,7 @@ public class View extends JFrame implements Observer {
 	}
 	
 	private void createButtons(Controller controller){
-		buttonListener = new ButtonListener(controller);
+		buttonListener = new ButtonListener(controller, null);
 		buttons = new ArrayList<JButton>();
 		for (String text : buttonTexts){
 			JButton button = new JButton(text);
@@ -89,7 +91,7 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	private void createListRequest(Model model) {
+	private void createListRequest(Controller controller, Model model) {
 		if (model.getRequestList() == null) {
 			return;
 		}
@@ -100,13 +102,13 @@ public class View extends JFrame implements Observer {
 		
 		buttonsRequest = new ArrayList<JButton>();
 		for (Request request: model.getRequestList().getRequests()){
-			System.out.println(request.toString());
 			JButton button = new JButton(request.toString());
 			buttonsRequest.add(button);
 			button.setSize(300,buttonHeight);
 			button.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
 			button.setFocusable(false);
 			button.setFocusPainted(false);
+			button.addActionListener(new ButtonListener(controller, request));
 			getContentPane().add(button);	
 		}
 		
@@ -117,7 +119,7 @@ public class View extends JFrame implements Observer {
 
 	@Override
 	public void update(Object arg) {
-		this.createListRequest((Model) arg);
+		this.createListRequest(controller, (Model) arg);
 		this.graphicalView.setModel((Model) arg);	
 //		this.textualView.setModel((Model) arg);	
 

@@ -2,6 +2,7 @@ package controller;
 
 import model.CityMap;
 import model.Model;
+import model.Request;
 import model.RequestList;
 import singleton.XMLFileLoader;
 import tsp.ShortestPathGraph;
@@ -44,7 +45,8 @@ public class LoadRequestState implements State {
 	}
 	
 	@Override
-	public void deleteRequest(Controller controller) {
+	public void deleteRequest(Controller controller, Model model, Request request, ListOfCommands listOfCommands) {
+		
 		controller.setCurrentState(controller.deleteRequestState);
 	}
 	
