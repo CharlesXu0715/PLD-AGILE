@@ -57,5 +57,11 @@ public class DeleteRequestState implements State {
 			ListOfCommands listOfCommands) {
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
 	}
+	
+	@Override
+	public void rightClick(Controller controller) {
+		// TODO Auto-generated method stub
+		controller.setCurrentState(controller.displayRouteState);
+	}
 
 }

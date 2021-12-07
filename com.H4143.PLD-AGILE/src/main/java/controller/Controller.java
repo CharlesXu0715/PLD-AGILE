@@ -71,7 +71,7 @@ public class Controller {
 	}
 	
 	public void rightClick() {
-		this.currentState.rightClick();
+		this.currentState.rightClick(this);
 	}
 	
 	
