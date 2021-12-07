@@ -149,11 +149,11 @@ public class FileLoader {
                 }
                 int pickDur= Integer.parseInt(nnm.item(3).getNodeValue());
                 int delivDur=Integer.parseInt(nnm.item(1).getNodeValue());
-                System.out.println("delivDur:"+delivDur);
-                System.out.println("delivIndex:"+delivPoint.getIndex());
-                System.out.println("pickDur:"+pickDur);
-                System.out.println("pickIndex:"+pickPoint.getIndex());
-                System.out.println("*******");
+//                System.out.println("delivDur:"+delivDur);
+//                System.out.println("delivIndex:"+delivPoint.getIndex());
+//                System.out.println("pickDur:"+pickDur);
+//                System.out.println("pickIndex:"+pickPoint.getIndex());
+//                System.out.println("*******");
                 Request r=new Request(delivDur, pickDur, pickPoint, delivPoint);
                 rl.add(r);
             }

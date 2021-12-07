@@ -13,10 +13,10 @@ import model.VisitPoint;
 public class TestTSP {
 
 	public static void main(String[] args) {
-//		testLoad();
+		testLoad();
 //		testAddVisitPoint();
 //		testRemoveVisitPoint();
-		testChangeOrder();
+//		testChangeOrder();
 	}
 	
 	public static void testLoad() {
@@ -54,7 +54,7 @@ public class TestTSP {
 //		String mapName = "./target/test-classes/testMap.xml";
 //		String requestName = "./target/test-classes/testRequests.xml";
 		String mapName = "src/main/resources/largeMap.xml";
-		String requestName = "src/main/resources/requestsLarge7.xml";
+		String requestName = "src/main/resources/requestsLarge9.xml";
 		FileLoader fileLoader = new FileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();
@@ -63,7 +63,7 @@ public class TestTSP {
 		RequestList requestList = fileLoader.loadRequest(requestName);
 		Graph g = new ShortestPathGraph(requestList,cityMap);
 		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(20000, g);
+		tsp.searchSolution(10000, g);
 		System.out.print("Solution of cost "+tsp.getSolutionCost()+" found in "
 				+(System.currentTimeMillis() - startTime)+"ms : ");
 		for (int i=0; i<g.getNbVertices(); i++)
