@@ -57,6 +57,22 @@ public interface TSP {
 	public void addNewRequest(Request newRequest);
 	
 	/**
+	 * add a request to the shortest path graph, then change the route so that the pickup and delivery points of the request
+	 * are visited at <code>indexPickup</code> and <code>indexDelivery</code> respectively
+	 * @param newRequest: the new request to be added
+	 * @param indexPickup: the index at which the pickup point is visited
+	 * @param indexDeliver: the index at which the delivery point is visited
+	 */
+	public void addRequestToIndex(Request request, int indexPickup, int indexDelivery);
+	
+	/**
+	 * get the index of when the visit point is visited
+	 * @param visitPoint: a visit point in the route
+	 * @return the index that annotates the order of visit to the visit point
+	 */
+	public int getVisitPointIndex(VisitPoint visitPoint);
+	
+	/**
 	 * remove a request from the route and graph, then connect the missing points together
 	 * @param requestToRemove is the request to be removed from the RequestList. Will do nothing if request is not present in the RequestList.
 	 */

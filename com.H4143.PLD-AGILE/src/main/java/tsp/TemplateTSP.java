@@ -104,6 +104,49 @@ public abstract class TemplateTSP implements TSP {
 	}
 	
 	@Override
+	public void addRequestToIndex(Request request, int indexPickup, int indexDelivery) {
+		g.addVisitPoints(request.getPickPoint(), request.getDelivPoint());
+		VisitPoint visitPoint = request.getPickPoint();
+		int index = indexPickup;
+		//remove path connecting from before to after, which sits at newIndex-1
+		route.removePathByIndex(index-1);
+		VisitPoint before = route.getVisitPointByIndex(index-1);
+		VisitPoint after = route.getVisitPointByIndex(index);
+		
+		//add back the VisitPoint
+		route.addVisitPointToPosition(visitPoint, index);
+		
+		//connect the new paths
+		//add the visitPoint-after path first, then add the before-visitPoint path
+		Path connect = g.getPath(g.getGraphVertexIndex(visitPoint), g.getGraphVertexIndex(after));
+		route.addPathToPosition(connect, index-1);
+		connect = g.getPath(g.getGraphVertexIndex(before), g.getGraphVertexIndex(visitPoint));
+		route.addPathToPosition(connect, index-1);
+		
+		visitPoint = request.getDelivPoint();
+		index = indexDelivery;
+		//remove path connecting from before to after, which sits at newIndex-1
+		route.removePathByIndex(index-1);
+		before = route.getVisitPointByIndex(index-1);
+		after = route.getVisitPointByIndex(index);
+		
+		//add back the VisitPoint
+		route.addVisitPointToPosition(visitPoint, index);
+		
+		//connect the new paths
+		//add the visitPoint-after path first, then add the before-visitPoint path
+		connect = g.getPath(g.getGraphVertexIndex(visitPoint), g.getGraphVertexIndex(after));
+		route.addPathToPosition(connect, index-1);
+		connect = g.getPath(g.getGraphVertexIndex(before), g.getGraphVertexIndex(visitPoint));
+		route.addPathToPosition(connect, index-1);
+	}
+	
+	@Override
+	public int getVisitPointIndex(VisitPoint visitPoint){
+		return route.getVisitPointIndex(visitPoint);
+	}
+	
+	@Override
 	public void removeRequest(Request requestToRemove) {
 		g.removeVisitPoints(requestToRemove.getPickPoint(), requestToRemove.getDelivPoint());
 		List<VisitPoint> toConnect = route.getConnectedPoints(requestToRemove.getPickPoint());
