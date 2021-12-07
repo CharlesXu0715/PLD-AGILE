@@ -45,9 +45,17 @@ public class Route {
 	}
 	
 	public void removePathByIndex(int index) {
-		cost -= paths.get(index).getCost();
-		duration -= paths.get(index).getDuration();
-		paths.remove(index);
+		if (index>=0 && index < paths.size()) {
+			cost -= paths.get(index).getCost();
+			duration -= paths.get(index).getDuration();
+			paths.remove(index);
+		} else if (index==-1){
+			cost -= paths.get(0).getCost();
+			duration -= paths.get(0).getDuration();
+			paths.remove(0);
+		} else {
+			System.out.println("not ok");
+		}
 	}
 	
 	public List<VisitPoint> getConnectedPoints(VisitPoint intermediatePoint){

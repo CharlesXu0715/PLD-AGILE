@@ -148,7 +148,6 @@ public abstract class TemplateTSP implements TSP {
 	
 	@Override
 	public void removeRequest(Request requestToRemove) {
-		g.removeVisitPoints(requestToRemove.getPickPoint(), requestToRemove.getDelivPoint());
 		List<VisitPoint> toConnect = route.getConnectedPoints(requestToRemove.getPickPoint());
 		int index = route.getVisitPointIndex(requestToRemove.getPickPoint());
 		Path connect = g.getPath(g.getGraphVertexIndex(toConnect.get(0)),g.getGraphVertexIndex(toConnect.get(1)));
@@ -174,6 +173,7 @@ public abstract class TemplateTSP implements TSP {
 		route.addPathToPosition(connect, index-1);
 		//remove the visit point from the route's list
 		route.removeVisitPoint(requestToRemove.getDelivPoint());
+		g.removeVisitPoints(requestToRemove.getPickPoint(), requestToRemove.getDelivPoint());
 	}
 	
 	public void changeVisitPointOrder(VisitPoint visitPoint, int newIndex) {

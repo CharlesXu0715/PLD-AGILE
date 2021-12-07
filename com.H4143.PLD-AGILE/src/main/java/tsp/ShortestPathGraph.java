@@ -184,8 +184,14 @@ public class ShortestPathGraph implements Graph{
 			for (int j=0;j<indexPickup;j++) {
 				paths2[i][j]=paths[i][j];
 			}
+			for (int j=indexDelivery+1;j<nbVertices+2;j++) {
+				paths2[i][j-2]=paths[i][j];
+			}
 		}
 		for (int i=indexDelivery+1;i<nbVertices+2;i++) {
+			for (int j=0;j<indexPickup;j++) {
+				paths2[i-2][j]=paths[i][j];
+			}
 			for (int j=indexDelivery+1;j<nbVertices+2;j++) {
 				paths2[i-2][j-2]=paths[i][j];
 			}
