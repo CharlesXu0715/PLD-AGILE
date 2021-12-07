@@ -12,7 +12,7 @@ public interface State {
 	public default void calculateRoute(Controller controller, View view, TSP tsp) {};
 	public default void addRequest(Controller controller) {};
 	public default void deleteRequest(Controller controller) {};
-	
+	public default void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {};
 	
 	public default void leftClick(Controller controller, View view, Model model, Intersection intersection) {};
 	public default void rightClick() {}; 
