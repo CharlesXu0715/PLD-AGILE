@@ -3,6 +3,7 @@ package controller;
 import model.Intersection;
 import model.Model;
 import model.Request;
+import model.VisitPoint;
 import tsp.TSP;
 import tsp.TSP1;
 import view.View;
@@ -59,8 +60,8 @@ public class Controller {
 		this.currentState.entryAddPickupRequest(this);
 	}
 	
-	public void entryAddDeliveryRequest(Intersection intersection) {
-		this.currentState.entryAddDeliveryRequest(this, intersection);
+	public void entryAddDeliveryRequest(VisitPoint visitPoint) {
+		this.currentState.entryAddDeliveryRequest(this, visitPoint);
 	}
 	
 	public void addRequest() {

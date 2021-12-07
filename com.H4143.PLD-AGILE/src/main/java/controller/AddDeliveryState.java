@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JOptionPane;
+
 import model.Intersection;
 import model.Model;
 import model.Request;
@@ -9,20 +11,21 @@ import view.View;
 
 public class AddDeliveryState implements State{
 	
-	Intersection intersection;
+	VisitPoint pickPoint;
 	
 	@Override
-	public void entryAddDeliveryRequest(Controller controller, Intersection intersection) {
+	public void entryAddDeliveryRequest(Controller controller, VisitPoint pickPoint) {
 		// TODO Auto-generated method stub
-		this.intersection = intersection;
-		System.out.println(intersection.toString());
+		this.pickPoint = pickPoint;
 	}
 	
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double lat, double lng, TSP tsp,
 			ListOfCommands listOfCommands) {
 		// TODO Auto-generated method stub
-		listOfCommands.add(new AddRequestCommand(model, tsp, new Request(0, 0, intersection, model.findClosestIntersection(lat, lng))));
+		String duration = JOptionPane.showInputDialog(view, "Enter duration");
+		VisitPoint delivPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 2);
+		listOfCommands.add(new AddRequestCommand(model, tsp, new Request(pickPoint, delivPoint)));
 		
 		controller.setCurrentState(controller.displayRouteState);
 	}

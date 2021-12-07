@@ -12,7 +12,7 @@ public interface State {
 	public default void loadRequest(Controller controller, View view, Model model) {};
 	public default void calculateRoute(Controller controller, View view, Model model, TSP tsp) {};
 	public default void entryAddPickupRequest(Controller controller) {};
-	public default void entryAddDeliveryRequest(Controller controller, Intersection intersection) {};
+	public default void entryAddDeliveryRequest(Controller controller, VisitPoint visitPoint) {};
 	public default void addRequest(Controller controller) {};
 	public default void entryDeleteRequest(Controller controller) {};
 	public default void deleteRequest(Model model, Request request, TSP tsp, ListOfCommands listOfCommands) {};
