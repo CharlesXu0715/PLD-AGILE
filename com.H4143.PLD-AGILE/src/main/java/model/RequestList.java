@@ -40,6 +40,10 @@ public class RequestList {
         requests.add(r);
     }
     
+    public void addRequestToIndex(Request request, int index) {
+    	requests.add(index, request);
+    }
+    
     public void removeRequest(Request r) {
     	requests.remove(r);
     }
