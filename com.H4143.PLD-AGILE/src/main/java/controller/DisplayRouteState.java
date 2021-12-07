@@ -40,7 +40,7 @@ public class DisplayRouteState implements State{
 	}
 	
 	@Override
-	public void entryAddRequest(Controller controller) {
+	public void entryAddPickupRequest(Controller controller) {
 		controller.setCurrentState(controller.addPickupState);
 	}
 	

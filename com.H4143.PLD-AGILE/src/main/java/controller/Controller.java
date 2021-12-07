@@ -1,5 +1,6 @@
 package controller;
 
+import model.Intersection;
 import model.Model;
 import model.Request;
 import tsp.TSP;
@@ -54,8 +55,12 @@ public class Controller {
 		this.currentState.deleteRequest(model, request, tsp, listOfCommands);
 	}
 	
-	public void entryAddRequest() {
-		this.currentState.entryAddRequest(this);
+	public void entryAddPickupRequest() {
+		this.currentState.entryAddPickupRequest(this);
+	}
+	
+	public void entryAddDeliveryRequest(Intersection intersection) {
+		this.currentState.entryAddDeliveryRequest(this, intersection);
 	}
 	
 	public void addRequest() {
