@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import controller.Controller;
 import model.*;
 
 public class GraphicalView extends JLabel implements MouseWheelListener {
@@ -27,13 +28,14 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 	double zoom = 1;
 	int rectSize = 20;
 
-	public GraphicalView(Model model, int width, int height) {
+	public GraphicalView(Controller controller, Model model, int width, int height) {
 		this.model = model;
 		this.width = width;
 		this.height = height;
 
 		this.setSize(width, height);
 		this.addMouseWheelListener(this);
+		this.addMouseListener(new MouseListener(controller));
 	}
 
 	@Override
@@ -43,11 +45,12 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 		
 		
 		if (this.model.getMap() != null) this.drawCityMap(g2);
-		this.drawBorder(g2);
 		if (this.model.getRequestList() != null) this.drawRequestList(g2);
 		if (this.model.getRoute() != null) this.drawResult(g2);
 		if (this.model.getIntersectionSelected() != null) this.drawIntersectionSelected(g2);
 		
+		
+		this.drawBorder(g2);
 		g2.dispose();
 
 	}

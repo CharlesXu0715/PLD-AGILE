@@ -44,13 +44,16 @@ public class View extends JFrame implements Observer {
 		setLayout(null);
 		
 		
-		graphicalView = new GraphicalView(model, 500, 500);
+		graphicalView = new GraphicalView(controller, model, 500, 500);
 		graphicalView.setLocation(150,0);
 		add(graphicalView);
 		
 		createButtons(controller);
 		
+		model.attach(this);
+		
 		setVisible(true);
+		
 	}
 
 	public GraphicalView getGraphicalView() {
@@ -88,6 +91,7 @@ public class View extends JFrame implements Observer {
 	public void update(Object arg) {
 		this.graphicalView.setModel((Model) arg);	
 //		this.textualView.setModel((Model) arg);	
+		repaint();
 	}
 	
 	

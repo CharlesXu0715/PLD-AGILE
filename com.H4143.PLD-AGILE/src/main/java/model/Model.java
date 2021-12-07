@@ -12,15 +12,15 @@ public class Model implements Subject {
 	private Intersection intersectionSelected;
 	
 	
-	
-	
 	public Intersection getIntersectionSelected() {
 		return intersectionSelected;
 	}
+	
 	public void setIntersectionSelected(Intersection intersectionSelected) {
 		this.intersectionSelected = intersectionSelected;
 		this.notifyAllObserver(this);
 	}
+	
 	public CityMap getMap() {
 		return map;
 	}

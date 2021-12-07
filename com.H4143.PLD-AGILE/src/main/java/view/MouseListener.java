@@ -10,13 +10,9 @@ import controller.Controller;
 public class MouseListener extends MouseAdapter {
 
 	private Controller controller;
-	private GraphicalView graphicalView;
-	private View view;
 
-	public MouseListener(Controller controller, GraphicalView graphicalView, View view) {
+	public MouseListener(Controller controller) {
 		this.controller = controller;
-		this.graphicalView = graphicalView;
-		this.view = view;
 	}
 
 	@Override

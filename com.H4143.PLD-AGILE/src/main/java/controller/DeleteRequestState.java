@@ -14,7 +14,6 @@ public class DeleteRequestState implements State {
 	public void loadRequest(Controller controller, View view, Model model) {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
-			view.getGraphicalView().setRequestList(requestList);
 			model.setRequestList(requestList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -27,7 +26,6 @@ public class DeleteRequestState implements State {
 
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
-			view.getGraphicalView().setCityMap(map);
 			model.setMap(map);
 			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
