@@ -30,6 +30,12 @@ public class ButtonListener implements ActionListener {
 			case View.VISITPOINT: controller.handleClick(this.visitPoint); break;
 			case View.CHANGEORDER: controller.entryChangeOrder(); break;
 			case View.VALIDATE: controller.validate(); break;
+			
+			default: 
+				if (e.getActionCommand().contains(View.VISITPOINT)) { 
+					controller.handleClick(this.visitPoint); 
+				}
+				break;
 //			case Window.UNDO: controller.undo(); break;
 //			case Window.REDO: controller.redo(); break;
 		}

@@ -14,7 +14,9 @@ public class AddPickupState implements State {
 			ListOfCommands listOfCommands) {
 		String duration = JOptionPane.showInputDialog(view, "Enter duration");
 		controller.setCurrentState(controller.addDeliveryState);
-		controller.entryAddDeliveryRequest(new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 1));
+		VisitPoint pickPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 1);
+		model.setPickupPointSelected(pickPoint);
+		controller.entryAddDeliveryRequest(pickPoint);
 		
 	}
 	

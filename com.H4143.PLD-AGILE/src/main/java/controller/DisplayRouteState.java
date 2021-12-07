@@ -47,6 +47,7 @@ public class DisplayRouteState implements State{
 	@Override
 	public void entryChangeOrder(Controller controller) {
 		controller.setCurrentState(controller.changeOrderState);
+		System.out.println("change order");
 	}
 	
 	

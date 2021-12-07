@@ -11,12 +11,11 @@ import view.View;
 
 public class AddDeliveryState implements State{
 	
-	VisitPoint pickPoint;
 	
 	@Override
 	public void entryAddDeliveryRequest(Controller controller, VisitPoint pickPoint) {
 		// TODO Auto-generated method stub
-		this.pickPoint = pickPoint;
+//		this.pickPoint = pickPoint;
 	}
 	
 	@Override
@@ -25,14 +24,20 @@ public class AddDeliveryState implements State{
 		// TODO Auto-generated method stub
 		String duration = JOptionPane.showInputDialog(view, "Enter duration");
 		VisitPoint delivPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 2);
-		listOfCommands.add(new AddRequestCommand(model, tsp, new Request(pickPoint, delivPoint)));
-		
-		controller.setCurrentState(controller.displayRouteState);
+		model.setDelivPointSelected(delivPoint);
 	}
 	
 	@Override
 	public void rightClick(Controller controller) {
 		// Cancel
+		controller.setCurrentState(controller.displayRouteState);
+	}
+	
+	@Override
+	public void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {
+		listOfCommands.add(new AddRequestCommand(model, tsp, new Request(model.getPickupPointSelected(), model.getDelivPointSelected())));
+		model.setDelivPointSelected(null);
+		model.setPickupPointSelected(null);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	
