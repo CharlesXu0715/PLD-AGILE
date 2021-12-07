@@ -14,6 +14,7 @@ public class DisplayRouteState implements State{
 	public void loadRequest(Controller controller, View view, Model model) {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
+			controller.resetToNewRequest();
 			model.setRequestList(requestList);
 			controller.changeMessage(Controller.MESSAGE_CALCULATE_ROUTE);
 			controller.setCurrentState(controller.loadRequestState);
@@ -28,6 +29,7 @@ public class DisplayRouteState implements State{
 
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
+			controller.resetAll();
 			model.setMap(map);
 			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
