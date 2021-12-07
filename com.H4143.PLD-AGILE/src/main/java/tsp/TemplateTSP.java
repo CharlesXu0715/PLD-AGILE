@@ -101,6 +101,8 @@ public abstract class TemplateTSP implements TSP {
 		route.addPath(g.getPath(lastVisitPoint, g.getNbVertices()-2));
 		route.addPath(g.getPath(g.getNbVertices()-2, g.getNbVertices()-1));
 		route.addPath(g.getPath(g.getNbVertices()-1, 0));
+		route.addVisitPoint(newRequest.getPickPoint());
+		route.addVisitPoint(newRequest.getDelivPoint());
 	}
 	
 	@Override
@@ -113,7 +115,7 @@ public abstract class TemplateTSP implements TSP {
 		VisitPoint before = route.getVisitPointByIndex(index-1);
 		VisitPoint after = route.getVisitPointByIndex(index);
 		
-		//add back the VisitPoint
+		//add the VisitPoint
 		route.addVisitPointToPosition(visitPoint, index);
 		
 		//connect the new paths
@@ -130,7 +132,7 @@ public abstract class TemplateTSP implements TSP {
 		before = route.getVisitPointByIndex(index-1);
 		after = route.getVisitPointByIndex(index);
 		
-		//add back the VisitPoint
+		//add the VisitPoint
 		route.addVisitPointToPosition(visitPoint, index);
 		
 		//connect the new paths

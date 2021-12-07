@@ -11,8 +11,8 @@ public class TestTSP {
 
 	public static void main(String[] args) {
 //		testLoad();
-//		testAddVisitPoint();
-		testAddVisitPointToIndex();
+		testAddVisitPoint();
+//		testAddVisitPointToIndex();
 //		testRemoveVisitPoint();
 //		testChangeOrder();
 	}
