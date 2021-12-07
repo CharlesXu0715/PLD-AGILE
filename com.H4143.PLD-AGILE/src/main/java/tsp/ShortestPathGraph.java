@@ -8,7 +8,7 @@ import model.CityMap;
 import model.Intersection;
 import model.Path;
 import model.RequestList;
-import model.Road;
+import model.Segment;
 import model.VisitPoint;
 
 public class ShortestPathGraph implements Graph{
@@ -52,7 +52,7 @@ public class ShortestPathGraph implements Graph{
 		double dist[] = new double [intersections.size()];
 		boolean visited[] = new boolean [intersections.size()];
 		int prev[] = new int [intersections.size()];
-		Road usingRoad[] = new Road [intersections.size()];
+		Segment usingRoad[] = new Segment [intersections.size()];
 		for (int i = 0;i<intersections.size();i++) {
 			dist[i] = Double.MAX_VALUE;
 		}
@@ -67,7 +67,7 @@ public class ShortestPathGraph implements Graph{
 			}
 			int i = destination.getIndex();
 			visited[destination.getIndex()]=true;
-			for (Road road : destination.getAdjacence()) {
+			for (Segment road : destination.getAdjacence()) {
 				if (dist[i]+road.getLength()<dist[road.getDestinationIndex()]) {
 					dist[road.getDestinationIndex()]=dist[i]+road.getLength();
 					prev[road.getDestinationIndex()]=i;

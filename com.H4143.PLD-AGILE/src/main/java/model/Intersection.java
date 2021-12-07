@@ -9,13 +9,13 @@ public class Intersection {
     private double latitude;
     private int index;
     private String id;
-    private ArrayList<Road> adjacence;
+    private ArrayList<Segment> adjacence;
     public Intersection(double longitude,double latitude,String id,int index){
         this.longitude=longitude;
         this.latitude=latitude;
         this.id=id;
         this.index=index;
-        adjacence=new ArrayList<Road>();
+        adjacence=new ArrayList<Segment>();
     }
     
     public Intersection() {
@@ -60,11 +60,11 @@ public class Intersection {
     	return ans;
     }
     
-    public void addAdjacence(Road r) {
+    public void addAdjacence(Segment r) {
     	adjacence.add(r);
     }
     
-    public ArrayList<Road> getAdjacence(){
+    public ArrayList<Segment> getAdjacence(){
     	return adjacence;
     } 
 }

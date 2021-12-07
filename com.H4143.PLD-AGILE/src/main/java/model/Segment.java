@@ -1,11 +1,11 @@
 package model;
 
-public class Road {
+public class Segment {
 	private int originIndex;
     private int destinationIndex;
     private String name;
     private double length;
-    public Road(int originIndex,int destinationIndex,String name,double length){
+    public Segment(int originIndex,int destinationIndex,String name,double length){
         this.originIndex=originIndex;
         this.destinationIndex=destinationIndex;
         this.name=name;

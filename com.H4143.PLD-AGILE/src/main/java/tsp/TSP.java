@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Path;
 import model.Request;
-import model.Road;
+import model.Segment;
 import model.Route;
 import model.VisitPoint;
 
@@ -41,7 +41,7 @@ public interface TSP {
 	 * @return all the roads stored in <code>Route</code> 
 	 * (null if <code>searchSolution</code> has not been called yet)
 	 */
-	public List<Road> getRoads();
+	public List<Segment> getRoads();
 	
 	/**
 	 * @return the route of the solution computed by <code>searchSolution</code> 

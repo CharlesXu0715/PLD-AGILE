@@ -2,9 +2,8 @@ package model;
 
 
 public class VisitPoint {
-//	private String pointId; //id of intersection
+
 	private Intersection intersection;
-    //type 0 = depot point, type 1 = pickup point, type 2 = delivery point
 	private int type;
 	private int duration;
 
@@ -14,10 +13,6 @@ public class VisitPoint {
         this.duration=duration;
         this.type = type;
     }
-
-//    public String getPointId(){
-//        return pointId;
-//    }
 
 
 	public int getDuration(){
@@ -41,8 +36,4 @@ public class VisitPoint {
 		return ans;
 	}
 
-
-//	public void setPointIndex(int pointIndex) {
-//		this.pointIndex = pointIndex;
-//	}
 }
