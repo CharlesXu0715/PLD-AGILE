@@ -3,7 +3,7 @@ package controller;
 import model.Model;
 import view.View;
 
-public class AddRequestState1 implements State {
+public class AddPickupState implements State {
 	
 	@Override
 	public void leftClick(Controller controller, View view, Model model) {

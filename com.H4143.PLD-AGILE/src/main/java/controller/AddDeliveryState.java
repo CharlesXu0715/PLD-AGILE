@@ -5,7 +5,7 @@ import model.Model;
 import model.VisitPoint;
 import view.View;
 
-public class AddRequestState2 implements State{
+public class AddDeliveryState implements State{
 	
 	
 	@Override

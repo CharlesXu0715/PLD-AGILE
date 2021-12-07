@@ -15,7 +15,7 @@ public interface State {
 	
 	
 	public default void leftClick(Controller controller, View view, Model model, Intersection intersection) {};
-	public default void rightClick(Controller controller, View view, Model model) {}; 
+	public default void rightClick() {}; 
 	
 	
 	

@@ -2,20 +2,15 @@ package view;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
-import java.util.ArrayList;
 import javax.swing.*;
 
 import model.*;
-import tsp.*;
 
-public class GraphicalView extends JLabel implements MouseListener, MouseWheelListener {
+public class GraphicalView extends JLabel implements MouseWheelListener {
 
 	private int width = 0;
 	private int height = 0;
-	private CityMap cityMap;
-	private RequestList requestList;
-	private List<Path> result;
+	private Model model;
 	
 
 	double minLat = Double.POSITIVE_INFINITY;
@@ -28,19 +23,16 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 	double maxLatInitial = Double.NEGATIVE_INFINITY;
 	double maxLngInitial = Double.NEGATIVE_INFINITY;
 
-	Intersection intersectionSelected = null;
 
 	double zoom = 1;
 	int rectSize = 20;
-	
-	private boolean setNull=false;
 
-	public GraphicalView(int width, int height) {
+	public GraphicalView(Model model, int width, int height) {
+		this.model = model;
 		this.width = width;
 		this.height = height;
 
 		this.setSize(width, height);
-		this.addMouseListener(this);
 		this.addMouseWheelListener(this);
 	}
 
@@ -49,16 +41,13 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
-		//System.out.println("paint "+setNull);
-		if(setNull==true) this.drawEmpty(g2);
-		else
-		{
-			this.drawBorder(g2);
-			if (cityMap != null) this.drawCityMap(g2);
-			if (requestList != null) this.drawRequestList(g2);
-			if (result != null) this.drawResult(g2);
-			if (this.intersectionSelected != null) this.drawIntersectionSelected(g2);
-		}
+		
+		if (this.model.getMap() != null) this.drawCityMap(g2);
+		this.drawBorder(g2);
+		if (this.model.getRequestList() != null) this.drawRequestList(g2);
+		if (this.model.getRoute() != null) this.drawResult(g2);
+		if (this.model.getIntersectionSelected() != null) this.drawIntersectionSelected(g2);
+		
 		g2.dispose();
 
 	}
@@ -85,11 +74,34 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 	}
 	
 	private void drawCityMap(Graphics2D g2) {
+		
+		minLat = Double.POSITIVE_INFINITY;
+		minLng = Double.POSITIVE_INFINITY;
+		maxLat = Double.NEGATIVE_INFINITY;
+		maxLng = Double.NEGATIVE_INFINITY;
+		
+		
+		for (Intersection intersection : this.model.getMap().getIntersections()) {
+			if (intersection.getLatitude() < minLat)
+				minLat = intersection.getLatitude();
+			if (intersection.getLatitude() > maxLat)
+				maxLat = intersection.getLatitude();
+			if (intersection.getLongitude() < minLng)
+				minLng = intersection.getLongitude();
+			if (intersection.getLongitude() > maxLng)
+				maxLng = intersection.getLongitude();
+		}
+		
+		minLatInitial = minLat;
+		maxLatInitial = maxLat;
+		minLngInitial = minLng;
+		maxLngInitial = maxLng;
+		
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke(2.0f));
-		for (Segment road : this.cityMap.getRoads()) {
-			Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
-			Intersection destinationIntersection = this.cityMap.searchByIndex(road.getDestinationIndex());
+		for (Segment road : this.model.getMap().getRoads()) {
+			Intersection originIntersection = this.model.getMap().searchByIndex(road.getOriginIndex());
+			Intersection destinationIntersection = this.model.getMap().searchByIndex(road.getDestinationIndex());
 
 			double[] originXY = convertLatLngToXY(originIntersection.getLatitude(), originIntersection.getLongitude());
 			double[] destinationXY = convertLatLngToXY(destinationIntersection.getLatitude(),
@@ -98,7 +110,6 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 			g2.drawLine((int) originXY[0], (int) originXY[1], (int) destinationXY[0], (int) destinationXY[1]);
 
 		}
-		this.drawBorder(g2);
 	}
 	
 	private void drawRequestList(Graphics2D g2) {
@@ -107,12 +118,12 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 		int count = 0;
 		g2.setColor(colors[count++]);
 		
-		Intersection depot = this.requestList.getDepartPoint();
+		Intersection depot = this.model.getRequestList().getDepartPoint();
 		double[] xY = convertLatLngToXY(depot.getLatitude(), depot.getLongitude());
 		
 		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
 
-		for (Request request : this.requestList.getRequests()) {
+		for (Request request : this.model.getRequestList().getRequests()) {
 			g2.setColor(colors[count++]);
 			Intersection delivIntersection = request.getDelivPoint().getIntersection();
 			Intersection pickIntersection = request.getPickPoint().getIntersection();
@@ -132,12 +143,12 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 
 		int count = 0;
 
-		for (Path path : this.result) {
+		for (Path path : this.model.getRoute().getPaths()) {
 			int length = path.getRoads().size();
 			for (int i = 0; i < length; i++) {
 				Segment road = path.getRoads().get(i);
-				Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
-				Intersection destinationIntersection = this.cityMap.searchByIndex(road.getDestinationIndex());
+				Intersection originIntersection = this.model.getMap().searchByIndex(road.getOriginIndex());
+				Intersection destinationIntersection = this.model.getMap().searchByIndex(road.getDestinationIndex());
 
 				double[] originXY = convertLatLngToXY(originIntersection.getLatitude(),
 						originIntersection.getLongitude());
@@ -155,9 +166,9 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 		
 		
 		
-		for (Path path : this.result) {
+		for (Path path : this.model.getRoute().getPaths()) {
 			Segment road = path.getRoads().get(0);
-			Intersection originIntersection = this.cityMap.searchByIndex(road.getOriginIndex());
+			Intersection originIntersection = this.model.getMap().searchByIndex(road.getOriginIndex());
 
 			double[] originXY = convertLatLngToXY(originIntersection.getLatitude(),
 					originIntersection.getLongitude());
@@ -169,153 +180,21 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 	
 	private void drawIntersectionSelected(Graphics2D g2) {
 		g2.setColor(Color.YELLOW);
-		double[] xY = convertLatLngToXY(this.intersectionSelected.getLatitude(),
-				this.intersectionSelected.getLongitude());
+		double[] xY = convertLatLngToXY(this.model.getIntersectionSelected().getLatitude(),
+				this.model.getIntersectionSelected().getLongitude());
 		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
 	}
 	
-	private void drawEmpty(Graphics2D g2)
-	{
-		g2.setColor(Color.DARK_GRAY);
-		g2.fillRect(0,0,width+200,height+200);
-		//this.setNull=false;
-	}
 	
-	
-	public void setCityMap(CityMap cityMap) {
-		this.setNull=false;
-		this.cityMap = cityMap;
-		
-		minLat = Double.POSITIVE_INFINITY;
-		minLng = Double.POSITIVE_INFINITY;
-		maxLat = Double.NEGATIVE_INFINITY;
-		maxLng = Double.NEGATIVE_INFINITY;
-		
-		
-		for (Intersection intersection : this.cityMap.getIntersections()) {
-			if (intersection.getLatitude() < minLat)
-				minLat = intersection.getLatitude();
-			if (intersection.getLatitude() > maxLat)
-				maxLat = intersection.getLatitude();
-			if (intersection.getLongitude() < minLng)
-				minLng = intersection.getLongitude();
-			if (intersection.getLongitude() > maxLng)
-				maxLng = intersection.getLongitude();
-		}
-		
-		minLatInitial = minLat;
-		maxLatInitial = maxLat;
-		minLngInitial = minLng;
-		maxLngInitial = maxLng;
-		
-		repaint();
-		
-	}
-
-	public void setRequestList(RequestList requestList) {
-		this.requestList = requestList;
+	public void setModel(Model model) {
+		this.model = model;
 		repaint();
 	}
 	
-	public void setResult(List<Path> result) {
-		this.result = result;
-		repaint();
-	}
-	
-	public void setIntersectionSelected(Intersection intersection) {
-		this.intersectionSelected = intersection;
-		repaint();
-	}
-	
-	public void setEmpty()
-	{
-		this.setNull=true;
-		repaint();
-	}
-	/*
-	public static void main(String[] args) {
-	
-
-		TSP tsp = new TSP1();
-		String mapName = "src/main/resources/largeMap.xml";
-		String requestName = "src/main/resources/requestsLarge7.xml";
-		FileLoader fileLoader = new FileLoader();
-		fileLoader.loadMap(mapName);
-		List<Intersection> intersections = fileLoader.getIntersections();
-		List<Road> roads = fileLoader.getRoads();
-		CityMap cityMap = new CityMap(roads, intersections);
-		RequestList requestList = fileLoader.loadRequest(requestName);
-		Graph g = new ShortestPathGraph(requestList, cityMap);
-		long startTime = System.currentTimeMillis();
-		tsp.searchSolution(20000, g);
-
-		List<Path> paths = tsp.getRoute().getPaths();
-		List<Road> roads2 = new ArrayList<Road>();
-		for (Path path : paths) {
-			roads2.addAll(path.getRoads());
-		}
-
-		final int WIDTH = 600;
-		final int HEIGHT = 600;
-		JFrame frame = new JFrame();
-		frame.setPreferredSize(new Dimension(WIDTH + 20, HEIGHT + 40));
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		Map jLabel = new Map(WIDTH, HEIGHT);
-		jLabel.setCityMap(cityMap);
-		jLabel.setRequestList(requestList);
-		jLabel.setResult(paths);
-		
-		jLabel.setLocation(0, 0);
-
-		frame.getContentPane().add(jLabel);
-		frame.pack();
-		frame.setVisible(true);
-	}*/
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		int x = e.getX();
-		int y = e.getY();
-		double[] latLng = convertXYToLatLng(x, y);
-
-
-
-		repaint();
-		JOptionPane.showMessageDialog(this, this.intersectionSelected.getAdjacence().get(0).toString());
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		// TODO Auto-generated method stub
-		
+
 		if (e.getWheelRotation() == -1) {
 			if (e.getX() < width / 2 && e.getY() >= height / 2) {
 				if (zoom < 10) {
@@ -374,5 +253,7 @@ public class GraphicalView extends JLabel implements MouseListener, MouseWheelLi
 
 	}
 
+	
+	
 
 }
