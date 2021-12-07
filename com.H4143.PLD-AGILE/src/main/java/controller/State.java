@@ -14,7 +14,7 @@ public interface State {
 	public default void deleteRequest(Controller controller) {};
 	public default void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {};
 	
-	public default void leftClick(Controller controller, View view, Model model, int x, int y) {};
+	public default void leftClick(Controller controller, View view, Model model, double lat, double lng) {};
 	public default void rightClick() {}; 
 	
 	

@@ -29,6 +29,7 @@ public class View extends JFrame implements Observer {
 	protected static final String UNDO = "Undo";
 	
 	private ArrayList<JButton> buttons;
+	private ArrayList<JButton> buttonsRequest;
 	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, UNDO, REDO};
 	private ButtonListener buttonListener;
 	private final int buttonHeight = 40;
@@ -87,13 +88,28 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
+	private void createListRequest() {
+		buttons = new ArrayList<JButton>();
+		for (String text : buttonTexts){
+			JButton button = new JButton(text);
+			buttons.add(button);
+			button.setSize(buttonWidth,buttonHeight);
+			button.setLocation(650,(buttons.size()-1)*buttonHeight);
+			button.setFocusable(false);
+			button.setFocusPainted(false);
+			button.addActionListener(buttonListener);
+			getContentPane().add(button);	
+		}
+	}
+	
 
 
 	@Override
 	public void update(Object arg) {
+		this.createListRequest();
 		this.graphicalView.setModel((Model) arg);	
 //		this.textualView.setModel((Model) arg);	
-//		repaint();
+
 	}
 	
 	
