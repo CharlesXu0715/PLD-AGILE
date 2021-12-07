@@ -47,9 +47,9 @@ public class DeleteRequestState implements State {
 	}
 	
 	@Override
-	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude) {
-		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
-		controller.setCurrentState(controller.deleteRequestState);
+	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp, ListOfCommands listOfCommands) {
+//		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+		listOfCommands.add(new DeleteRequestCommand(model, tsp, model.findRequestByVisitPoint(model.findClosestVisitPoint(latitude, longitude))));
 	}
 	
 	@Override

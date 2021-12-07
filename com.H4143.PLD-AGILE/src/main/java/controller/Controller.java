@@ -18,8 +18,8 @@ public class Controller {
 	protected final LoadRequestState loadRequestState = new LoadRequestState(); 
 	protected final DisplayRouteState displayRouteState = new DisplayRouteState(); 
 	protected final DeleteRequestState deleteRequestState = new DeleteRequestState(); 
-	protected final AddPickupState addRequestState1 = new AddPickupState(); 
-	protected final AddDeliveryState addRequestState2 = new AddDeliveryState(); 
+	protected final AddPickupState addPickupState = new AddPickupState(); 
+	protected final AddDeliveryState addDeliveryState = new AddDeliveryState(); 
 	
 	
 	public Controller() {
@@ -54,6 +54,10 @@ public class Controller {
 		this.currentState.deleteRequest(model, request, tsp, listOfCommands);
 	}
 	
+	public void entryAddRequest() {
+		this.currentState.entryAddRequest(this);
+	}
+	
 	public void addRequest() {
 		this.currentState.addRequest(this);
 	}
@@ -63,7 +67,7 @@ public class Controller {
 	}
 	
 	public void leftClick(double lat, double lng) {
-		this.currentState.leftClick(this, view, model, lat, lng);
+		this.currentState.leftClick(this, view, model, lat, lng, tsp, listOfCommands);
 	}
 	
 	public void rightClick() {

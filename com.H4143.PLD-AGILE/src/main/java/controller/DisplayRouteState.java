@@ -39,6 +39,11 @@ public class DisplayRouteState implements State{
 		controller.setCurrentState(controller.deleteRequestState);
 	}
 	
+	@Override
+	public void entryAddRequest(Controller controller) {
+		controller.setCurrentState(controller.addPickupState);
+	}
+	
 	
 	
 	

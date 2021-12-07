@@ -46,9 +46,6 @@ public class LoadRequestState implements State {
 	
 	
 	
-	@Override
-	public void addRequest(Controller controller) {
-		controller.setCurrentState(controller.addRequestState1);
-	}
+
 
 }

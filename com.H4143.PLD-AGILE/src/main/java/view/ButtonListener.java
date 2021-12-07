@@ -25,7 +25,7 @@ public class ButtonListener implements ActionListener {
 			case View.LOADMAP: controller.loadMap(); break;
 			case View.LOADREQUESTS: controller.loadRequest(); break;
 			case View.CALCULROUTE: controller.calculRoute(); break;
-			case View.ADDREQUEST: controller.addRequest(); break;
+			case View.ADDREQUEST: controller.entryAddRequest(); break;
 			case View.DELETEREQUEST: controller.entryDeleteRequest(); break;
 			case View.REQUEST: controller.deleteRequest(this.request); break;
 			case View.VALIDATE: controller.validate(); break;
