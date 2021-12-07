@@ -36,8 +36,8 @@ public class ButtonListener implements ActionListener {
 					controller.handleClick(this.visitPoint); 
 				}
 				break;
-//			case Window.UNDO: controller.undo(); break;
-//			case Window.REDO: controller.redo(); break;
+			case View.UNDO: controller.undo(); break;
+			case View.REDO: controller.redo(); break;
 		}
 	}
 }

@@ -50,7 +50,17 @@ public class DisplayRouteState implements State{
 		System.out.println("change order");
 	}
 	
+	@Override
+	public void undo(ListOfCommands listOfCommands) {
+		// TODO Auto-generated method stub
+		listOfCommands.undo();
+	}
 	
+	@Override
+	public void redo(ListOfCommands listOfCommands) {
+		// TODO Auto-generated method stub
+		listOfCommands.redo();
+	}
 	
 	
 }

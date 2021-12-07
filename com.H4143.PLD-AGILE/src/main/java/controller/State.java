@@ -23,6 +23,8 @@ public interface State {
 	public default void rightClick(Controller controller) {}; 
 	
 	
-	public default void undo() {};
-	public default void redo() {};
+	public default void undo(ListOfCommands listOfCommands) {
+		
+	};
+	public default void redo(ListOfCommands listOfCommands) {};
 }

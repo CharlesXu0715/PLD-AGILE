@@ -86,5 +86,13 @@ public class Controller {
 		this.currentState.rightClick(this);
 	}
 	
+	public void undo() {
+		this.currentState.undo(listOfCommands);
+	}
+	
+	public void redo() {
+		this.currentState.redo(listOfCommands);
+	}
+	
 	
 }
