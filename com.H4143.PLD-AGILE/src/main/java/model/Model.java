@@ -1,6 +1,8 @@
 package model;
 
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import observer.Observer;
 import observer.Subject;
@@ -12,6 +14,8 @@ public class Model implements Subject {
 	private VisitPoint visitPointSelected;
 	private VisitPoint pickupPointSelected;
 	private VisitPoint delivPointSelected;
+	
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("h:m:s");
 	
 	public VisitPoint getPickupPointSelected() {
 		return pickupPointSelected;
@@ -87,7 +91,22 @@ public class Model implements Subject {
 		this.notifyAllObserver(this);
 	}
 	
-	
+	public String getArrivalTime(int i) {
+	    Date startDate;
+	    long total=0;
+		try {
+			startDate = dateFormat.parse(requestList.getDepartTime());
+			total=startDate.getTime();
+			for (int j=0;j<i;j++) {
+				total+=route.getPaths().get(j).getDuration()*1000;
+				total+=route.getVisitPointByIndex(j).getDuration()*1000;
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dateFormat.format(new Date(total));
+	}
 	
 	public VisitPoint findClosestVisitPoint(double latitude, double longitude) {
 		VisitPoint visitPoint = requestList.getDepotPoint();

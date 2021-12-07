@@ -44,7 +44,7 @@ public class View extends JFrame implements Observer {
 	private JLabel totalDuration;
 	private JLabel message;
 	private JButton depotButton;
-	private final int buttonHeight = 40;
+	private final int buttonHeight = 45;
 	private final int buttonWidth = 150;
 
 	public View(Controller controller, Model model) {
@@ -129,7 +129,8 @@ public class View extends JFrame implements Observer {
 		depotButton.setFocusable(false);
 		depotButton.setFocusPainted(false);
 		depotButton.addActionListener(new ButtonListener(controller, null));
-		depotButton.setText("<html>Depot:   " + model.getRequestList().getDepartPoint().getAddress() + "</html>");
+		depotButton.setText("<html>Depot:   " + model.getRequestList().getDepartPoint().getAddress() + "<br>Start route at: "
+							+model.getRequestList().getDepartTime()+"</html>");
 		depotButton.setHorizontalAlignment(SwingConstants.LEFT);
 		depotButton.setBackground(null);
 		depotButton.setEnabled(false);
@@ -169,11 +170,26 @@ public class View extends JFrame implements Observer {
 				button1.setLocation(650, (buttonsRequest.size() - 1) * buttonHeight);
 				button1.setFocusable(false);
 				button1.setFocusPainted(false);
-				VisitPoint visitPoint = model.findClosestVisitPoint(path.getStart().getLatitude(),
-						path.getStart().getLongitude());
+				VisitPoint visitPoint = model.findClosestVisitPoint(path.getEnd().getLatitude(),
+						path.getEnd().getLongitude());
 				button1.addActionListener(new ButtonListener(controller, visitPoint));
-				button1.setText("<html>Visit point:   " + visitPoint.getAddress() + "<br>Pickup duration:   "
-						+ visitPoint.getDuration() + "s</html>");
+				switch (visitPoint.getType()) {
+					case 0:
+						button1.setText("<html>Return to:   " + visitPoint.getAddress() + "<br>Arrive at:   "
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "</html>");
+						button1.setEnabled(false);
+						break;
+					case 1:
+						button1.setText("<html>Pickup Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Pickup duration:"
+								+ visitPoint.getDuration()+"s</html>");
+						break;
+					case 2:
+						button1.setText("<html>Delivery Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Delivery duration:"
+								+ visitPoint.getDuration()+"s</html>");
+						break;
+				}
 				button1.setHorizontalAlignment(SwingConstants.LEFT);
 				getContentPane().add(button1);
 

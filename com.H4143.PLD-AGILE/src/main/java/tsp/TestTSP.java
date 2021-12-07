@@ -1,5 +1,10 @@
 package tsp;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import model.CityMap;
 import model.Model;
 import model.Request;
@@ -11,10 +16,17 @@ public class TestTSP {
 
 	public static void main(String[] args) {
 //		testLoad();
-		testAddVisitPoint();
+//		testAddVisitPoint();
 //		testAddVisitPointToIndex();
 //		testRemoveVisitPoint();
 //		testChangeOrder();
+		DateFormat df = new SimpleDateFormat("h:m:s");
+		try {
+			System.out.println(df.format(new Date(df.parse("8:0:0").getTime()+100000)));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void testLoad() {
