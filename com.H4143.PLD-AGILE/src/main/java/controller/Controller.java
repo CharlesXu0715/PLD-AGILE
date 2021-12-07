@@ -46,8 +46,12 @@ public class Controller {
 		this.currentState.calculateRoute(this, view, model, tsp);
 	}
 	
+	public void entryDeleteRequest() {
+		this.currentState.entryDeleteRequest(this);
+	}
+	
 	public void deleteRequest(Request request) {
-		this.currentState.deleteRequest(this, model, request, listOfCommands);
+		this.currentState.deleteRequest(model, request, tsp, listOfCommands);
 	}
 	
 	public void addRequest() {

@@ -27,6 +27,7 @@ public class View extends JFrame implements Observer {
 	protected static final String DELETEREQUEST = "Delete Request";
 	protected static final String ADDREQUEST = "Add Request";
 	protected static final String VALIDATE = "Validate";
+	protected static final String REQUEST = "Request";
 	protected static final String REDO = "Redo";
 	protected static final String UNDO = "Undo";
 	
@@ -102,7 +103,7 @@ public class View extends JFrame implements Observer {
 		
 		buttonsRequest = new ArrayList<JButton>();
 		for (Request request: model.getRequestList().getRequests()){
-			JButton button = new JButton(request.toString());
+			JButton button = new JButton(REQUEST);
 			buttonsRequest.add(button);
 			button.setSize(300,buttonHeight);
 			button.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);

@@ -12,7 +12,8 @@ public interface State {
 	public default void loadRequest(Controller controller, View view, Model model) {};
 	public default void calculateRoute(Controller controller, View view, Model model, TSP tsp) {};
 	public default void addRequest(Controller controller) {};
-	public default void deleteRequest(Controller controller, Model model, Request request, ListOfCommands listOfCommands) {};
+	public default void entryDeleteRequest(Controller controller) {};
+	public default void deleteRequest(Model model, Request request, TSP tsp, ListOfCommands listOfCommands) {};
 	public default void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {};
 	
 	public default void leftClick(Controller controller, View view, Model model, double lat, double lng) {};
