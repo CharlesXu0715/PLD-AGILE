@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import controller.*;
@@ -37,6 +38,7 @@ public class View extends JFrame implements Observer {
 	private ArrayList<JButton> buttonsRequest = new ArrayList<JButton>();;
 	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, VALIDATE, UNDO, REDO};
 	private ButtonListener buttonListener;
+	private JLabel totalDuration;
 	private final int buttonHeight = 40;
 	private final int buttonWidth = 150;
 	
@@ -49,10 +51,14 @@ public class View extends JFrame implements Observer {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		
-		
 		graphicalView = new GraphicalView(controller, model, 500, 500);
 		graphicalView.setLocation(150,0);
 		add(graphicalView);
+		
+		totalDuration = new JLabel();
+		totalDuration.setSize(200,150);
+		totalDuration.setLocation(1000,450);
+		add(totalDuration);
 		
 		createButtons(controller);
 		createListRequest(controller, model);
@@ -140,9 +146,16 @@ public class View extends JFrame implements Observer {
 	@Override
 	public void update(Object arg) {
 		this.createListRequest(controller, (Model) arg);
-		this.graphicalView.setModel((Model) arg);	
+		this.graphicalView.setModel((Model) arg);
+		if (((Model) arg).getRoute()!=null) {
+			changeTotalDuration(((Model) arg).getRoute().getDuration());
+		}
 //		this.textualView.setModel((Model) arg);	
 
+	}
+	
+	public void changeTotalDuration(double duration) {
+		totalDuration.setText("Total duration: "+(int)duration+"s");
 	}
 	
 	
