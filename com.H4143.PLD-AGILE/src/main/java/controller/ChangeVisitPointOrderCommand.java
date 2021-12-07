@@ -24,9 +24,11 @@ public class ChangeVisitPointOrderCommand implements Command{
 	
 	public void doCommand() {
 		tsp.changeVisitPointOrder(visitPoint, newIndex);
+		model.setRoute(tsp.getRoute());
 	}
 	
 	public void undoCommand() {
 		tsp.changeVisitPointOrder(visitPoint, oldIndex);
+		model.setRoute(tsp.getRoute());
 	}
 }

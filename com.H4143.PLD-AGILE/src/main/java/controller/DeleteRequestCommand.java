@@ -25,12 +25,14 @@ public class DeleteRequestCommand implements Command {
 	public void doCommand() {
 		this.tsp.removeRequest(request);
 		this.model.removeRequest(request);
+		model.setRoute(tsp.getRoute());
 	}
 
 	@Override
 	public void undoCommand() {
 		this.tsp.addRequestToIndex(request, indexPickupRoute, indexDeliveryRoute);
 		this.model.addRequestToIndex(request, indexRequestList);
+		model.setRoute(tsp.getRoute());
 	}
 
 }

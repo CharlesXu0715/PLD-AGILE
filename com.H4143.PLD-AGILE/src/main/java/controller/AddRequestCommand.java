@@ -19,10 +19,12 @@ public class AddRequestCommand implements Command{
 	public void doCommand() {
 		tsp.addNewRequest(newRequest);
 		model.addRequest(newRequest);
+		model.setRoute(tsp.getRoute());
 	}
 	
 	public void undoCommand() {
 		tsp.removeRequest(newRequest);
 		model.removeRequest(newRequest);
+		model.setRoute(tsp.getRoute());
 	}
 }
