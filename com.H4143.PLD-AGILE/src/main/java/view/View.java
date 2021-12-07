@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import java.awt.GridLayout;
 
 import controller.*;
 import model.Model;
@@ -31,7 +34,7 @@ public class View extends JFrame implements Observer {
 	protected static final String DELETEREQUEST = "Delete Request";
 	protected static final String ADDREQUEST = "Add Request";
 	protected static final String VALIDATE = "Validate";
-	protected static final String VISITPOINT = "Visit point";
+	protected static final String VISITPOINT = "Point";
 	protected static final String CHANGEORDER = "Change order";
 	protected static final String REDO = "Redo";
 	protected static final String UNDO = "Undo";
@@ -44,6 +47,7 @@ public class View extends JFrame implements Observer {
 	private JLabel totalDuration;
 	private JLabel message;
 	private JButton depotButton;
+	private JPanel buttonPanel;
 	private final int buttonHeight = 45;
 	private final int buttonWidth = 150;
 
@@ -71,6 +75,13 @@ public class View extends JFrame implements Observer {
 		message.setSize(100,200);
 		message.setLocation(0,400);
 		add(message);
+		
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(0, 1));
+		
+		JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
+	    buttonScrollPane.setBounds(650,0,302,500);
+	    add(buttonScrollPane);
 		
 		createButtons(controller);
 		createListRequest(controller, model);
@@ -120,12 +131,14 @@ public class View extends JFrame implements Observer {
 		for (JButton button : buttonsRequest) {
 			this.remove(button);
 		}
+		
+		buttonPanel.removeAll();
 
 		buttonsRequest = new ArrayList<JButton>();
 		depotButton = new JButton();
 		buttonsRequest.add(depotButton);
-		depotButton.setSize(300, buttonHeight);
-		depotButton.setLocation(650, 0);
+		depotButton.setSize(400, buttonHeight);
+		depotButton.setLocation(0, 0);
 		depotButton.setFocusable(false);
 		depotButton.setFocusPainted(false);
 		depotButton.addActionListener(new ButtonListener(controller, null));
@@ -134,40 +147,37 @@ public class View extends JFrame implements Observer {
 		depotButton.setHorizontalAlignment(SwingConstants.LEFT);
 		depotButton.setBackground(null);
 		depotButton.setEnabled(false);
-		getContentPane().add(depotButton);
+		buttonPanel.add(depotButton);
 		if (model.getRoute() == null) {
 			for (Request request : model.getRequestList().getRequests()) {
 
 				JButton button1 = new JButton(VISITPOINT);
 				buttonsRequest.add(button1);
-				button1.setSize(300, buttonHeight);
-				button1.setLocation(650, (buttonsRequest.size() - 1) * buttonHeight);
+				button1.setSize(400, buttonHeight);
 				button1.setFocusable(false);
 				button1.setFocusPainted(false);
 				button1.addActionListener(new ButtonListener(controller, request.getPickPoint()));
-				button1.setText("<html>Pickup:   " + request.getPickPoint().getAddress() + "<br>Pickup duration:   "
+				button1.setText("<html>Pickup Point:   " + request.getPickPoint().getAddress() + "<br>Pickup duration:   "
 						+ request.getPickPoint().getDuration() + "s</html>");
 				button1.setHorizontalAlignment(SwingConstants.LEFT);
-				getContentPane().add(button1);
+				buttonPanel.add(button1);
 
 				JButton button2 = new JButton(VISITPOINT);
 				buttonsRequest.add(button2);
-				button2.setSize(300, buttonHeight);
-				button2.setLocation(650, (buttonsRequest.size() - 1) * buttonHeight);
+				button2.setSize(400, buttonHeight);
 				button2.setFocusable(false);
 				button2.setFocusPainted(false);
 				button2.addActionListener(new ButtonListener(controller, request.getDelivPoint()));
-				button2.setText("<html>Delivery: " + request.getDelivPoint().getAddress() + "<br>Delivery duration: "
+				button2.setText("<html>Delivery Point: " + request.getDelivPoint().getAddress() + "<br>Delivery duration: "
 						+ request.getDelivPoint().getDuration() + "s</html>");
 				button2.setHorizontalAlignment(SwingConstants.LEFT);
-				getContentPane().add(button2);
+				buttonPanel.add(button2);
 			}
 		} else {
 			for (Path path : model.getRoute().getPaths()) {
 				JButton button1 = new JButton(VISITPOINT);
 				buttonsRequest.add(button1);
-				button1.setSize(300, buttonHeight);
-				button1.setLocation(650, (buttonsRequest.size() - 1) * buttonHeight);
+				button1.setSize(400, buttonHeight);
 				button1.setFocusable(false);
 				button1.setFocusPainted(false);
 				VisitPoint visitPoint = model.findClosestVisitPoint(path.getEnd().getLatitude(),
@@ -181,21 +191,23 @@ public class View extends JFrame implements Observer {
 						break;
 					case 1:
 						button1.setText("<html>Pickup Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Pickup duration:"
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Pickup duration: "
 								+ visitPoint.getDuration()+"s</html>");
 						break;
 					case 2:
 						button1.setText("<html>Delivery Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Delivery duration:"
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Delivery duration: "
 								+ visitPoint.getDuration()+"s</html>");
 						break;
 				}
 				button1.setHorizontalAlignment(SwingConstants.LEFT);
-				getContentPane().add(button1);
+				buttonPanel.add(button1);
 
 			}
 		}
-
+		
+		buttonPanel.repaint();
+		buttonPanel.revalidate();
 		repaint();
 	}
 

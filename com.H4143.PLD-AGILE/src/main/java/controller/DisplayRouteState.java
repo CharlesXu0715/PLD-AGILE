@@ -3,7 +3,9 @@ package controller;
 import model.CityMap;
 import model.Model;
 import model.RequestList;
+import model.VisitPoint;
 import singleton.XMLFileLoader;
+import tsp.TSP;
 import view.View;
 
 public class DisplayRouteState implements State{
@@ -53,6 +55,17 @@ public class DisplayRouteState implements State{
 		controller.changeMessage(Controller.MESSAGE_CHANGE_ORDER);
 		controller.setCurrentState(controller.changeOrderState);
 		System.out.println("change order");
+	}
+	
+	@Override
+	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
+			ListOfCommands listOfCommands) {
+		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+	}
+	
+	@Override
+	public void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
+		model.setVisitPointSelected(visitPoint);
 	}
 	
 	@Override
