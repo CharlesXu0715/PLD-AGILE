@@ -20,6 +20,11 @@ public class Request {
         this.delivPoint=new VisitPoint(delivP, delivDur,2);
     }
     
+    public Request(VisitPoint pickupPoint, VisitPoint deliveryPoint) {
+    	this.pickPoint = pickupPoint;
+    	this.delivPoint = deliveryPoint;
+    }
+    
     public VisitPoint getPickPoint() {
         return pickPoint;
     }
