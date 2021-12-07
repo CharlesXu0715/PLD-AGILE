@@ -47,8 +47,9 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 		if (this.model.getMap() != null) this.drawCityMap(g2);
 		if (this.model.getRequestList() != null) this.drawRequestList(g2);
 		if (this.model.getRoute() != null) this.drawResult(g2);
-		if (this.model.getIntersectionSelected() != null) this.drawIntersectionSelected(g2);
-		
+		if (this.model.getVisitPointSelected() != null) this.drawIntersectionSelected(this.model.getVisitPointSelected(), g2);
+		if (this.model.getDelivPointSelected() != null) this.drawIntersectionSelected(this.model.getDelivPointSelected(), g2);
+		if (this.model.getPickupPointSelected() != null) this.drawIntersectionSelected(this.model.getPickupPointSelected(), g2);
 		
 		this.drawBorder(g2);
 		g2.dispose();
@@ -181,10 +182,10 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 
 	}
 	
-	private void drawIntersectionSelected(Graphics2D g2) {
+	private void drawIntersectionSelected(VisitPoint visitPoint, Graphics2D g2) {
 		g2.setColor(Color.YELLOW);
-		double[] xY = convertLatLngToXY(this.model.getIntersectionSelected().getLatitude(),
-				this.model.getIntersectionSelected().getLongitude());
+		double[] xY = convertLatLngToXY(visitPoint.getIntersection().getLatitude(),
+				visitPoint.getIntersection().getLongitude());
 		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
 	}
 	

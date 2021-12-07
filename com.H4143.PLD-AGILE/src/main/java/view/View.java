@@ -27,7 +27,7 @@ public class View extends JFrame implements Observer {
 	protected static final String DELETEREQUEST = "Delete Request";
 	protected static final String ADDREQUEST = "Add Request";
 	protected static final String VALIDATE = "Validate";
-	protected static final String REQUEST = "Request";
+	protected static final String VISITPOINT = "Visit point";
 	protected static final String REDO = "Redo";
 	protected static final String UNDO = "Undo";
 	
@@ -103,14 +103,25 @@ public class View extends JFrame implements Observer {
 		
 		buttonsRequest = new ArrayList<JButton>();
 		for (Request request: model.getRequestList().getRequests()){
-			JButton button = new JButton(REQUEST);
-			buttonsRequest.add(button);
-			button.setSize(300,buttonHeight);
-			button.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
-			button.setFocusable(false);
-			button.setFocusPainted(false);
-			button.addActionListener(new ButtonListener(controller, request));
-			getContentPane().add(button);	
+			JButton button1 = new JButton(VISITPOINT);
+			buttonsRequest.add(button1);
+			button1.setSize(300,buttonHeight);
+			button1.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
+			button1.setFocusable(false);
+			button1.setFocusPainted(false);
+			button1.addActionListener(new ButtonListener(controller, request));
+			getContentPane().add(button1);	
+			
+			
+			
+			JButton button2 = new JButton(VISITPOINT);
+			buttonsRequest.add(button2);
+			button2.setSize(300,buttonHeight);
+			button2.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
+			button2.setFocusable(false);
+			button2.setFocusPainted(false);
+			button2.addActionListener(new ButtonListener(controller, request));
+			getContentPane().add(button2);	
 		}
 		
 		repaint();

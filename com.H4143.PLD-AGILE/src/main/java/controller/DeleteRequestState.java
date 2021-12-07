@@ -20,7 +20,7 @@ public class DeleteRequestState implements State {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void loadMap(Controller controller, View view, Model model) {
 
@@ -34,30 +34,26 @@ public class DeleteRequestState implements State {
 		}
 
 	}
-	
+
 	@Override
 	public void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {
-		try {
-			Request request = model.findRequestByVisitPoint(model.getVisitPointSelected());
-			listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
-			controller.setCurrentState(controller.displayRouteState);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Request request = model.findRequestByVisitPoint(model.getVisitPointSelected());
+		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
+		model.setVisitPointSelected(null);
+		controller.setCurrentState(controller.displayRouteState);
 	}
-	
+
 	@Override
-	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp, ListOfCommands listOfCommands) {
-//		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
-		listOfCommands.add(new DeleteRequestCommand(model, tsp, model.findRequestByVisitPoint(model.findClosestVisitPoint(latitude, longitude))));
-	}
-	
-	@Override
-	public void deleteRequest(Model model, Request request, TSP tsp,
+	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
 			ListOfCommands listOfCommands) {
+		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+	}
+
+	@Override
+	public void deleteRequest(Model model, Request request, TSP tsp, ListOfCommands listOfCommands) {
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
 	}
-	
+
 	@Override
 	public void rightClick(Controller controller) {
 		// TODO Auto-generated method stub

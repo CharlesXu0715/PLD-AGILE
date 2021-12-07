@@ -9,19 +9,40 @@ public class Model implements Subject {
 	private CityMap map;
 	private RequestList requestList;
 	private Route route;
-	private Intersection intersectionSelected;
 	private VisitPoint visitPointSelected;
+	private VisitPoint pickupPointSelected;
+	private VisitPoint delivPointSelected;
 	
-	
-	public Intersection getIntersectionSelected() {
-		return intersectionSelected;
+	public VisitPoint getPickupPointSelected() {
+		return pickupPointSelected;
 	}
-	
-	public void setIntersectionSelected(Intersection intersectionSelected) {
-		this.intersectionSelected = intersectionSelected;
+
+	public void setPickupPointSelected(VisitPoint pickupPointSelected) {
+		this.pickupPointSelected = pickupPointSelected;
 		this.notifyAllObserver(this);
 	}
+
+	public VisitPoint getDelivPointSelected() {
+		return delivPointSelected;
+	}
+
+	public void setDelivPointSelected(VisitPoint delivPointSelected) {
+		this.delivPointSelected = delivPointSelected;
+		this.notifyAllObserver(this);
+	}
+
 	
+	
+	
+	public VisitPoint getVisitPointSelected() {
+		return visitPointSelected;
+	}
+
+	public void setVisitPointSelected(VisitPoint visitPointSelected) {
+		this.visitPointSelected = visitPointSelected;
+		this.notifyAllObserver(this);
+	}
+
 	public CityMap getMap() {
 		return map;
 	}
@@ -66,13 +87,7 @@ public class Model implements Subject {
 		this.notifyAllObserver(this);
 	}
 	
-	public VisitPoint getVisitPointSelected() {
-		return visitPointSelected;
-	}
-
-	public void setVisitPointSelected(VisitPoint visitPointSelected) {
-		this.visitPointSelected = visitPointSelected;
-	}
+	
 	
 	public VisitPoint findClosestVisitPoint(double latitude, double longitude) {
 		VisitPoint visitPoint = requestList.getDepotPoint();
