@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import controller.*;
 import model.Model;
+import model.Request;
 import observer.Observer;
 
 /**
@@ -29,7 +30,7 @@ public class View extends JFrame implements Observer {
 	protected static final String UNDO = "Undo";
 	
 	private ArrayList<JButton> buttons;
-	private ArrayList<JButton> buttonsRequest;
+	private ArrayList<JButton> buttonsRequest = new ArrayList<JButton>();;
 	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, UNDO, REDO};
 	private ButtonListener buttonListener;
 	private final int buttonHeight = 40;
@@ -50,7 +51,7 @@ public class View extends JFrame implements Observer {
 		add(graphicalView);
 		
 		createButtons(controller);
-		
+		createListRequest(model);
 		model.attach(this);
 		
 		setVisible(true);
@@ -88,25 +89,35 @@ public class View extends JFrame implements Observer {
 		}
 	}
 	
-	private void createListRequest() {
-		buttons = new ArrayList<JButton>();
-		for (String text : buttonTexts){
-			JButton button = new JButton(text);
-			buttons.add(button);
-			button.setSize(buttonWidth,buttonHeight);
-			button.setLocation(650,(buttons.size()-1)*buttonHeight);
+	private void createListRequest(Model model) {
+		if (model.getRequestList() == null) {
+			return;
+		}
+		
+		for (JButton button: buttonsRequest) {
+			this.remove(button);
+		}
+		
+		buttonsRequest = new ArrayList<JButton>();
+		for (Request request: model.getRequestList().getRequests()){
+			System.out.println(request.toString());
+			JButton button = new JButton(request.toString());
+			buttonsRequest.add(button);
+			button.setSize(300,buttonHeight);
+			button.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
 			button.setFocusable(false);
 			button.setFocusPainted(false);
-			button.addActionListener(buttonListener);
 			getContentPane().add(button);	
 		}
+		
+		repaint();
 	}
 	
 
 
 	@Override
 	public void update(Object arg) {
-		this.createListRequest();
+		this.createListRequest((Model) arg);
 		this.graphicalView.setModel((Model) arg);	
 //		this.textualView.setModel((Model) arg);	
 

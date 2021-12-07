@@ -1,15 +1,19 @@
 package view;
 
 import controller.Controller;
+import model.Request;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ButtonListener implements ActionListener {
 	
 	private Controller controller;
+	private Request request;
 
-	public ButtonListener(Controller controller){
+	public ButtonListener(Controller controller, Request request){
 		this.controller = controller;
+		this.request = request;
 	}
 
 	@Override
@@ -22,7 +26,7 @@ public class ButtonListener implements ActionListener {
 			case View.LOADREQUESTS: controller.loadRequest(); break;
 			case View.CALCULROUTE: controller.calculRoute(); break;
 			case View.ADDREQUEST: controller.addRequest(); break;
-			case View.DELETEREQUEST: controller.deleteRequest(); break;
+			case View.DELETEREQUEST: controller.deleteRequest(this.request); break;
 //			case Window.UNDO: controller.undo(); break;
 //			case Window.REDO: controller.redo(); break;
 		}
