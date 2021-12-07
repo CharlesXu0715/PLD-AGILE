@@ -51,7 +51,7 @@ public class DeleteRequestState implements State {
 	}
 
 	@Override
-	public void deleteRequest(Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
+	public void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
 		Request request = model.findRequestByVisitPoint(visitPoint);
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
 	}

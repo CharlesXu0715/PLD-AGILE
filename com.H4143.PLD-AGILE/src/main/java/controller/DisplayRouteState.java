@@ -44,6 +44,11 @@ public class DisplayRouteState implements State{
 		controller.setCurrentState(controller.addPickupState);
 	}
 	
+	@Override
+	public void entryChangeOrder(Controller controller) {
+		controller.setCurrentState(controller.changeOrderState);
+	}
+	
 	
 	
 	

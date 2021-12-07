@@ -15,12 +15,12 @@ public interface State {
 	public default void entryAddDeliveryRequest(Controller controller, VisitPoint visitPoint) {};
 	public default void addRequest(Controller controller) {};
 	public default void entryDeleteRequest(Controller controller) {};
-	public default void deleteRequest(Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {};
+	public default void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {};
 	public default void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {};
+	public default void entryChangeOrder(Controller controller) {};
 	
 	public default void leftClick(Controller controller, View view, Model model, double lat, double lng, TSP tsp, ListOfCommands listOfCommands) {};
 	public default void rightClick(Controller controller) {}; 
-	
 	
 	
 	public default void undo() {};
