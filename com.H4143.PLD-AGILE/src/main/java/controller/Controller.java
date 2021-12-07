@@ -53,8 +53,9 @@ public class Controller {
 		this.currentState.addRequest(this);
 	}
 	
-	public void leftClick() {
-		this.currentState.leftClick(this, view, model, null);
+	public void leftClick(int x, int y) {
+		this.currentState.leftClick(this, view, model, x, y);
+		System.out.println(x + " " + y);
 	}
 	
 	public void rightClick() {

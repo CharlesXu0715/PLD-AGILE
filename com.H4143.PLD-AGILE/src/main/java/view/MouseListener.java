@@ -20,7 +20,7 @@ public class MouseListener extends MouseAdapter {
 		// Method called by the mouse listener each time the mouse is clicked
 		switch (evt.getButton()) {
 		case MouseEvent.BUTTON1:
-			controller.leftClick();
+			controller.leftClick(evt.getX(), evt.getY());
 			break;
 		case MouseEvent.BUTTON3:
 			controller.rightClick();

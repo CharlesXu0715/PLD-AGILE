@@ -45,7 +45,7 @@ public class DeleteRequestState implements State {
 	
 	
 	@Override
-	public void leftClick(Controller controller, View view, Model model, Intersection intersection) {
+	public void leftClick(Controller controller, View view, Model model, int x, int y) {
 		
 		controller.setCurrentState(controller.loadRequestState);
 	}

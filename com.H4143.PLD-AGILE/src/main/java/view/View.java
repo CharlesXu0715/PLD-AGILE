@@ -86,12 +86,14 @@ public class View extends JFrame implements Observer {
 			getContentPane().add(button);	
 		}
 	}
+	
+
 
 	@Override
 	public void update(Object arg) {
 		this.graphicalView.setModel((Model) arg);	
 //		this.textualView.setModel((Model) arg);	
-		repaint();
+//		repaint();
 	}
 	
 	
