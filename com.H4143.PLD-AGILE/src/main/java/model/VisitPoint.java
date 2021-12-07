@@ -30,6 +30,10 @@ public class VisitPoint {
     public double getDistanceTo(double longitude, double latitude) {
     	return this.intersection.getDistanceTo(longitude, latitude);
     }
+    
+    public String getAddress() {
+    	return intersection.getAddress();
+    }
 
 	public String toString()
 	{

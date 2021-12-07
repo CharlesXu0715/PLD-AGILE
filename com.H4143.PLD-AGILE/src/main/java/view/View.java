@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
+
 import controller.*;
 import model.Model;
 import model.Request;
@@ -110,6 +112,9 @@ public class View extends JFrame implements Observer {
 			button1.setFocusable(false);
 			button1.setFocusPainted(false);
 			button1.addActionListener(new ButtonListener(controller, request.getPickPoint()));
+			button1.setText("<html>Pickup:   "+request.getPickPoint().getAddress()+
+					"<br>Pickup duration:   "+request.getPickPoint().getDuration()+"s</html>");
+			button1.setHorizontalAlignment(SwingConstants.LEFT);
 			getContentPane().add(button1);	
 			
 			
@@ -121,6 +126,9 @@ public class View extends JFrame implements Observer {
 			button2.setFocusable(false);
 			button2.setFocusPainted(false);
 			button2.addActionListener(new ButtonListener(controller, request.getDelivPoint()));
+			button2.setText("<html>Delivery: "+request.getDelivPoint().getAddress()+
+					"<br>Delivery duration: "+request.getDelivPoint().getDuration()+"s</html>");
+			button2.setHorizontalAlignment(SwingConstants.LEFT);
 			getContentPane().add(button2);	
 		}
 		
