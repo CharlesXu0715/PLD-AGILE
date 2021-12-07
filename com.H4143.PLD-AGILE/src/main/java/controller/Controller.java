@@ -52,8 +52,8 @@ public class Controller {
 		this.currentState.entryDeleteRequest(this);
 	}
 	
-	public void deleteRequest(Request request) {
-		this.currentState.deleteRequest(model, request, tsp, listOfCommands);
+	public void deleteRequest(VisitPoint visitPoint) {
+		this.currentState.deleteRequest(model, visitPoint, tsp, listOfCommands);
 	}
 	
 	public void entryAddPickupRequest() {

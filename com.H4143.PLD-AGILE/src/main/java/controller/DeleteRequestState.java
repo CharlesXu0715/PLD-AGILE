@@ -4,6 +4,7 @@ import model.CityMap;
 import model.Model;
 import model.Request;
 import model.RequestList;
+import model.VisitPoint;
 import singleton.XMLFileLoader;
 import tsp.TSP;
 import view.View;
@@ -50,7 +51,8 @@ public class DeleteRequestState implements State {
 	}
 
 	@Override
-	public void deleteRequest(Model model, Request request, TSP tsp, ListOfCommands listOfCommands) {
+	public void deleteRequest(Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
+		Request request = model.findRequestByVisitPoint(visitPoint);
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
 	}
 

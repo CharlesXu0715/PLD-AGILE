@@ -1,19 +1,19 @@
 package view;
 
-import controller.Controller;
-import model.Request;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import controller.Controller;
+import model.VisitPoint;
 
 public class ButtonListener implements ActionListener {
 	
 	private Controller controller;
-	private Request request;
+	private VisitPoint visitPoint;
 
-	public ButtonListener(Controller controller, Request request){
+	public ButtonListener(Controller controller, VisitPoint visitPoint){
 		this.controller = controller;
-		this.request = request;
+		this.visitPoint = visitPoint;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class ButtonListener implements ActionListener {
 			case View.CALCULROUTE: controller.calculRoute(); break;
 			case View.ADDREQUEST: controller.entryAddPickupRequest(); break;
 			case View.DELETEREQUEST: controller.entryDeleteRequest(); break;
-			case View.VISITPOINT: controller.deleteRequest(this.request); break;
+			case View.VISITPOINT: controller.deleteRequest(this.visitPoint); break;
 			case View.VALIDATE: controller.validate(); break;
 //			case Window.UNDO: controller.undo(); break;
 //			case Window.REDO: controller.redo(); break;

@@ -109,7 +109,7 @@ public class View extends JFrame implements Observer {
 			button1.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
 			button1.setFocusable(false);
 			button1.setFocusPainted(false);
-			button1.addActionListener(new ButtonListener(controller, request));
+			button1.addActionListener(new ButtonListener(controller, request.getPickPoint()));
 			getContentPane().add(button1);	
 			
 			
@@ -120,7 +120,7 @@ public class View extends JFrame implements Observer {
 			button2.setLocation(650,(buttonsRequest.size()-1)*buttonHeight);
 			button2.setFocusable(false);
 			button2.setFocusPainted(false);
-			button2.addActionListener(new ButtonListener(controller, request));
+			button2.addActionListener(new ButtonListener(controller, request.getDelivPoint()));
 			getContentPane().add(button2);	
 		}
 		
