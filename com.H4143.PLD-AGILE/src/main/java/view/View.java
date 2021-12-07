@@ -21,6 +21,7 @@ public class View extends JFrame implements Observer {
 	private TextualView textualView;
 	private Controller controller;
 	
+	
 	protected static final String LOADMAP = "Load a map";
 	protected static final String LOADREQUESTS = "Load requests";
 	protected static final String CALCULROUTE = "Calcul Route";
@@ -28,12 +29,13 @@ public class View extends JFrame implements Observer {
 	protected static final String ADDREQUEST = "Add Request";
 	protected static final String VALIDATE = "Validate";
 	protected static final String VISITPOINT = "Visit point";
+	protected static final String CHANGEORDER = "Change order";
 	protected static final String REDO = "Redo";
 	protected static final String UNDO = "Undo";
 	
 	private ArrayList<JButton> buttons;
 	private ArrayList<JButton> buttonsRequest = new ArrayList<JButton>();;
-	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, VALIDATE, UNDO, REDO};
+	private final String[] buttonTexts = new String[]{LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE, CHANGEORDER, VALIDATE, UNDO, REDO};
 	private ButtonListener buttonListener;
 	private final int buttonHeight = 40;
 	private final int buttonWidth = 150;

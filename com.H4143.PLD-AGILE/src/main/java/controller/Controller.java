@@ -22,6 +22,7 @@ public class Controller {
 	protected final DeleteRequestState deleteRequestState = new DeleteRequestState(); 
 	protected final AddPickupState addPickupState = new AddPickupState(); 
 	protected final AddDeliveryState addDeliveryState = new AddDeliveryState(); 
+	protected final ChangeOrderState changeOrderState = new ChangeOrderState();
 	
 	
 	public Controller() {
@@ -52,8 +53,8 @@ public class Controller {
 		this.currentState.entryDeleteRequest(this);
 	}
 	
-	public void deleteRequest(VisitPoint visitPoint) {
-		this.currentState.deleteRequest(model, visitPoint, tsp, listOfCommands);
+	public void handleClick(VisitPoint visitPoint) {
+		this.currentState.handleClick(this, view, model, visitPoint, tsp, listOfCommands);
 	}
 	
 	public void entryAddPickupRequest() {
@@ -67,6 +68,11 @@ public class Controller {
 	public void addRequest() {
 		this.currentState.addRequest(this);
 	}
+	
+	public void entryChangeOrder() {
+		this.currentState.entryChangeOrder(this);
+	}
+	
 	
 	public void validate() {
 		this.currentState.validate(this, view, model, tsp, listOfCommands);
