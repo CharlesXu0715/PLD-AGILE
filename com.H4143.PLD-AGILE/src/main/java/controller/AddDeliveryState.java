@@ -30,6 +30,7 @@ public class AddDeliveryState implements State{
 	@Override
 	public void rightClick(Controller controller) {
 		// Cancel
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	
@@ -38,6 +39,7 @@ public class AddDeliveryState implements State{
 		listOfCommands.add(new AddRequestCommand(model, tsp, new Request(model.getPickupPointSelected(), model.getDelivPointSelected())));
 		model.setDelivPointSelected(null);
 		model.setPickupPointSelected(null);
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	

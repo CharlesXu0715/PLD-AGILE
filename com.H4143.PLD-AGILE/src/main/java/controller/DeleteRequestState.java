@@ -28,6 +28,7 @@ public class DeleteRequestState implements State {
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
+			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -41,6 +42,7 @@ public class DeleteRequestState implements State {
 		Request request = model.findRequestByVisitPoint(model.getVisitPointSelected());
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
 		model.setVisitPointSelected(null);
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 
@@ -58,6 +60,7 @@ public class DeleteRequestState implements State {
 	@Override
 	public void rightClick(Controller controller) {
 		// TODO Auto-generated method stub
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 

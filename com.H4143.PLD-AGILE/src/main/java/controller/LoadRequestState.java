@@ -28,6 +28,7 @@ public class LoadRequestState implements State {
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
+			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -41,6 +42,7 @@ public class LoadRequestState implements State {
 		// TODO Calcul route
 		tsp.searchSolution(20000, new ShortestPathGraph(model.getRequestList(), model.getMap()));
 		model.setRoute(tsp.getRoute());
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	

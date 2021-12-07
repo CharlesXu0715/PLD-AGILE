@@ -14,7 +14,7 @@ public class ChangeOrderState implements State {
 	public void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
 		String position = JOptionPane.showInputDialog(view, "Enter position");
 		listOfCommands.add(new ChangeVisitPointOrderCommand(model, tsp, visitPoint, Integer.valueOf(position)));
-		
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 

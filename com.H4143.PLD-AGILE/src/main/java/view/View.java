@@ -27,7 +27,7 @@ public class View extends JFrame implements Observer {
 
 	protected static final String LOADMAP = "Load a map";
 	protected static final String LOADREQUESTS = "Load requests";
-	protected static final String CALCULROUTE = "Calcul Route";
+	protected static final String CALCULROUTE = "Calculate Route";
 	protected static final String DELETEREQUEST = "Delete Request";
 	protected static final String ADDREQUEST = "Add Request";
 	protected static final String VALIDATE = "Validate";
@@ -42,6 +42,7 @@ public class View extends JFrame implements Observer {
 			CHANGEORDER, VALIDATE, UNDO, REDO };
 	private ButtonListener buttonListener;
 	private JLabel totalDuration;
+	private JLabel message;
 	private final int buttonHeight = 40;
 	private final int buttonWidth = 150;
 
@@ -64,6 +65,11 @@ public class View extends JFrame implements Observer {
 		totalDuration.setSize(200,150);
 		totalDuration.setLocation(1000,450);
 		add(totalDuration);
+		
+		message = new JLabel();
+		message.setSize(100,200);
+		message.setLocation(0,400);
+		add(message);
 		
 		createButtons(controller);
 		createListRequest(controller, model);
@@ -177,6 +183,10 @@ public class View extends JFrame implements Observer {
 	
 	public void changeTotalDuration(double duration) {
 		totalDuration.setText("Total duration: "+(int)duration+"s");
+	}
+	
+	public void changeMessage(String message) {
+		this.message.setText(message);
 	}
 	
 	

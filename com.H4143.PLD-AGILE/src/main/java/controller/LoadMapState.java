@@ -14,6 +14,7 @@ public class LoadMapState implements State {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			model.setRequestList(requestList);
+			controller.changeMessage(Controller.MESSAGE_CALCULATE_ROUTE);
 			controller.setCurrentState(controller.loadRequestState);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

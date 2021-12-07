@@ -23,7 +23,13 @@ public class Controller {
 	protected final AddPickupState addPickupState = new AddPickupState(); 
 	protected final AddDeliveryState addDeliveryState = new AddDeliveryState(); 
 	protected final ChangeOrderState changeOrderState = new ChangeOrderState();
-	
+	protected final static String MESSAGE_LOAD_MAP = "<html>Click on Load Map and select the corresponding file</html>";
+	protected final static String MESSAGE_LOAD_REQUEST = "<html>Click on Load Request and select the corresponding file</html>";
+	protected final static String MESSAGE_CALCULATE_ROUTE = "<html>Click on Calculate Route to get the optimal tour</html>";
+	protected final static String MESSAGE_NEUTRAL = "";
+	protected final static String MESSAGE_CHOOSE_POINT_ADD = "<html>Click on the map to choose a point to add</html>";
+	protected final static String MESSAGE_CHOOSE_POINT_DELETE = "<html>Click on a visit point on the map or the list to delete</html>";
+	protected final static String MESSAGE_CHANGE_ORDER = "<html>Click on a visit point on the list to change its order</html>";
 	
 	public Controller() {
 		this.currentState = initialState;
@@ -31,6 +37,7 @@ public class Controller {
 		this.model = new Model();
 		this.view = new View(this, model);
 		this.tsp = new TSP1();
+		this.view.changeMessage(Controller.MESSAGE_LOAD_MAP);
 	}
 	
 	protected void setCurrentState(State state){
@@ -92,6 +99,10 @@ public class Controller {
 	
 	public void redo() {
 		this.currentState.redo(listOfCommands);
+	}
+	
+	public void changeMessage(String message) {
+		view.changeMessage(message);
 	}
 	
 	

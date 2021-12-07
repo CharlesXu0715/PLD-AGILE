@@ -23,6 +23,7 @@ public class AddPickupState implements State {
 	@Override
 	public void rightClick(Controller controller) {
 		// TODO Auto-generated method stub
+		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.loadRequestState);
 	}
 }
