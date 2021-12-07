@@ -43,6 +43,7 @@ public class View extends JFrame implements Observer {
 	private ButtonListener buttonListener;
 	private JLabel totalDuration;
 	private JLabel message;
+	private JButton depotButton;
 	private final int buttonHeight = 40;
 	private final int buttonWidth = 150;
 
@@ -121,6 +122,18 @@ public class View extends JFrame implements Observer {
 		}
 
 		buttonsRequest = new ArrayList<JButton>();
+		depotButton = new JButton();
+		buttonsRequest.add(depotButton);
+		depotButton.setSize(300, buttonHeight);
+		depotButton.setLocation(650, 0);
+		depotButton.setFocusable(false);
+		depotButton.setFocusPainted(false);
+		depotButton.addActionListener(new ButtonListener(controller, null));
+		depotButton.setText("<html>Depot:   " + model.getRequestList().getDepartPoint().getAddress() + "</html>");
+		depotButton.setHorizontalAlignment(SwingConstants.LEFT);
+		depotButton.setBackground(null);
+		depotButton.setEnabled(false);
+		getContentPane().add(depotButton);
 		if (model.getRoute() == null) {
 			for (Request request : model.getRequestList().getRequests()) {
 
