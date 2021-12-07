@@ -53,6 +53,14 @@ public class Intersection {
     	return Math.sqrt(Math.pow(this.latitude - latitude, 2) + Math.pow(this.longitude - longitude, 2));
     }
     
+    public String getAddress() {
+    	if (!adjacence.isEmpty()) {
+    		return adjacence.get(0).getName();
+    	} else {
+    		return "";
+    	}
+    }
+    
     public String toString()
     {
     	String ans="";
