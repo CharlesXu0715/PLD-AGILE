@@ -8,15 +8,17 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import singleton.XMLFileLoader;
+
 public class FileLoaderTest {
 	public static final String filemap="src/test/resources/testMap.xml";
 	public static final String filerequest="src/test/resources/testrequests.xml";
-	public static FileLoader fileLoader;
+	public static XMLFileLoader fileLoader;
 	
 
 	@BeforeClass
     public static void setup() {
-		FileLoaderTest.fileLoader = new FileLoader();
+		FileLoaderTest.fileLoader = new XMLFileLoader();
     }
 	
 	@Test
@@ -27,7 +29,7 @@ public class FileLoaderTest {
 	
 	@Test
 	public void loadRoad() {
-		List<Road> roads = FileLoaderTest.fileLoader.loadRoad(filemap);
+		List<Segment> roads = FileLoaderTest.fileLoader.loadRoad(filemap);
 		assertEquals(19, roads.size());
 	}
 	

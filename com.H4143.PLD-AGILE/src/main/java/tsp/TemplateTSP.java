@@ -7,7 +7,7 @@ import java.util.List;
 
 import model.Path;
 import model.Request;
-import model.Road;
+import model.Segment;
 import model.Route;
 import model.VisitPoint;
 
@@ -71,9 +71,9 @@ public abstract class TemplateTSP implements TSP {
 	}
 	
 	@Override
-	public List<Road> getRoads(){
+	public List<Segment> getRoads(){
 		if (route!=null) {
-			List<Road> roads = new ArrayList<Road>();
+			List<Segment> roads = new ArrayList<Segment>();
 			for (Path p : route.getPaths()) {
 				roads.addAll(p.getRoads());
 			}

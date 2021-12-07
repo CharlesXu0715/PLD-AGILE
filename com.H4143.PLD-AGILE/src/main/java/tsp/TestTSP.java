@@ -2,13 +2,13 @@ package tsp;
 
 import java.util.List;
 
-import model.CityMap;
-import model.FileLoader;
+import model.Map;
 import model.Intersection;
 import model.Request;
 import model.RequestList;
-import model.Road;
+import model.Segment;
 import model.VisitPoint;
+import singleton.XMLFileLoader;
 
 public class TestTSP {
 
@@ -55,11 +55,11 @@ public class TestTSP {
 //		String requestName = "./target/test-classes/testRequests.xml";
 		String mapName = "src/main/resources/largeMap.xml";
 		String requestName = "src/main/resources/requestsLarge9.xml";
-		FileLoader fileLoader = new FileLoader();
+		XMLFileLoader fileLoader = new XMLFileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();
-        List<Road> roads=fileLoader.getRoads();
-		CityMap cityMap = new CityMap(roads,intersections);
+        List<Segment> roads=fileLoader.getRoads();
+		Map cityMap = new Map(roads,intersections);
 		RequestList requestList = fileLoader.loadRequest(requestName);
 		Graph g = new ShortestPathGraph(requestList,cityMap);
 		long startTime = System.currentTimeMillis();
@@ -76,11 +76,11 @@ public class TestTSP {
 		TSP tsp = new TSP1();
 		String mapName = "src/main/resources/smallMap.xml";
 		String requestName = "src/main/resources/requestsSmall2.xml";
-		FileLoader fileLoader = new FileLoader();
+		XMLFileLoader fileLoader = new XMLFileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();
-        List<Road> roads=fileLoader.getRoads();
-		CityMap cityMap = new CityMap(roads,intersections);
+        List<Segment> roads=fileLoader.getRoads();
+		Map cityMap = new Map(roads,intersections);
 		RequestList requestList = fileLoader.loadRequest(requestName);
 		Graph g = new ShortestPathGraph(requestList,cityMap);
 		tsp.searchSolution(20000, g);
@@ -115,11 +115,11 @@ public class TestTSP {
 		TSP tsp = new TSP1();
 		String mapName = "src/main/resources/smallMap.xml";
 		String requestName = "src/main/resources/requestsSmall2.xml";
-		FileLoader fileLoader = new FileLoader();
+		XMLFileLoader fileLoader = new XMLFileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();
-        List<Road> roads=fileLoader.getRoads();
-		CityMap cityMap = new CityMap(roads,intersections);
+        List<Segment> roads=fileLoader.getRoads();
+		Map cityMap = new Map(roads,intersections);
 		RequestList requestList = fileLoader.loadRequest(requestName);
 		Graph g = new ShortestPathGraph(requestList,cityMap);
 		tsp.searchSolution(20000, g);
@@ -154,12 +154,14 @@ public class TestTSP {
 		TSP tsp = new TSP1();
 		String mapName = "src/main/resources/smallMap.xml";
 		String requestName = "src/main/resources/requestsSmall2.xml";
-		FileLoader fileLoader = new FileLoader();
+		XMLFileLoader fileLoader = new XMLFileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();
-        List<Road> roads=fileLoader.getRoads();
-		CityMap cityMap = new CityMap(roads,intersections);
+        List<Segment> roads=fileLoader.getRoads();
+		Map cityMap = new Map(roads,intersections);
 		RequestList requestList = fileLoader.loadRequest(requestName);
+		
+		
 		Graph g = new ShortestPathGraph(requestList,cityMap);
 		tsp.searchSolution(20000, g);
 		System.out.println("----------\r\nBefore:\r\n----------");

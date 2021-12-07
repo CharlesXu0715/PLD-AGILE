@@ -19,15 +19,14 @@ import model.Intersection;
 import model.RequestList;
 import model.VisitPoint;
 
-public class TextUI extends JPanel {
+public class TextualView extends JPanel {
 
-	private static final long serialVersionUID = 1L;
 	private RequestList requests;
 	List<VisitPoint> list = new ArrayList<>();
 	private int l = 0;
 	private int selected = 0;
 	
-	public TextUI(RequestList requests) {
+	public TextualView(RequestList requests) {
 		this.requests = requests;
 		
 		for(int i=0; i<requests.getRequests().size(); i++) {

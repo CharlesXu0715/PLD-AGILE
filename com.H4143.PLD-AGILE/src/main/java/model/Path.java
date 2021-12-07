@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Path {
 
-	private List<Road> roads;
+	private List<Segment> roads;
 	private double cost;
 	private double duration;
 	private Intersection start;
@@ -14,16 +14,16 @@ public class Path {
 	public Path (Intersection start, Intersection end) {
 		this.start=start;
 		this.end=end;
-		this.roads=new ArrayList<Road>();
+		this.roads=new ArrayList<Segment>();
 		this.cost=0;
 		this.duration=0;
 	}
 
-	public List<Road> getRoads() {
+	public List<Segment> getRoads() {
 		return roads;
 	}
 
-	public void addRoad(Road road) {
+	public void addRoad(Segment road) {
 		//the road list is added inversely
 		this.roads.add(0,road);
 		cost += road.getLength();
@@ -49,7 +49,7 @@ public class Path {
 	public List<Integer> getAllPointIndices(){
 		//return a list of all indices aside from the destination
 		List<Integer> result = new ArrayList<Integer>();
-		for (Road road : roads) {
+		for (Segment road : roads) {
 			result.add(road.getOriginIndex());
 		}
 		return result;
@@ -60,7 +60,7 @@ public class Path {
     	String ans="";
     	ans+="From : " + start.getId() +", to : " + end.getId()+"\r\n";
     	ans+="    Passing by : ";
-    	for (Road road : roads) {
+    	for (Segment road : roads) {
     		ans+=road.getName()+", ";
     	}
     	ans+="\r\nDuration: "+duration;

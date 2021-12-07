@@ -3,30 +3,67 @@ package controller;
 import java.util.LinkedList;
 
 public class ListOfCommands {
-	private LinkedList<Command> l;
-	private int i;
-	public ListOfCommands() {
-		// TODO Auto-generated constructor stub
-		i=-1;
-		l=new LinkedList<Command>();
+	private LinkedList<Command> list;
+	private int currentIndex;
+	
+	public ListOfCommands(){
+		currentIndex = -1;
+		list = new LinkedList<Command>();
 	}
 	
-	public void add(Command c) {
-		i++;
-		l.add(i,c);
-		c.doCommand();
-	}
+	/**
+	 * Add command c to this
+	 * @param c the command to add
+	 */
+	public void add(Command c){
+        int i = currentIndex+1;
+        while(i<list.size()){
+            list.remove(i);
+        }
+        currentIndex++;
+        list.add(currentIndex, c);
+        c.doCommand();
+    }
 	
-	public void undo() {
-		if (i>=0) {
-			l.get(i).undoCommand();
-			i--;
+	/**
+	 * Temporary remove the last added command (this command may be reinserted again with redo)
+	 */
+	public void undo(){
+		if (currentIndex >= 0){
+			Command cde = list.get(currentIndex);
+			currentIndex--;
+			cde.undoCommand();
 		}
 	}
 	
-	public void redo() {
-		i++;
-		l.get(i).doCommand();
+	/**
+	 * Permanently remove the last added command (this command cannot be reinserted again with redo)
+	 */
+	public void cancel(){
+		if (currentIndex >= 0){
+			Command cde = list.get(currentIndex);
+			list.remove(currentIndex);
+			currentIndex--;
+			cde.undoCommand();
+		}
+	}
+
+	/**
+	 * Reinsert the last command removed by undo 
+	 */
+	public void redo(){
+		if (currentIndex < list.size()-1){
+			currentIndex++;
+			Command cde = list.get(currentIndex);
+			cde.doCommand();
+		}
 	}
 	
+	/**
+	 * Permanently remove all commands from the list
+	 */
+	   public void reset(){
+	        currentIndex = -1;
+	        list.clear();  
+	    }
 }

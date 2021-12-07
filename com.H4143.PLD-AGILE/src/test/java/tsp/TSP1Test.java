@@ -5,12 +5,12 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.CityMap;
-import model.FileLoader;
+import model.Map;
 import model.FileLoaderTest;
 import model.Intersection;
 import model.RequestList;
-import model.Road;
+import model.Segment;
+import singleton.XMLFileLoader;
 
 public class TSP1Test {
 	private static final int timeLimit = 10000;
@@ -19,9 +19,9 @@ public class TSP1Test {
 	
 	@BeforeClass
 	public static void setup() {
-		FileLoader fileLoader = new FileLoader();
+		XMLFileLoader fileLoader = new XMLFileLoader();
 		List<Intersection> intersections = fileLoader.loadIntersection(FileLoaderTest.filemap);
-        List<Road> roads = fileLoader.loadRoad(FileLoaderTest.filemap);
+        List<Segment> roads = fileLoader.loadRoad(FileLoaderTest.filemap);
         RequestList requests = fileLoader.loadRequest(FileLoaderTest.filerequest);
 		tsp1 = new TSP1();
 		//graph = new CityMap(roads, intersections);

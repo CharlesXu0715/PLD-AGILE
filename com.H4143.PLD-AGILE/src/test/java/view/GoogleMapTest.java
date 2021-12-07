@@ -15,12 +15,12 @@ import org.junit.Test;
 
 import com.google.maps.errors.ApiException;
 
-import model.CityMap;
-import model.FileLoader;
+import model.Map;
 import model.FileLoaderTest;
 import model.Intersection;
 import model.RequestList;
-import model.Road;
+import model.Segment;
+import singleton.XMLFileLoader;
 import view.GoogleMap;
 
 public class GoogleMapTest {
@@ -30,11 +30,11 @@ public class GoogleMapTest {
 	
 	@BeforeClass
 	public static void setup() {
-		FileLoader fileLoader = new FileLoader();
+		XMLFileLoader fileLoader = new XMLFileLoader();
 		List<Intersection> intersections = fileLoader.loadIntersection(FileLoaderTest.filemap);
-        List<Road> roads = fileLoader.loadRoad(FileLoaderTest.filemap);
+        List<Segment> roads = fileLoader.loadRoad(FileLoaderTest.filemap);
         RequestList requests = fileLoader.loadRequest(FileLoaderTest.filerequest);
-        GoogleMapTest.googleMap = new GoogleMap(WIDTH, HEIGHT, new CityMap(roads, intersections), requests);
+        GoogleMapTest.googleMap = new GoogleMap(WIDTH, HEIGHT, new Map(roads, intersections), requests);
 	}
 	
 	@Test
