@@ -54,7 +54,7 @@ public class TestTSP {
 //		String mapName = "./target/test-classes/testMap.xml";
 //		String requestName = "./target/test-classes/testRequests.xml";
 		String mapName = "src/main/resources/largeMap.xml";
-		String requestName = "src/main/resources/requestsLarge9.xml";
+		String requestName = "src/main/resources/requestsLarge7.xml";
 		FileLoader fileLoader = new FileLoader();
 		fileLoader.loadMap(mapName);
 		List<Intersection> intersections=fileLoader.getIntersections();

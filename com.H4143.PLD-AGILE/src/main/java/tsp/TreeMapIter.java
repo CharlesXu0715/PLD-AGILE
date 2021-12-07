@@ -7,7 +7,6 @@ import java.util.TreeMap;
 public class TreeMapIter implements Iterator<Integer> {
 
 	private TreeMap<Double,Integer> sortingTree;
-	private int nbCandidates=0;
 
 	/**
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code> 
@@ -24,19 +23,17 @@ public class TreeMapIter implements Iterator<Integer> {
 			if (g.isArc(currentVertex, s)) {
 				cost = g.getCost(currentVertex, s);
 				sortingTree.put(cost,s);
-				nbCandidates++;
 			}
 		}
 	}
 	
 	@Override
 	public boolean hasNext() {
-		return nbCandidates > 0;
+		return !sortingTree.isEmpty();
 	}
 
 	@Override
 	public Integer next() {
-		nbCandidates--;
 		return sortingTree.pollFirstEntry().getValue();
 	}
 
