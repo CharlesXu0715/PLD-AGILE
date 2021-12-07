@@ -197,7 +197,7 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-
+		
 		if (e.getWheelRotation() == -1) {
 			if (e.getX() < width / 2 && e.getY() >= height / 2) {
 				if (zoom < 10) {

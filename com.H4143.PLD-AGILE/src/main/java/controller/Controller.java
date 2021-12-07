@@ -2,6 +2,7 @@ package controller;
 
 import model.Model;
 import tsp.TSP;
+import tsp.TSP1;
 import view.View;
 
 public class Controller {
@@ -25,6 +26,7 @@ public class Controller {
 		this.listOfCommands = new ListOfCommands();
 		this.model = new Model();
 		this.view = new View(this, model);
+		this.tsp = new TSP1();
 	}
 	
 	protected void setCurrentState(State state){
@@ -40,7 +42,7 @@ public class Controller {
 	}
 	
 	public void calculRoute() {
-		this.currentState.calculateRoute(this, view, tsp);
+		this.currentState.calculateRoute(this, view, model, tsp);
 	}
 	
 	public void deleteRequest() {

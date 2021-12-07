@@ -9,7 +9,7 @@ import view.View;
 public interface State {
 	public default void loadMap(Controller controller, View view, Model model) {};
 	public default void loadRequest(Controller controller, View view, Model model) {};
-	public default void calculateRoute(Controller controller, View view, TSP tsp) {};
+	public default void calculateRoute(Controller controller, View view, Model model, TSP tsp) {};
 	public default void addRequest(Controller controller) {};
 	public default void deleteRequest(Controller controller) {};
 	

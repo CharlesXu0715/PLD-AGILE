@@ -4,6 +4,7 @@ import model.CityMap;
 import model.Model;
 import model.RequestList;
 import singleton.XMLFileLoader;
+import tsp.ShortestPathGraph;
 import tsp.TSP;
 import view.View;
 
@@ -35,9 +36,10 @@ public class LoadRequestState implements State {
 	}
 	
 	@Override
-	public void calculateRoute(Controller controller, View view, TSP tsp) {
+	public void calculateRoute(Controller controller, View view, Model model, TSP tsp) {
 		// TODO Calcul route
-		
+		tsp.searchSolution(20000, new ShortestPathGraph(model.getRequestList(), model.getMap()));
+		model.setRoute(tsp.getRoute());
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	

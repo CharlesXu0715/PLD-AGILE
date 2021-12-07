@@ -35,16 +35,6 @@ public class DeleteRequestState implements State {
 
 	}
 	
-	@Override
-	public void calculateRoute(Controller controller, View view, TSP tsp) {
-		// TODO Calcul route
-		
-		
-		
-		
-		controller.setCurrentState(controller.displayRouteState);
-	}
-	
 	
 	
 	@Override
