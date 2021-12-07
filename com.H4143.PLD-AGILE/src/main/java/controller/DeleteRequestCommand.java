@@ -1,6 +1,7 @@
-package model;
+package controller;
 
-import controller.Command;
+import model.Model;
+import model.Request;
 
 public class DeleteRequestCommand implements Command {
 	private Model model;

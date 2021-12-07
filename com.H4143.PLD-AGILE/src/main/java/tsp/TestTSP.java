@@ -1,8 +1,8 @@
 package tsp;
 
 import java.util.List;
+import java.util.Map;
 
-import model.Map;
 import model.Intersection;
 import model.Request;
 import model.RequestList;
