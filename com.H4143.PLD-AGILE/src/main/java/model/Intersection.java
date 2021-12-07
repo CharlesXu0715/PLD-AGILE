@@ -49,6 +49,10 @@ public class Intersection {
     	return index;
     }
     
+    public double getDistanceTo(double longitude, double latitude) {
+    	return Math.sqrt(Math.pow(this.latitude - latitude, 2) + Math.pow(this.longitude - longitude, 2));
+    }
+    
     public String toString()
     {
     	String ans="";

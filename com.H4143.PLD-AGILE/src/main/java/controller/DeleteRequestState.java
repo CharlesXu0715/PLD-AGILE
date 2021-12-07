@@ -37,7 +37,6 @@ public class DeleteRequestState implements State {
 	
 	@Override
 	public void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {
-		//TODO get interface to FUCKING DO ITS FUCKING JOB FFS
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, null));
 		controller.setCurrentState(controller.displayRouteState);
 	}

@@ -2,6 +2,7 @@ package controller;
 
 import model.CityMap;
 import model.Model;
+import model.Request;
 import model.RequestList;
 import singleton.XMLFileLoader;
 import view.View;

@@ -26,6 +26,10 @@ public class VisitPoint {
     public int getType() {
 		return type;
 	}
+    
+    public double getDistanceTo(double longitude, double latitude) {
+    	return this.intersection.getDistanceTo(longitude, latitude);
+    }
 
 	public String toString()
 	{

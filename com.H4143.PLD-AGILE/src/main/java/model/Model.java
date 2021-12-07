@@ -65,6 +65,29 @@ public class Model implements Subject {
 		this.notifyAllObserver(this);
 	}
 	
+	public VisitPoint findClosestVisitPoint(double latitude, double longitude) {
+		VisitPoint visitPoint = requestList.getDepotPoint();
+		for (Request request : requestList.getRequests()) {
+			if (request.getPickPoint().getDistanceTo(longitude, latitude)<visitPoint.getDistanceTo(longitude, latitude)) {
+				visitPoint = request.getPickPoint();
+			}
+			if (request.getDelivPoint().getDistanceTo(longitude, latitude)<visitPoint.getDistanceTo(longitude, latitude)) {
+				visitPoint = request.getDelivPoint();
+			}
+		}
+		return visitPoint;
+	}
+	
+	public Intersection findClosestIntersection(double latitude, double longitude) {
+		Intersection intersection = map.getIntersections().get(0);
+		
+		for (Intersection i : map.getIntersections()) {
+			if (i.getDistanceTo(longitude, latitude)<intersection.getDistanceTo(longitude, latitude))
+				intersection = i;
+		}
+		
+		return intersection;
+	}
 	
 	@Override
 	public void notifyAllObserver(Object arg) {
