@@ -35,7 +35,7 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 
 		this.setSize(width, height);
 		this.addMouseWheelListener(this);
-		this.addMouseListener(new MouseListener(controller));
+		this.addMouseListener(new MouseListener(controller, this));
 	}
 
 	@Override
@@ -55,13 +55,13 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 
 	}
 	
-	private double[] convertLatLngToXY(double lat, double lng) {
+	public double[] convertLatLngToXY(double lat, double lng) {
 		double y = (maxLat - lat) / (maxLat - minLat) * height;
 		double x = (lng - minLng) / (maxLng - minLng) * width;
 		return new double[] { x, y };
 	}
 
-	private double[] convertXYToLatLng(double x, double y) {
+	public double[] convertXYToLatLng(double x, double y) {
 		double lng = x * (maxLng - minLng) / width + minLng;
 		double lat = maxLat - y * (maxLat - minLat) / height;
 		return new double[] { lat, lng };
