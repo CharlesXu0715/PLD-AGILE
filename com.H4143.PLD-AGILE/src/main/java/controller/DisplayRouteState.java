@@ -34,6 +34,11 @@ public class DisplayRouteState implements State{
 
 	}
 	
+	@Override
+	public void entryDeleteRequest(Controller controller) {
+		controller.setCurrentState(controller.deleteRequestState);
+	}
+	
 	
 	
 	

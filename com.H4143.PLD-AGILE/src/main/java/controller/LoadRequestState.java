@@ -44,10 +44,7 @@ public class LoadRequestState implements State {
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	
-	@Override
-	public void entryDeleteRequest(Controller controller) {
-		controller.setCurrentState(controller.deleteRequestState);
-	}
+	
 	
 	@Override
 	public void addRequest(Controller controller) {
