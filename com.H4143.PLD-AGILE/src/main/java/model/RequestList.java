@@ -52,6 +52,16 @@ public class RequestList {
     	this.departIndex = departIndex;
     }
     
+    public Request findRequestByVisitPoint(VisitPoint visitPoint) {
+    	Request request = null;
+    	for (Request r : requests) {
+    		if (visitPoint.equals(r.getPickPoint())||visitPoint.equals(r.getDelivPoint())) {
+    			request = r;
+    		}
+    	}
+    	return request;
+    }
+    
     public String toString()
     {
     	String ans="";

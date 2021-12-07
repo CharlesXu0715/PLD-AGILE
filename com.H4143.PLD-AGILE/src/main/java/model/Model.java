@@ -10,6 +10,7 @@ public class Model implements Subject {
 	private RequestList requestList;
 	private Route route;
 	private Intersection intersectionSelected;
+	private VisitPoint visitPointSelected;
 	
 	
 	public Intersection getIntersectionSelected() {
@@ -65,6 +66,14 @@ public class Model implements Subject {
 		this.notifyAllObserver(this);
 	}
 	
+	public VisitPoint getVisitPointSelected() {
+		return visitPointSelected;
+	}
+
+	public void setVisitPointSelected(VisitPoint visitPointSelected) {
+		this.visitPointSelected = visitPointSelected;
+	}
+	
 	public VisitPoint findClosestVisitPoint(double latitude, double longitude) {
 		VisitPoint visitPoint = requestList.getDepotPoint();
 		for (Request request : requestList.getRequests()) {
@@ -89,6 +98,10 @@ public class Model implements Subject {
 		return intersection;
 	}
 	
+	public Request findRequestByVisitPoint(VisitPoint visitPoint) {
+		return requestList.findRequestByVisitPoint(visitPoint);
+	}
+	
 	@Override
 	public void notifyAllObserver(Object arg) {
 		// TODO Auto-generated method stub
@@ -96,6 +109,5 @@ public class Model implements Subject {
             observer.update(this);
         }
 	}
-	
 	
 }

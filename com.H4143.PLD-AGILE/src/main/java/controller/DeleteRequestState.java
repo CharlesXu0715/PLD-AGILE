@@ -1,8 +1,8 @@
 package controller;
 
 import model.CityMap;
-import model.Intersection;
 import model.Model;
+import model.Request;
 import model.RequestList;
 import singleton.XMLFileLoader;
 import tsp.TSP;
@@ -37,16 +37,19 @@ public class DeleteRequestState implements State {
 	
 	@Override
 	public void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {
-		listOfCommands.add(new DeleteRequestCommand(model, tsp, null));
-		controller.setCurrentState(controller.displayRouteState);
+		try {
+			Request request = model.findRequestByVisitPoint(model.getVisitPointSelected());
+			listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
+			controller.setCurrentState(controller.displayRouteState);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	
-	
 	@Override
-	public void leftClick(Controller controller, View view, Model model, int x, int y) {
-		
-		controller.setCurrentState(controller.loadRequestState);
+	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude) {
+		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+		controller.setCurrentState(controller.deleteRequestState);
 	}
 
 }
