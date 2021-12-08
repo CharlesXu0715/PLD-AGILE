@@ -224,6 +224,12 @@ public class View extends JFrame implements Observer {
 
 	}
 	
+	public void reset() {
+		this.buttonPanel.removeAll();
+		this.buttonPanel.repaint();
+		this.buttonPanel.revalidate();
+	}
+	
 	public void changeTotalDuration(double duration) {
 		totalDuration.setText("Total duration: "+(int)duration+"s");
 	}
