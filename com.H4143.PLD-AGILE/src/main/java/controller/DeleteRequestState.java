@@ -59,8 +59,7 @@ public class DeleteRequestState implements State {
 
 	@Override
 	public void rightClick(Controller controller) {
-		// TODO Auto-generated method stub
-		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
+		controller.changeMessage(controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 

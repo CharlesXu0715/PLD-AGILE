@@ -23,7 +23,7 @@ public class MouseListener extends MouseAdapter {
 			double[] latLng = this.graphicalView.convertXYToLatLng(evt.getX(), evt.getY());
 			controller.leftClick(latLng[0], latLng[1]);
 			break;
-		case MouseEvent.BUTTON3:
+		case MouseEvent.BUTTON2:
 			controller.rightClick();
 			break;
 		default:

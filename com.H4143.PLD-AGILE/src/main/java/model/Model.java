@@ -11,11 +11,22 @@ public class Model implements Subject {
 	private CityMap map;
 	private RequestList requestList;
 	private Route route;
+	private Intersection intersectionSelected;
 	private VisitPoint visitPointSelected;
 	private VisitPoint pickupPointSelected;
 	private VisitPoint delivPointSelected;
 	
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("h:m:s");
+	
+	public Intersection getIntersectionSelected() {
+		return intersectionSelected;
+	}
+
+	public void setIntersectionSelected(Intersection intersectionSelected) {
+		this.intersectionSelected = intersectionSelected;
+		this.notifyAllObserver(this);
+	}
+
 	
 	public VisitPoint getPickupPointSelected() {
 		return pickupPointSelected;
@@ -52,8 +63,13 @@ public class Model implements Subject {
 	}
 	
 	public void setMap(CityMap map) {
-		this.map = map;
 		this.requestList = null;
+		this.route = null;
+		this.intersectionSelected = null;
+		this.visitPointSelected = null;
+		this.pickupPointSelected = null;
+		this.delivPointSelected = null;
+		this.map = map;
 		this.notifyAllObserver(this);
 	}
 	
@@ -62,6 +78,11 @@ public class Model implements Subject {
 	}
 	
 	public void setRequestList(RequestList requestList) {
+		this.route = null;
+		this.intersectionSelected = null;
+		this.visitPointSelected = null;
+		this.pickupPointSelected = null;
+		this.delivPointSelected = null;
 		this.requestList = requestList;
 		this.notifyAllObserver(this);
 	}

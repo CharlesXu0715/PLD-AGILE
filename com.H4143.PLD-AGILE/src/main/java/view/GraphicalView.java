@@ -47,9 +47,10 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 		if (this.model.getMap() != null) this.drawCityMap(g2);
 		if (this.model.getRequestList() != null) this.drawRequestList(g2);
 		if (this.model.getRoute() != null) this.drawResult(g2);
-		if (this.model.getVisitPointSelected() != null) this.drawIntersectionSelected(this.model.getVisitPointSelected(), g2);
-		if (this.model.getDelivPointSelected() != null) this.drawIntersectionSelected(this.model.getDelivPointSelected(), g2);
-		if (this.model.getPickupPointSelected() != null) this.drawIntersectionSelected(this.model.getPickupPointSelected(), g2);
+		if (this.model.getVisitPointSelected() != null) this.drawVisitPointSelected(this.model.getVisitPointSelected(), g2);
+		if (this.model.getDelivPointSelected() != null) this.drawVisitPointSelected(this.model.getDelivPointSelected(), g2);
+		if (this.model.getPickupPointSelected() != null) this.drawVisitPointSelected(this.model.getPickupPointSelected(), g2);
+		if (this.model.getIntersectionSelected() != null) this.drawIntersectionSelected(this.model.getIntersectionSelected(), g2);
 		
 		this.drawBorder(g2);
 		g2.dispose();
@@ -162,10 +163,17 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 
 	}
 	
-	private void drawIntersectionSelected(VisitPoint visitPoint, Graphics2D g2) {
+	private void drawVisitPointSelected(VisitPoint visitPoint, Graphics2D g2) {
 		g2.setColor(Color.YELLOW);
 		double[] xY = convertLatLngToXY(visitPoint.getIntersection().getLatitude(),
 				visitPoint.getIntersection().getLongitude());
+		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
+	}
+	
+	private void drawIntersectionSelected(Intersection intersection, Graphics2D g2) {
+		g2.setColor(Color.YELLOW);
+		double[] xY = convertLatLngToXY(intersection.getLatitude(),
+				intersection.getLongitude());
 		g2.fillRect((int) xY[0] - rectSize / 2, (int) xY[1] - rectSize / 2, rectSize, rectSize);
 	}
 	
@@ -201,7 +209,6 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		System.out.println(zoom);
 		
 		if (e.getWheelRotation() == -1) {
 			if (e.getX() < width / 2 && e.getY() >= height / 2) {

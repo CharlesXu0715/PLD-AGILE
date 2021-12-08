@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -87,6 +88,8 @@ public class View extends JFrame implements Observer {
 		createListRequest(controller, model);
 		model.attach(this);
 		this.controller = controller;
+		
+		this.addMouseListener(new MouseListener(controller, graphicalView));
 
 		setVisible(true);
 
@@ -183,6 +186,10 @@ public class View extends JFrame implements Observer {
 				VisitPoint visitPoint = model.findClosestVisitPoint(path.getEnd().getLatitude(),
 						path.getEnd().getLongitude());
 				button1.addActionListener(new ButtonListener(controller, visitPoint));
+				if ((model.getVisitPointSelected() != null && model.getVisitPointSelected().equals(visitPoint)) || (model.getDelivPointSelected() != null && model.getDelivPointSelected().equals(visitPoint)) || (model.getPickupPointSelected() != null && model.getPickupPointSelected().equals(visitPoint))) {
+					button1.setBackground(Color.YELLOW);
+					button1.setOpaque(true);
+				}
 				switch (visitPoint.getType()) {
 					case 0:
 						button1.setText("<html>Return to:   " + visitPoint.getAddress() + "<br>Arrive at:   "

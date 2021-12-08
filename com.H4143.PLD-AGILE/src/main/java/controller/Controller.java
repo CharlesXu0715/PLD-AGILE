@@ -108,18 +108,18 @@ public class Controller {
 	public void resetAll() {
 		this.currentState = initialState;
 		this.listOfCommands = new ListOfCommands();
-		this.model.setMap(null);
-		this.model.setRoute(null);
-		this.model.setRequestList(null);
-		this.view.reset();
+//		this.model.setMap(null);
+//		this.model.setRoute(null);
+//		this.model.setRequestList(null);
+//		this.view.reset();
 		this.tsp = new TSP1();
 		this.view.changeMessage(Controller.MESSAGE_LOAD_MAP);
 	}
 	
 	public void resetToNewRequest() {
-		this.model.setRoute(null);
-		this.model.setRequestList(null);
-		this.view.reset();
+//		this.model.setRoute(null);
+//		this.model.setRequestList(null);
+//		this.view.reset();
 		this.tsp = new TSP1();
 	}
 	

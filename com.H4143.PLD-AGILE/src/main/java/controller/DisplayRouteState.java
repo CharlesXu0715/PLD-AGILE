@@ -62,7 +62,9 @@ public class DisplayRouteState implements State{
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
 			ListOfCommands listOfCommands) {
-		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+		model.setIntersectionSelected(model.findClosestIntersection(latitude, longitude));
+//		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+		controller.changeMessage(model.getIntersectionSelected().getAdjacence().get(0).getName());
 	}
 	
 	@Override

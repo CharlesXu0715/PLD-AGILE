@@ -21,15 +21,17 @@ public class AddDeliveryState implements State{
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double lat, double lng, TSP tsp,
 			ListOfCommands listOfCommands) {
-		// TODO Auto-generated method stub
-		String duration = JOptionPane.showInputDialog(view, "Enter duration");
-		VisitPoint delivPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 2);
-		model.setDelivPointSelected(delivPoint);
+		try {
+			String duration = JOptionPane.showInputDialog(view, "Enter duration");
+			VisitPoint delivPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 2);
+			model.setDelivPointSelected(delivPoint);
+		} catch (Exception e) {
+			controller.setCurrentState(controller.displayRouteState);
+		}
 	}
 	
 	@Override
 	public void rightClick(Controller controller) {
-		// Cancel
 		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
