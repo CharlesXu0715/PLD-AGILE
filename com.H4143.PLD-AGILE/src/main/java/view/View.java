@@ -75,8 +75,8 @@ public class View extends JFrame implements Observer {
 		add(totalDuration);
 		
 		message = new JLabel();
-		message.setSize(100,200);
-		message.setLocation(0,400);
+		message.setSize(300,100);
+		message.setLocation(150,550);
 		add(message);
 		
 		buttonPanel = new JPanel();
@@ -269,6 +269,7 @@ public class View extends JFrame implements Observer {
 		this.buttonPanel.removeAll();
 		this.buttonPanel.repaint();
 		this.buttonPanel.revalidate();
+		this.totalDuration.setText("");
 	}
 	
 	public void changeTotalDuration(double duration) {

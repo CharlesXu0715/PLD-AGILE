@@ -54,6 +54,8 @@ public class DeleteRequestState implements State {
 		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 		view.getButtons().get(6).setEnabled(false);
+		view.getButtons().get(7).setEnabled(true);
+		view.getButtons().get(8).setEnabled(true);
 	}
 
 	@Override

@@ -111,7 +111,6 @@ public class Controller {
 //		this.model.setMap(null);
 //		this.model.setRoute(null);
 //		this.model.setRequestList(null);
-//		this.view.reset();
 		this.tsp = new TSP1();
 		this.view.changeMessage(Controller.MESSAGE_LOAD_MAP);
 	}
@@ -119,7 +118,7 @@ public class Controller {
 	public void resetToNewRequest() {
 //		this.model.setRoute(null);
 //		this.model.setRequestList(null);
-//		this.view.reset();
+		this.view.reset();
 		this.tsp = new TSP1();
 	}
 	
