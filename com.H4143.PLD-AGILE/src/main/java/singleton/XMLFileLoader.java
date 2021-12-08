@@ -31,7 +31,9 @@ public class XMLFileLoader {
 	private JFileChooser fileChooser;
 	private FileNameExtensionFilter filter;
 	
-
+	/**
+	 * constructor of XMLFileLoader
+	 */
 	private XMLFileLoader() {
 
 		fileChooser = new JFileChooser();
@@ -39,7 +41,11 @@ public class XMLFileLoader {
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileFilter(filter);
 	}
-
+	
+	/**
+	 * create a XMLFileLoader
+	 * @return XMLFileLoader
+	 */
 	public static XMLFileLoader getInstance() {
 		if (xMLFileLoader == null) {
 			xMLFileLoader = new XMLFileLoader();
@@ -47,7 +53,12 @@ public class XMLFileLoader {
 		return xMLFileLoader;
 	}
 
-
+	/**
+	 * select the file to read
+	 * @param view: the current interface
+	 * @return the opened file
+	 * @throws Exception: file not selected
+	 */
 	private File selectFile(View view) throws Exception {
 		int result = fileChooser.showOpenDialog(view);
 		if (result == JFileChooser.APPROVE_OPTION) {
@@ -57,6 +68,12 @@ public class XMLFileLoader {
 		}
 	}
 
+	/**
+	 * load a map
+	 * @param view: the current interface
+	 * @return the CityMap loaded
+	 * @throws Exception: no segments or no intersections
+	 */
 	public CityMap loadMap(View view) throws Exception  {
 		ArrayList<Intersection> intersections = new ArrayList<Intersection>();
 		ArrayList<Segment> segments = new ArrayList<Segment>();
@@ -108,6 +125,13 @@ public class XMLFileLoader {
 		return new CityMap(segments, intersections);
 	}
 
+	/**
+	 * load the requests
+	 * @param view: the current interface
+	 * @param model: the tool of settings of model
+	 * @return the list of requests
+	 * @throws Exception: no requests
+	 */
 	public RequestList loadRequest(View view, Model model) throws Exception {
 		List<Intersection> intersections = model.getMap().getIntersections();
 		List<Request> rl = new ArrayList<Request>();

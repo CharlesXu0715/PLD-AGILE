@@ -11,6 +11,11 @@ public class ButtonListener implements ActionListener {
 	private Controller controller;
 	private VisitPoint visitPoint;
 
+	/**
+	 * constructor of ButtonListener
+	 * @param controller: the current controller
+	 * @param visitPoint: the selected VisitPoint
+	 */
 	public ButtonListener(Controller controller, VisitPoint visitPoint){
 		this.controller = controller;
 		this.visitPoint = visitPoint;

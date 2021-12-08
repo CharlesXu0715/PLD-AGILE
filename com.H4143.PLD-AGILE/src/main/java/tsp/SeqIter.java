@@ -24,11 +24,19 @@ public class SeqIter implements Iterator<Integer> {
 		}
 	}
 	
+	/**
+	 * find if there is next ones
+	 * @return the existence of next candidates
+	 */
 	@Override
 	public boolean hasNext() {
 		return nbCandidates > 0;
 	}
 
+	/**
+	 * find the next one
+	 * @return the next candidate
+	 */
 	@Override
 	public Integer next() {
 		nbCandidates--;

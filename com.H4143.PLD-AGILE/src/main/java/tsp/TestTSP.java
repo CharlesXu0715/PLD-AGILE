@@ -17,6 +17,9 @@ public class TestTSP {
 //		testChangeOrder();
 	}
 	
+	/**
+	 * test of load
+	 */
 	public static void testLoad() {
 		TSP tsp = new TSP1();
 		CityMap cityMap=null;
@@ -41,6 +44,9 @@ public class TestTSP {
 		System.out.println(tsp.getRoute());
 	}
 
+	/**
+	 * test of add a new VisitPoint
+	 */
 	public static void testAddVisitPoint() {
 		TSP tsp = new TSP1();
 		CityMap cityMap=null;
@@ -83,6 +89,9 @@ public class TestTSP {
 		System.out.println(tsp.getRoute());
 	}
 	
+	/**
+	 * test of add a new VisitPoint to position index
+	 */
 	public static void testAddVisitPointToIndex() {
 		TSP tsp = new TSP1();
 		CityMap cityMap=null;
@@ -125,6 +134,9 @@ public class TestTSP {
 		System.out.println(tsp.getRoute());
 	}
 	
+	/**
+	 * test of remove a VisitPoint
+	 */
 	public static void testRemoveVisitPoint() {
 		TSP tsp = new TSP1();
 		CityMap cityMap=null;
@@ -167,6 +179,9 @@ public class TestTSP {
 		System.out.println(tsp.getRoute());
 	}
 
+	/**
+	 * test of changing the order of points
+	 */
 	public static void testChangeOrder() {
 		TSP tsp = new TSP1();
 		CityMap cityMap=null;

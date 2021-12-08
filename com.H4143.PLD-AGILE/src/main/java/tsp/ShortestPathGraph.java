@@ -18,6 +18,11 @@ public class ShortestPathGraph implements Graph{
 	private Path paths[][];
 	private List<Intersection> intersections;
 	
+	/**
+	 * constructor of ShortestPathGraph
+	 * @param requestList: the list of requests
+	 * @param cityMap: the map
+	 */
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
 		toVisit = new ArrayList<VisitPoint>();
@@ -48,6 +53,11 @@ public class ShortestPathGraph implements Graph{
 		
 	}
 	
+	/**
+	 * the algorithm dijkstra to find the shorest hamiltonian path
+	 * @param source: the beginning intersection
+	 * @param toExplore: the list of intersections to visit
+	 */
 	private void dijkstra(Intersection source, List<Intersection> toExplore) {
 		double dist[] = new double [intersections.size()];
 		boolean visited[] = new boolean [intersections.size()];
@@ -85,7 +95,12 @@ public class ShortestPathGraph implements Graph{
 			}
 		}
 	}
-	
+	/**
+	 * get the index of a point in the list toVisit
+	 * If this point doesn't exist in the toVisit, return -1
+	 * @param index: index of the point int the list toVisit
+	 * @return the index of the point in the graph
+	 */
 	private int getGraphIndex(int index) {
 		for (int i=0;i<toVisit.size();i++) {
 			if (toVisit.get(i).getIntersection().getIndex()==index) return i;
@@ -93,11 +108,19 @@ public class ShortestPathGraph implements Graph{
 		return -1;
 	}
 	
+	/**
+	 * get the number of vertices
+	 * @return the number of vertices
+	 */
 	@Override
 	public int getNbVertices() {
 		return nbVertices;
 	}
 
+	/**
+	 * get the cost between 2 points
+	 * @return the cost between 2 points
+	 */
 	@Override
 	public double getCost(int i, int j) {
 		if (!isArc(i,j))
@@ -105,6 +128,12 @@ public class ShortestPathGraph implements Graph{
 		return paths[i][j].getCost();
 	}
 
+	/**
+	 * find if the program find an arc
+	 * @param i: an index of point
+	 * @param j: anindex of point
+	 * @return if it's arc
+	 */
 	@Override
 	public boolean isArc(int i, int j) {
 		if (i<0 || i>=nbVertices || j<0 || j>=nbVertices)
@@ -112,28 +141,51 @@ public class ShortestPathGraph implements Graph{
 		return i != j;
 	}
 	
-	//get the VisitPoint of the i-th Intersection
+	/**
+	 * get the VisitPoint of the i-th Intersection
+	 * @param i: position of intersection
+	 * @return the VisitPoint of the i-th Intersection
+	 */
 	@Override
 	public VisitPoint getVertex(int i) {
 		return toVisit.get(i);
 	}
 	
-	//get the index of the i-th Intersection
+	/**
+	 * get the index of the i-th Intersection
+	 * @param i: position of intersection
+	 * @return the index of the i-th Intersection
+	 */
 	@Override
 	public int getVertexIndex(int i) {
 		return toVisit.get(i).getIntersection().getIndex();
 	}
 	
+	/**
+	 * @param i: the intersection to find index
+	 * @return the index of intersection <code>i</code> as stored in the graph
+	 */
 	@Override
 	public int getGraphVertexIndex(VisitPoint i) {
 		return toVisit.lastIndexOf(i);
 	}
 	
+	/**
+	 * get the path between i and j
+	 * @param i: the index of an point
+	 * @param j: the index of another point
+	 * @return the path between i and j
+	 */
 	@Override
 	public Path getPath(int i, int j){
 		return paths[i][j];
 	}
 
+	/**
+	 * add new VisitPoints of a request(a pickup point and a delivery point)
+	 * @param pickup: the pickup point of the request
+	 * @param delivery: the delivery point of the request
+	 */
 	@Override
 	public void addVisitPoints(VisitPoint pickup, VisitPoint delivery) {
 		nbVertices = nbVertices+2;
@@ -172,6 +224,11 @@ public class ShortestPathGraph implements Graph{
 		dijkstra(delivery.getIntersection(),toExplore);
 	}
 	
+	/**
+	 * remove the VisitPoints of a request(a pickup point and a delivery point)
+	 * @param pickup: the pickup point of the request
+	 * @param delivery: the delivery point of the request
+	 */
 	public void removeVisitPoints(VisitPoint pickup, VisitPoint delivery) {
 		nbVertices = nbVertices-2;
 		//indexPickup is always < indexDelivery (the 2 indices should be consecutive)

@@ -20,6 +20,13 @@ public abstract class TemplateTSP implements TSP {
 	private long startTime;
 	private Route route;
 	
+	/**
+	 * Search for a shortest cost hamiltonian circuit in <code>g</code> within <code>timeLimit</code> milliseconds
+	 * (returns the best found tour whenever the time limit is reached)
+	 * Warning: The computed tour always start from vertex 0
+	 * @param limitTime
+	 * @param g
+	 */
 	public void searchSolution(int timeLimit, Graph g){
 		if (timeLimit <= 0) return;
 		startTime = System.currentTimeMillis();	
@@ -39,6 +46,11 @@ public abstract class TemplateTSP implements TSP {
 		}
 	}
 	
+	/**
+	 * @param i: the position of path
+	 * @return i-th paths stored in <code>Route</code> 
+	 * (null if <code>searchSolution</code> has not been called yet)
+	 */
 	private Path getPath(int i) {
 		if (g != null && i>=0 && i<g.getNbVertices())
 			if (i==g.getNbVertices()-1) {
@@ -49,18 +61,31 @@ public abstract class TemplateTSP implements TSP {
 		return null;
 	}
 	
+	/**
+	 * @param i: the position of vertex
+	 * @return the i-th visited vertex in the solution computed by <code>searchSolution</code> 
+	 * (-1 if <code>searchSolution</code> has not been called yet, or if i < 0 or i >= g.getNbSommets())
+	 */
 	public Integer getSolution(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
 			return bestSol[i];
 		return -1;
 	}
 	
+	/** 
+	 * @return the total cost of the solution computed by <code>searchSolution</code> 
+	 * (-1 if <code>searchSolution</code> has not been called yet).
+	 */
 	public double getSolutionCost(){
 		if (g != null)
 			return route.getDuration();
 		return -1;
 	}
 	
+	/**
+	 * @return all the paths stored in <code>Route</code> 
+	 * (null if <code>searchSolution</code> has not been called yet)
+	 */
 	@Override
 	public List<Path> getPaths(){
 		if (route!=null) {
@@ -70,6 +95,10 @@ public abstract class TemplateTSP implements TSP {
 		}
 	}
 	
+	/**
+	 * @return all the roads stored in <code>Route</code> 
+	 * (null if <code>searchSolution</code> has not been called yet)
+	 */
 	@Override
 	public List<Segment> getRoads(){
 		if (route!=null) {
@@ -83,16 +112,30 @@ public abstract class TemplateTSP implements TSP {
 		}
 	}
 	
+	/**
+	 * get the i-th VisitPoint of bestSol
+	 * @param i: the position of point
+	 * @return the result of search for VisitPoint
+	 */
 	public VisitPoint getVisitPoint(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
 			return g.getVertex(bestSol[i]);
 		return null;
 	}
 	
+	/**
+	 * @return the route of the solution computed by <code>searchSolution</code> 
+	 * (null if <code>searchSolution</code> has not been called yet)
+	 */
 	public Route getRoute() {
 		return route;
 	}
 	
+	/**
+	 * add a new request to the shortest path graph, then change the route so that the pickup and delivery points of the new request
+	 * are visited last, before returning to the depot
+	 * @param newRequest: the new request to be added
+	 */
 	@Override
 	public void addNewRequest(Request newRequest) {
 		g.addVisitPoints(newRequest.getPickPoint(), newRequest.getDelivPoint());
@@ -105,6 +148,13 @@ public abstract class TemplateTSP implements TSP {
 		route.addVisitPoint(newRequest.getDelivPoint());
 	}
 	
+	/**
+	 * add a request to the shortest path graph, then change the route so that the pickup and delivery points of the request
+	 * are visited at <code>indexPickup</code> and <code>indexDelivery</code> respectively
+	 * @param newRequest: the new request to be added
+	 * @param indexPickup: the index at which the pickup point is visited
+	 * @param indexDeliver: the index at which the delivery point is visited
+	 */
 	@Override
 	public void addRequestToIndex(Request request, int indexPickup, int indexDelivery) {
 		g.addVisitPoints(request.getPickPoint(), request.getDelivPoint());
@@ -143,11 +193,20 @@ public abstract class TemplateTSP implements TSP {
 		route.addPathToPosition(connect, index-1);
 	}
 	
+	/**
+	 * get the index of when the visit point is visited
+	 * @param visitPoint: a visit point in the route
+	 * @return the index that annotates the order of visit to the visit point
+	 */
 	@Override
 	public int getVisitPointIndex(VisitPoint visitPoint){
 		return route.getVisitPointIndex(visitPoint);
 	}
 	
+	/**
+	 * remove a request from the route and graph, then connect the missing points together
+	 * @param requestToRemove is the request to be removed from the RequestList. Will do nothing if request is not present in the RequestList.
+	 */
 	@Override
 	public void removeRequest(Request requestToRemove) {
 		List<VisitPoint> toConnect = route.getConnectedPoints(requestToRemove.getPickPoint());
@@ -178,6 +237,12 @@ public abstract class TemplateTSP implements TSP {
 		g.removeVisitPoints(requestToRemove.getPickPoint(), requestToRemove.getDelivPoint());
 	}
 	
+	/**
+	 * change the order of the VisitPoint <code>visitPoint</code> in the Route to index <code>index</code>
+	 * @param visitPoint is the concerned VisitPoint, and should be present in the Route
+	 * @param index is the new visiting order for the <code>visitPoint</code>, and should be a positive number
+	 * or equal to the total number of VisitPoint
+	 */
 	public void changeVisitPointOrder(VisitPoint visitPoint, int newIndex) {
 		//first connect the 2 points around the visitPoint
 		
