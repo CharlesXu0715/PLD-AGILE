@@ -26,7 +26,6 @@ public class AddDeliveryState implements State{
 			String duration = JOptionPane.showInputDialog(view, "Enter duration");
 			VisitPoint delivPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 2);
 			model.setDelivPointSelected(delivPoint);
-			view.getButtons().get(6).setEnabled(true);
 		} catch (Exception e) {
 			controller.setCurrentState(controller.displayRouteState);
 		}
@@ -34,7 +33,6 @@ public class AddDeliveryState implements State{
 	
 	@Override
 	public void rightClick(Controller controller) {
-		// Cancel
 		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
