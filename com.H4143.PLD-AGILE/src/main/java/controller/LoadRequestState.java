@@ -33,6 +33,12 @@ public class LoadRequestState implements State {
 			model.setMap(map);
 			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
+			view.getButtons().get(1).setEnabled(true);
+			view.getButtons().get(4).setEnabled(false);
+			view.getButtonPanel().removeAll();
+			view.remove(view.getTotalDuration());
+			view.getButtonPanel().repaint();
+			view.getButtonPanel().revalidate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,6 +68,7 @@ public class LoadRequestState implements State {
 		view.getButtons().get(2).setEnabled(true);
 		view.getButtons().get(3).setEnabled(true);
 		view.getButtons().get(5).setEnabled(true);
+		view.add(view.getTotalDuration());
 	}
 	
 	

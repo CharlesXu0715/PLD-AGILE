@@ -34,9 +34,14 @@ public class DisplayRouteState implements State{
 			model.setMap(map);
 			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
+			view.getButtons().get(1).setEnabled(true);
 			for(int i = 2; i<view.getButtons().size() ; i++) {
 				view.getButtons().get(i).setEnabled(false);
 			}
+			view.getButtonPanel().removeAll();
+			view.remove(view.getTotalDuration());
+			view.getButtonPanel().repaint();
+			view.getButtonPanel().revalidate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

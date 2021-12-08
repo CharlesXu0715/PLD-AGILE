@@ -120,6 +120,22 @@ public class View extends JFrame implements Observer {
 	public void setButtons(ArrayList<JButton> buttons) {
 		this.buttons = buttons;
 	}
+	
+	public JLabel getTotalDuration() {
+		return this.totalDuration;
+	}
+	
+	public void setButtonPanel(JLabel totalDuration) {
+		this.totalDuration = totalDuration;
+	}
+	
+	public JPanel getButtonPanel() {
+		return this.buttonPanel;
+	}
+	
+	public void setButtonPanel(JPanel buttonPanel) {
+		this.buttonPanel = buttonPanel;
+	}
 
 	private void createButtons(Controller controller) {
 		buttonListener = new ButtonListener(controller, null);

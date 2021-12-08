@@ -29,9 +29,11 @@ public class LoadMapState implements State {
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
-			for(int i = 2; i<view.getButtons().size() ; i++) {
-				view.getButtons().get(i).setEnabled(false);
-			}
+			view.getButtons().get(1).setEnabled(true);
+			view.getButtonPanel().removeAll();
+			view.remove(view.getTotalDuration());
+			view.getButtonPanel().repaint();
+			view.getButtonPanel().revalidate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

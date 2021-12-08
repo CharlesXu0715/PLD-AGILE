@@ -16,6 +16,10 @@ public class InitialState implements State {
 			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
 			view.getButtons().get(1).setEnabled(true);
+			view.getButtonPanel().removeAll();
+			view.remove(view.getTotalDuration());
+			view.getButtonPanel().repaint();
+			view.getButtonPanel().revalidate();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
