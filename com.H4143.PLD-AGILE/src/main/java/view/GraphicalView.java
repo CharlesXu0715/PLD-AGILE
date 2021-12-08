@@ -79,27 +79,7 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 	
 	private void drawCityMap(Graphics2D g2) {
 		
-		minLat = Double.POSITIVE_INFINITY;
-		minLng = Double.POSITIVE_INFINITY;
-		maxLat = Double.NEGATIVE_INFINITY;
-		maxLng = Double.NEGATIVE_INFINITY;
 		
-		
-		for (Intersection intersection : this.model.getMap().getIntersections()) {
-			if (intersection.getLatitude() < minLat)
-				minLat = intersection.getLatitude();
-			if (intersection.getLatitude() > maxLat)
-				maxLat = intersection.getLatitude();
-			if (intersection.getLongitude() < minLng)
-				minLng = intersection.getLongitude();
-			if (intersection.getLongitude() > maxLng)
-				maxLng = intersection.getLongitude();
-		}
-		
-		minLatInitial = minLat;
-		maxLatInitial = maxLat;
-		minLngInitial = minLng;
-		maxLngInitial = maxLng;
 		
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke(2.0f));
@@ -192,12 +172,36 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 	
 	public void setModel(Model model) {
 		this.model = model;
+		
+		minLat = Double.POSITIVE_INFINITY;
+		minLng = Double.POSITIVE_INFINITY;
+		maxLat = Double.NEGATIVE_INFINITY;
+		maxLng = Double.NEGATIVE_INFINITY;
+		
+		
+		for (Intersection intersection : this.model.getMap().getIntersections()) {
+			if (intersection.getLatitude() < minLat)
+				minLat = intersection.getLatitude();
+			if (intersection.getLatitude() > maxLat)
+				maxLat = intersection.getLatitude();
+			if (intersection.getLongitude() < minLng)
+				minLng = intersection.getLongitude();
+			if (intersection.getLongitude() > maxLng)
+				maxLng = intersection.getLongitude();
+		}
+		
+		minLatInitial = minLat;
+		maxLatInitial = maxLat;
+		minLngInitial = minLng;
+		maxLngInitial = maxLng;
+		
 		repaint();
 	}
 	
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
+		System.out.println(zoom);
 		
 		if (e.getWheelRotation() == -1) {
 			if (e.getX() < width / 2 && e.getY() >= height / 2) {
