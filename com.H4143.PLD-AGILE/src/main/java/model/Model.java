@@ -24,6 +24,13 @@ public class Model implements Subject {
 
 	public void setIntersectionSelected(Intersection intersectionSelected) {
 		this.intersectionSelected = intersectionSelected;
+		for (Request request : requestList.getRequests()) {
+			if (request.getPickPoint().getIntersection().equals(intersectionSelected)) {
+				visitPointSelected = request.getPickPoint();
+			} else if (request.getDelivPoint().getIntersection().equals(intersectionSelected)) {
+				visitPointSelected = request.getDelivPoint();
+			}
+		}
 		this.notifyAllObserver(this);
 	}
 

@@ -98,7 +98,7 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 	}
 	
 	private void drawRequestList(Graphics2D g2) {
-		Color[] colors = { Color.YELLOW, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.GREEN,
+		Color[] colors = { Color.WHITE, Color.BLUE, Color.CYAN, Color.DARK_GRAY, Color.GRAY, Color.GREEN,
 				Color.MAGENTA, Color.ORANGE, Color.PINK, Color.BLACK };
 		int count = 0;
 		g2.setColor(colors[count++]);
