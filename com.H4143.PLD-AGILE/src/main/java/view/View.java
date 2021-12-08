@@ -112,6 +112,14 @@ public class View extends JFrame implements Observer {
 	public void setTextualView(TextualView textualView) {
 		this.textualView = textualView;
 	}
+	
+	public ArrayList<JButton> getButtons() {
+		return this.buttons;
+	}
+	
+	public void setButtons(ArrayList<JButton> buttons) {
+		this.buttons = buttons;
+	}
 
 	private void createButtons(Controller controller) {
 		buttonListener = new ButtonListener(controller, null);
@@ -119,6 +127,9 @@ public class View extends JFrame implements Observer {
 		for (String text : buttonTexts) {
 			JButton button = new JButton(text);
 			button.setBackground(Color.WHITE);
+			if(text != LOADMAP) {
+				button.setEnabled(false);
+			}
 			buttons.add(button);
 			button.setSize(buttonWidth, buttonHeight);
 			button.setLocation(0, (buttons.size() - 1) * buttonHeight);
