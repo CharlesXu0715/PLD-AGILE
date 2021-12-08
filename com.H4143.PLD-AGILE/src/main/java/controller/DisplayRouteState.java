@@ -18,7 +18,6 @@ public class DisplayRouteState implements State{
 			model.setRequestList(requestList);
 			controller.changeMessage(Controller.MESSAGE_CALCULATE_ROUTE);
 			controller.setCurrentState(controller.loadRequestState);
-			view.getButtons().get(4).setEnabled(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,9 +33,6 @@ public class DisplayRouteState implements State{
 			model.setMap(map);
 			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
-			for(int i = 2; i<view.getButtons().size(); i++) {
-				view.getButtons().get(i).setEnabled(false);
-			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
