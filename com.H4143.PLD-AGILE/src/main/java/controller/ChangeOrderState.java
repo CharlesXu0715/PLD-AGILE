@@ -16,6 +16,8 @@ public class ChangeOrderState implements State {
 		listOfCommands.add(new ChangeVisitPointOrderCommand(model, tsp, visitPoint, Integer.valueOf(position)));
 		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
+		view.getButtons().get(7).setEnabled(true);
+		view.getButtons().get(8).setEnabled(true);
 	}
 
 }

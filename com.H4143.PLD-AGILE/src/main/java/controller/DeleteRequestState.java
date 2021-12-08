@@ -16,6 +16,7 @@ public class DeleteRequestState implements State {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			model.setRequestList(requestList);
+			view.getButtons().get(4).setEnabled(false);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,6 +31,9 @@ public class DeleteRequestState implements State {
 			model.setMap(map);
 			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
 			controller.setCurrentState(controller.loadMapState);
+			for(int i = 2; i<view.getButtons().size(); i++) {
+				view.getButtons().get(i).setEnabled(false);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,12 +48,14 @@ public class DeleteRequestState implements State {
 		model.setVisitPointSelected(null);
 		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
+		view.getButtons().get(6).setEnabled(false);
 	}
 
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
 			ListOfCommands listOfCommands) {
 		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
+		view.getButtons().get(6).setEnabled(true);
 	}
 
 	@Override

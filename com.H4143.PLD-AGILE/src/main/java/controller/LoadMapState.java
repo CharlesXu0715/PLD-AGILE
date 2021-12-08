@@ -16,6 +16,7 @@ public class LoadMapState implements State {
 			model.setRequestList(requestList);
 			controller.changeMessage(Controller.MESSAGE_CALCULATE_ROUTE);
 			controller.setCurrentState(controller.loadRequestState);
+			view.getButtons().get(4).setEnabled(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

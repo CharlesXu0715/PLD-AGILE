@@ -58,6 +58,10 @@ public class LoadRequestState implements State {
 		model.setRoute(tsp.getRoute());
 		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
+		view.getButtons().get(4).setEnabled(false);
+		view.getButtons().get(2).setEnabled(true);
+		view.getButtons().get(3).setEnabled(true);
+		view.getButtons().get(5).setEnabled(true);
 	}
 	
 	
