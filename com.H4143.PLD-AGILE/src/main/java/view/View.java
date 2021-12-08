@@ -54,21 +54,21 @@ public class View extends JFrame implements Observer {
 	public View(Controller controller, Model model) {
 		super();
 		setTitle("ClientUI");
-		setSize(1200, 600);
+		setSize(1200, 800);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 
 		
-		graphicalView = new GraphicalView(controller, model, 500, 500);
+		graphicalView = new GraphicalView(controller, model, 550, 550);
 		graphicalView.setLocation(150, 0);
 		add(graphicalView);
 
 		
 		totalDuration = new JLabel();
 		totalDuration.setSize(200,150);
-		totalDuration.setLocation(1000,450);
+		totalDuration.setLocation(1000,500);
 		add(totalDuration);
 		
 		message = new JLabel();
@@ -80,7 +80,7 @@ public class View extends JFrame implements Observer {
 		buttonPanel.setLayout(new GridLayout(0, 1));
 		
 		JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
-	    buttonScrollPane.setBounds(650,0,302,500);
+	    buttonScrollPane.setBounds(700,0,402,550);
 	    add(buttonScrollPane);
 		
 		createButtons(controller);
@@ -191,12 +191,14 @@ public class View extends JFrame implements Observer {
 						break;
 					case 1:
 						button1.setText("<html>Pickup Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Pickup duration: "
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Depart at:   "
+										+ model.getDepartureTime(model.getArrivalTime(buttonsRequest.size()-1),visitPoint.getDuration()) + "<br>Pickup duration: "
 								+ visitPoint.getDuration()+"s</html>");
 						break;
 					case 2:
 						button1.setText("<html>Delivery Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Delivery duration: "
+								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Depart at:   "
+										+ model.getDepartureTime(model.getArrivalTime(buttonsRequest.size()-1),visitPoint.getDuration()) + "<br>Delivery duration: "
 								+ visitPoint.getDuration()+"s</html>");
 						break;
 				}

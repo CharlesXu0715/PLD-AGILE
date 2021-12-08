@@ -33,13 +33,6 @@ public class TextualView extends JPanel {
 			this.list.add(requests.getRequests().get(i).getPickPoint());
 			this.list.add(requests.getRequests().get(i).getDelivPoint());
 		}
-		//getAdjacence().get(0).getName();
-		//getDuration()
-		//origin
-		//1st pickup point
-		//1st delivery point
-		//...
-		//origin
 	}
 	
 	public JPanel displayRequests() {

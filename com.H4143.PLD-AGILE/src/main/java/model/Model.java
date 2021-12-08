@@ -93,7 +93,7 @@ public class Model implements Subject {
 	
 	public String getArrivalTime(int i) {
 	    Date startDate;
-	    long total=0;
+	    long total = 0;
 		try {
 			startDate = dateFormat.parse(requestList.getDepartTime());
 			total=startDate.getTime();
@@ -101,6 +101,18 @@ public class Model implements Subject {
 				total+=route.getPaths().get(j).getDuration()*1000;
 				total+=route.getVisitPointByIndex(j).getDuration()*1000;
 			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dateFormat.format(new Date(total));
+	}
+	
+	public String getDepartureTime(String arrivalTime, int duration) {
+		long total = 0;
+		try {
+			total = dateFormat.parse(arrivalTime).getTime()+duration*1000;
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
