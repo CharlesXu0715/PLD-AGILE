@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import controller.*;
@@ -113,6 +115,7 @@ public class View extends JFrame implements Observer {
 		buttons = new ArrayList<JButton>();
 		for (String text : buttonTexts) {
 			JButton button = new JButton(text);
+			button.setBackground(Color.WHITE);
 			buttons.add(button);
 			button.setSize(buttonWidth, buttonHeight);
 			button.setLocation(0, (buttons.size() - 1) * buttonHeight);
@@ -136,6 +139,7 @@ public class View extends JFrame implements Observer {
 
 		buttonsRequest = new ArrayList<JButton>();
 		depotButton = new JButton();
+		depotButton.setBackground(Color.WHITE);
 		buttonsRequest.add(depotButton);
 		depotButton.setSize(400, buttonHeight);
 		depotButton.setLocation(0, 0);
@@ -152,6 +156,7 @@ public class View extends JFrame implements Observer {
 			for (Request request : model.getRequestList().getRequests()) {
 
 				JButton button1 = new JButton(VISITPOINT);
+				button1.setBackground(Color.WHITE);
 				buttonsRequest.add(button1);
 				button1.setSize(400, buttonHeight);
 				button1.setFocusable(false);
@@ -163,6 +168,7 @@ public class View extends JFrame implements Observer {
 				buttonPanel.add(button1);
 
 				JButton button2 = new JButton(VISITPOINT);
+				button2.setBackground(Color.WHITE);
 				buttonsRequest.add(button2);
 				button2.setSize(400, buttonHeight);
 				button2.setFocusable(false);
@@ -176,6 +182,7 @@ public class View extends JFrame implements Observer {
 		} else {
 			for (Path path : model.getRoute().getPaths()) {
 				JButton button1 = new JButton(VISITPOINT);
+				button1.setBackground(Color.WHITE);
 				buttonsRequest.add(button1);
 				button1.setSize(400, buttonHeight);
 				button1.setFocusable(false);
