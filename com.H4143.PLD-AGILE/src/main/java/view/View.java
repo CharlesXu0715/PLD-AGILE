@@ -29,8 +29,7 @@ public class View extends JFrame implements Observer {
 
 	private GraphicalView graphicalView;
 	private TextualView textualView;
-	private Controller controller;
-
+	
 	protected static final String LOADMAP = "Load a map";
 	protected static final String LOADREQUESTS = "Load requests";
 	protected static final String CALCULROUTE = "Calculate Route";
@@ -43,21 +42,26 @@ public class View extends JFrame implements Observer {
 	protected static final String UNDO = "Undo";
 
 	private ArrayList<JButton> buttons;
-	private ArrayList<JButton> buttonsRequest = new ArrayList<JButton>();;
 	private final String[] buttonTexts = new String[] { LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE,
 			CHANGEORDER, VALIDATE, UNDO, REDO };
 	private ButtonListener buttonListener;
-	private JLabel totalDuration;
-	private JLabel message;
-	private JButton depotButton;
 	private JPanel buttonPanel;
 	private final int buttonHeight = 45;
 	private final int buttonWidth = 150;
 
+	public final static String MESSAGE_LOAD_MAP = "<html>Click on Load Map and select the corresponding file</html>";
+	public final static String MESSAGE_LOAD_REQUEST = "<html>Click on Load Request and select the corresponding file</html>";
+	public final static String MESSAGE_CALCULATE_ROUTE = "<html>Click on Calculate Route to get the optimal tour</html>";
+	public final static String MESSAGE_NEUTRAL = "";
+	public final static String MESSAGE_CHOOSE_POINT_ADD = "<html>Click on the map to choose a point to add</html>";
+	public final static String MESSAGE_CHOOSE_POINT_DELETE = "<html>Click on a visit point on the map or the list to delete</html>";
+	public final static String MESSAGE_CHANGE_ORDER = "<html>Click on a visit point on the list to change its order</html>";
+	
+	
 	public View(Controller controller, Model model) {
 		super();
 		setTitle("ClientUI");
-		setSize(1200, 800);
+		setSize(1250, 600);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,30 +71,14 @@ public class View extends JFrame implements Observer {
 		graphicalView = new GraphicalView(controller, model, 550, 550);
 		graphicalView.setLocation(150, 0);
 		add(graphicalView);
+		
+		textualView = new TextualView(controller, model, 500, 550);
+		textualView.setLocation(700, 0);
+		add(textualView);
 
 		
-		totalDuration = new JLabel();
-		totalDuration.setSize(200,150);
-		totalDuration.setLocation(1000,500);
-		add(totalDuration);
-		
-		message = new JLabel();
-		message.setSize(300,100);
-		message.setLocation(150,550);
-		add(message);
-		
-		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(0, 1));
-		
-		JScrollPane buttonScrollPane = new JScrollPane(buttonPanel);
-	    buttonScrollPane.setBounds(700,0,402,550);
-	    add(buttonScrollPane);
-		
 		createButtons(controller);
-		createListRequest(controller, model);
 		model.attach(this);
-		this.controller = controller;
-		
 		this.addMouseListener(new MouseListener(controller, graphicalView));
 
 		setVisible(true);
@@ -121,14 +109,6 @@ public class View extends JFrame implements Observer {
 		this.buttons = buttons;
 	}
 	
-	public JLabel getTotalDuration() {
-		return this.totalDuration;
-	}
-	
-	public void setButtonPanel(JLabel totalDuration) {
-		this.totalDuration = totalDuration;
-	}
-	
 	public JPanel getButtonPanel() {
 		return this.buttonPanel;
 	}
@@ -156,130 +136,12 @@ public class View extends JFrame implements Observer {
 		}
 	}
 
-	private void createListRequest(Controller controller, Model model) {
-		if (model.getRequestList() == null) {
-			return;
-		}
-
-		for (JButton button : buttonsRequest) {
-			this.remove(button);
-		}
-		
-		buttonPanel.removeAll();
-
-		buttonsRequest = new ArrayList<JButton>();
-		depotButton = new JButton();
-		depotButton.setBackground(Color.WHITE);
-		buttonsRequest.add(depotButton);
-		depotButton.setSize(400, buttonHeight);
-		depotButton.setLocation(0, 0);
-		depotButton.setFocusable(false);
-		depotButton.setFocusPainted(false);
-		depotButton.addActionListener(new ButtonListener(controller, null));
-		depotButton.setText("<html>Depot:   " + model.getRequestList().getDepartPoint().getAddress() + "<br>Start route at: "
-							+model.getRequestList().getDepartTime()+"</html>");
-		depotButton.setHorizontalAlignment(SwingConstants.LEFT);
-		depotButton.setBackground(null);
-		depotButton.setEnabled(false);
-		buttonPanel.add(depotButton);
-		if (model.getRoute() == null) {
-			for (Request request : model.getRequestList().getRequests()) {
-
-				JButton button1 = new JButton(VISITPOINT);
-				button1.setBackground(Color.WHITE);
-				buttonsRequest.add(button1);
-				button1.setSize(400, buttonHeight);
-				button1.setFocusable(false);
-				button1.setFocusPainted(false);
-				button1.addActionListener(new ButtonListener(controller, request.getPickPoint()));
-				button1.setText("<html>Pickup Point:   " + request.getPickPoint().getAddress() + "<br>Pickup duration:   "
-						+ request.getPickPoint().getDuration() + "s</html>");
-				button1.setHorizontalAlignment(SwingConstants.LEFT);
-				buttonPanel.add(button1);
-
-				JButton button2 = new JButton(VISITPOINT);
-				button2.setBackground(Color.WHITE);
-				buttonsRequest.add(button2);
-				button2.setSize(400, buttonHeight);
-				button2.setFocusable(false);
-				button2.setFocusPainted(false);
-				button2.addActionListener(new ButtonListener(controller, request.getDelivPoint()));
-				button2.setText("<html>Delivery Point: " + request.getDelivPoint().getAddress() + "<br>Delivery duration: "
-						+ request.getDelivPoint().getDuration() + "s</html>");
-				button2.setHorizontalAlignment(SwingConstants.LEFT);
-				buttonPanel.add(button2);
-			}
-		} else {
-			for (Path path : model.getRoute().getPaths()) {
-				JButton button1 = new JButton(VISITPOINT);
-				button1.setBackground(Color.WHITE);
-				buttonsRequest.add(button1);
-				button1.setSize(400, buttonHeight);
-				button1.setFocusable(false);
-				button1.setFocusPainted(false);
-				VisitPoint visitPoint = model.findClosestVisitPoint(path.getEnd().getLatitude(),
-						path.getEnd().getLongitude());
-				button1.addActionListener(new ButtonListener(controller, visitPoint));
-				if ((model.getVisitPointSelected() != null && model.getVisitPointSelected().equals(visitPoint)) || (model.getDelivPointSelected() != null && model.getDelivPointSelected().equals(visitPoint)) || (model.getPickupPointSelected() != null && model.getPickupPointSelected().equals(visitPoint))) {
-					button1.setBackground(Color.YELLOW);
-					button1.setOpaque(true);
-				}
-				switch (visitPoint.getType()) {
-					case 0:
-						button1.setText("<html>Return to:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "</html>");
-						button1.setEnabled(false);
-						break;
-					case 1:
-						button1.setText("<html>Pickup Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Depart at:   "
-										+ model.getDepartureTime(model.getArrivalTime(buttonsRequest.size()-1),visitPoint.getDuration()) + "<br>Pickup duration: "
-								+ visitPoint.getDuration()+"s</html>");
-						break;
-					case 2:
-						button1.setText("<html>Delivery Point:   " + visitPoint.getAddress() + "<br>Arrive at:   "
-								+ model.getArrivalTime(buttonsRequest.size()-1) + "<br>Depart at:   "
-										+ model.getDepartureTime(model.getArrivalTime(buttonsRequest.size()-1),visitPoint.getDuration()) + "<br>Delivery duration: "
-								+ visitPoint.getDuration()+"s</html>");
-						break;
-				}
-				button1.setHorizontalAlignment(SwingConstants.LEFT);
-				buttonPanel.add(button1);
-
-			}
-		}
-		
-		buttonPanel.repaint();
-		buttonPanel.revalidate();
-		repaint();
-	}
 
 	@Override
 	public void update(Object arg) {
-		this.createListRequest(controller, (Model) arg);
 		this.graphicalView.setModel((Model) arg);
-		if (((Model) arg).getRoute()!=null) {
-			changeTotalDuration(((Model) arg).getRoute().getDuration());
-		}
-//		this.textualView.setModel((Model) arg);	
-
+		this.textualView.setModel((Model) arg);	
 	}
-	
-	public void reset() {
-		this.buttonPanel.removeAll();
-		this.buttonPanel.repaint();
-		this.buttonPanel.revalidate();
-		this.totalDuration.setText("");
-	}
-	
-	public void changeTotalDuration(double duration) {
-		totalDuration.setText("Total duration: "+(int)duration+"s");
-	}
-	
-	public void changeMessage(String message) {
-		this.message.setText(message);
-	}
-	
 	
 }
 

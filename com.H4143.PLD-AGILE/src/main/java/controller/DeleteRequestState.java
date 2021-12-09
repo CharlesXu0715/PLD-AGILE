@@ -17,9 +17,7 @@ public class DeleteRequestState implements State {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			model.setRequestList(requestList);
 			view.getButtons().get(4).setEnabled(false);
-			view.remove(view.getTotalDuration());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -30,17 +28,13 @@ public class DeleteRequestState implements State {
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
-			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
-			controller.setCurrentState(controller.loadMapState);
+			view.getTextualView().changeMessage(View.MESSAGE_LOAD_REQUEST);
 			view.getButtons().get(1).setEnabled(true);
 			for(int i = 2; i<view.getButtons().size() ; i++) {
 				view.getButtons().get(i).setEnabled(false);
 			}
-			view.remove(view.getTotalDuration());
-			view.getButtonPanel().repaint();
-			view.getButtonPanel().revalidate();
+			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -51,7 +45,7 @@ public class DeleteRequestState implements State {
 		Request request = model.findRequestByVisitPoint(model.getVisitPointSelected());
 		listOfCommands.add(new DeleteRequestCommand(model, tsp, request));
 		model.setVisitPointSelected(null);
-		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 		view.getButtons().get(6).setEnabled(false);
 		view.getButtons().get(7).setEnabled(true);
@@ -72,8 +66,8 @@ public class DeleteRequestState implements State {
 	}
 
 	@Override
-	public void rightClick(Controller controller) {
-		controller.changeMessage(controller.MESSAGE_NEUTRAL);
+	public void rightClick(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 

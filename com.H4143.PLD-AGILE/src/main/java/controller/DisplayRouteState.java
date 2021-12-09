@@ -16,14 +16,13 @@ public class DisplayRouteState implements State{
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			controller.resetToNewRequest();
 			model.setRequestList(requestList);
-			controller.changeMessage(Controller.MESSAGE_CALCULATE_ROUTE);
-			controller.setCurrentState(controller.loadRequestState);
+			view.getTextualView().changeMessage(View.MESSAGE_CALCULATE_ROUTE);
 			for(int i = 2; i<view.getButtons().size() ; i++) {
 				view.getButtons().get(i).setEnabled(false);
 			}
 			view.getButtons().get(4).setEnabled(true);
+			controller.setCurrentState(controller.loadRequestState);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -35,45 +34,41 @@ public class DisplayRouteState implements State{
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			controller.resetAll();
 			model.setMap(map);
-			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
-			controller.setCurrentState(controller.loadMapState);
+			view.getTextualView().changeMessage(View.MESSAGE_CHOOSE_POINT_ADD);
 			view.getButtons().get(1).setEnabled(true);
 			for(int i = 2; i<view.getButtons().size() ; i++) {
 				view.getButtons().get(i).setEnabled(false);
 			}
-			view.reset();
+			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
 	
 	@Override
-	public void entryDeleteRequest(Controller controller) {
-		controller.changeMessage(Controller.MESSAGE_CHOOSE_POINT_DELETE);
+	public void entryDeleteRequest(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_CHOOSE_POINT_ADD);
 		controller.setCurrentState(controller.deleteRequestState);
 	}
 	
 	@Override
-	public void entryAddPickupRequest(Controller controller) {
-		controller.changeMessage(Controller.MESSAGE_CHOOSE_POINT_ADD);
+	public void entryAddPickupRequest(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_CHOOSE_POINT_ADD);
 		controller.setCurrentState(controller.addPickupState);
 	}
 	
 	@Override
-	public void entryChangeOrder(Controller controller) {
-		controller.changeMessage(Controller.MESSAGE_CHANGE_ORDER);
+	public void entryChangeOrder(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_CHANGE_ORDER);
 		controller.setCurrentState(controller.changeOrderState);
-		System.out.println("change order");
 	}
 	
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
 			ListOfCommands listOfCommands) {
 		model.setIntersectionSelected(model.findClosestIntersection(latitude, longitude));
-//		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
-		controller.changeMessage(model.getIntersectionSelected().getAdjacence().get(0).getName());
+		view.getTextualView().changeMessage(model.getIntersectionSelected().getAdjacence().get(0).getName());
 	}
 	
 	@Override
@@ -83,13 +78,11 @@ public class DisplayRouteState implements State{
 	
 	@Override
 	public void undo(ListOfCommands listOfCommands) {
-		// TODO Auto-generated method stub
 		listOfCommands.undo();
 	}
 	
 	@Override
 	public void redo(ListOfCommands listOfCommands) {
-		// TODO Auto-generated method stub
 		listOfCommands.redo();
 	}
 	

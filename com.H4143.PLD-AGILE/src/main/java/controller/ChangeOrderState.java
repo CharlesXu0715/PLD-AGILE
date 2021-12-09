@@ -15,18 +15,18 @@ public class ChangeOrderState implements State {
 		try {
 			String position = JOptionPane.showInputDialog(view, "Enter position");
 			listOfCommands.add(new ChangeVisitPointOrderCommand(model, tsp, visitPoint, Integer.valueOf(position)));
-			controller.changeMessage(Controller.MESSAGE_NEUTRAL);
-			controller.setCurrentState(controller.displayRouteState);
+			view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 			view.getButtons().get(7).setEnabled(true);
 			view.getButtons().get(8).setEnabled(true);
+			controller.setCurrentState(controller.displayRouteState);
 		} catch(Exception e) {
 			controller.setCurrentState(controller.displayRouteState);
 		}
 	}
 	
 	@Override
-	public void rightClick(Controller controller) {
-		controller.changeMessage(controller.MESSAGE_NEUTRAL);
+	public void rightClick(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 

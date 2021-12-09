@@ -11,16 +11,16 @@ public interface State {
 	public default void loadMap(Controller controller, View view, Model model) {};
 	public default void loadRequest(Controller controller, View view, Model model) {};
 	public default void calculateRoute(Controller controller, View view, Model model, TSP tsp) {};
-	public default void entryAddPickupRequest(Controller controller) {};
+	public default void entryAddPickupRequest(Controller controller, View view) {};
 	public default void entryAddDeliveryRequest(Controller controller, VisitPoint visitPoint) {};
 	public default void addRequest(Controller controller) {};
-	public default void entryDeleteRequest(Controller controller) {};
+	public default void entryDeleteRequest(Controller controller, View view) {};
 	public default void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {};
 	public default void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {};
-	public default void entryChangeOrder(Controller controller) {};
+	public default void entryChangeOrder(Controller controller, View view) {};
 	
 	public default void leftClick(Controller controller, View view, Model model, double lat, double lng, TSP tsp, ListOfCommands listOfCommands) {};
-	public default void rightClick(Controller controller) {}; 
+	public default void rightClick(Controller controller, View view) {}; 
 	
 	
 	public default void undo(ListOfCommands listOfCommands) {

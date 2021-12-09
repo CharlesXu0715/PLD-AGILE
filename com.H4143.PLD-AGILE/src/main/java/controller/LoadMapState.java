@@ -14,11 +14,10 @@ public class LoadMapState implements State {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			model.setRequestList(requestList);
-			controller.changeMessage(Controller.MESSAGE_CALCULATE_ROUTE);
-			controller.setCurrentState(controller.loadRequestState);
 			view.getButtons().get(4).setEnabled(true);
+			view.getTextualView().changeMessage(View.MESSAGE_CALCULATE_ROUTE);
+			controller.setCurrentState(controller.loadRequestState);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -29,13 +28,7 @@ public class LoadMapState implements State {
 		try {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
-			view.getButtons().get(1).setEnabled(true);
-			view.getButtonPanel().removeAll();
-			view.remove(view.getTotalDuration());
-			view.getButtonPanel().repaint();
-			view.getButtonPanel().revalidate();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

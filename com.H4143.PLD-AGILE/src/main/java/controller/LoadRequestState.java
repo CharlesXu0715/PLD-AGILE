@@ -19,7 +19,6 @@ public class LoadRequestState implements State {
 			controller.resetToNewRequest();
 			model.setRequestList(requestList);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -31,13 +30,11 @@ public class LoadRequestState implements State {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			controller.resetAll();
 			model.setMap(map);
-			controller.changeMessage(Controller.MESSAGE_LOAD_REQUEST);
-			controller.setCurrentState(controller.loadMapState);
+			view.getTextualView().changeMessage(View.MESSAGE_LOAD_REQUEST);
 			view.getButtons().get(1).setEnabled(true);
 			view.getButtons().get(4).setEnabled(false);
-			view.reset();
+			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -56,16 +53,15 @@ public class LoadRequestState implements State {
 	
 	@Override
 	public void calculateRoute(Controller controller, View view, Model model, TSP tsp) {
-		// TODO Calcul route
+
 		tsp.searchSolution(10000, new ShortestPathGraph(model.getRequestList(), model.getMap()));
 		model.setRoute(tsp.getRoute());
-		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
-		controller.setCurrentState(controller.displayRouteState);
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		view.getButtons().get(4).setEnabled(false);
 		view.getButtons().get(2).setEnabled(true);
 		view.getButtons().get(3).setEnabled(true);
 		view.getButtons().get(5).setEnabled(true);
-		view.add(view.getTotalDuration());
+		controller.setCurrentState(controller.displayRouteState);
 	}
 	
 	

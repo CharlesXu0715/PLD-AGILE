@@ -58,13 +58,17 @@ public class XMLFileLoader {
 	}
 
 	public CityMap loadMap(View view) throws Exception  {
+		File f = this.selectFile(view);
+		return extractMap(f);
+	}
+	
+	public CityMap extractMap(File file) throws Exception  {
 		ArrayList<Intersection> intersections = new ArrayList<Intersection>();
 		ArrayList<Segment> segments = new ArrayList<Segment>();
 		
-		File f = this.selectFile(view);
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
-		org.w3c.dom.Document document = db.parse(f);
+		org.w3c.dom.Document document = db.parse(file);
 
 		NodeList nl = document.getElementsByTagName("intersection");
 		if (nl.getLength() == 0)
@@ -109,14 +113,19 @@ public class XMLFileLoader {
 	}
 
 	public RequestList loadRequest(View view, Model model) throws Exception {
-		List<Intersection> intersections = model.getMap().getIntersections();
+		File f = this.selectFile(view);
+		return extractRequest(f, model.getMap());
+	}
+	
+	public RequestList extractRequest(File file, CityMap cityMap) throws Exception {
+		List<Intersection> intersections = cityMap.getIntersections();
 		List<Request> rl = new ArrayList<Request>();
 		
 		
-		File f = this.selectFile(view);
+		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
-		org.w3c.dom.Document document = db.parse(f);
+		org.w3c.dom.Document document = db.parse(file);
 		NodeList nl = document.getElementsByTagName("request");
 		if (nl.getLength() == 0) throw new Error("No Requests");
 			
@@ -160,6 +169,5 @@ public class XMLFileLoader {
 			}
 		}
 		return new RequestList(departTime, departPoint, departIndex, rl);
-
 	}
 }

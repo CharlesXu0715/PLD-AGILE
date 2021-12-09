@@ -13,12 +13,6 @@ public class AddDeliveryState implements State{
 	
 	
 	@Override
-	public void entryAddDeliveryRequest(Controller controller, VisitPoint pickPoint) {
-		// TODO Auto-generated method stub
-//		this.pickPoint = pickPoint;
-	}
-	
-	@Override
 	public void leftClick(Controller controller, View view, Model model, double lat, double lng, TSP tsp,
 			ListOfCommands listOfCommands) {
 		try {
@@ -32,23 +26,24 @@ public class AddDeliveryState implements State{
 	}
 	
 	@Override
-	public void rightClick(Controller controller) {
-		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
+	public void rightClick(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
+	
 	
 	@Override
 	public void validate(Controller controller, View view, Model model, TSP tsp, ListOfCommands listOfCommands) {
 		listOfCommands.add(new AddRequestCommand(model, tsp, new Request(model.getPickupPointSelected(), model.getDelivPointSelected())));
 		model.setDelivPointSelected(null);
 		model.setPickupPointSelected(null);
-		controller.changeMessage(Controller.MESSAGE_NEUTRAL);
-		controller.setCurrentState(controller.displayRouteState);
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		view.getButtons().get(6).setEnabled(false);
 		view.getButtons().get(3).setEnabled(true);
 		view.getButtons().get(5).setEnabled(true);
 		view.getButtons().get(7).setEnabled(true);
 		view.getButtons().get(8).setEnabled(true);
+		controller.setCurrentState(controller.displayRouteState);
 	}
 	
 }

@@ -1,36 +1,56 @@
 package tsp;
 
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Map;
-import model.FileLoaderTest;
-import model.Intersection;
+import model.CityMap;
 import model.RequestList;
-import model.Segment;
 import singleton.XMLFileLoader;
 
 public class TSP1Test {
-	private static final int timeLimit = 10000;
-	private static TSP tsp1;
-	private static Graph graph;
-	
-	@BeforeClass
-	public static void setup() {
-		XMLFileLoader fileLoader = new XMLFileLoader();
-		List<Intersection> intersections = fileLoader.loadIntersection(FileLoaderTest.filemap);
-        List<Segment> roads = fileLoader.loadRoad(FileLoaderTest.filemap);
-        RequestList requests = fileLoader.loadRequest(FileLoaderTest.filerequest);
-		tsp1 = new TSP1();
-		//graph = new CityMap(roads, intersections);
-	}
-	
+	private TSP tsp1;
+	private Graph graph;
+
+//	@BeforeClass
+//	public void setup() {
+//		XMLFileLoader xMLFileLoader = XMLFileLoader.getInstance();
+//		File fileMap = new File("src/test/resources/largeMap.xml");
+//		File fileRequest = new File("src/test/resources/requestsLarge7.xml");
+//		CityMap map;
+//		RequestList requestList;
+//		try {
+//			map = xMLFileLoader.extractMap(fileMap);
+//			requestList = xMLFileLoader.extractRequest(fileRequest, map);
+//			graph = new ShortestPathGraph(requestList, map);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		tsp1 = new TSP1();
+//	}
+
 	@Test
-	public void getSolutionCost() {
-		tsp1.searchSolution(timeLimit, graph);
-		tsp1.getSolutionCost();
+	public void tsp1Test() {
+		XMLFileLoader xMLFileLoader = XMLFileLoader.getInstance();
+		File fileMap = new File("src/test/resources/largeMap.xml");
+		File fileRequest = new File("src/test/resources/requestsLarge7.xml");
+		CityMap map;
+		RequestList requestList;
+		try {
+			map = xMLFileLoader.extractMap(fileMap);
+			requestList = xMLFileLoader.extractRequest(fileRequest, map);
+			graph = new ShortestPathGraph(requestList, map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		tsp1 = new TSP1();
+		tsp1.searchSolution(20000, graph);
+		assertEquals(15, tsp1.getPaths().size());
+		assertEquals(322, tsp1.getRoads().size());
+		assertEquals(6743, tsp1.getRoute().getDuration(), 1);
+		assertEquals(6743, tsp1.getSolutionCost(), 1);
 	}
-	
+
 }

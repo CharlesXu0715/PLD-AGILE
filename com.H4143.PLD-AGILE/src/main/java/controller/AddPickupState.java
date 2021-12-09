@@ -25,8 +25,8 @@ public class AddPickupState implements State {
 	}
 	
 	@Override
-	public void rightClick(Controller controller) {
-		controller.changeMessage(controller.MESSAGE_NEUTRAL);
+	public void rightClick(Controller controller, View view) {
+		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 }

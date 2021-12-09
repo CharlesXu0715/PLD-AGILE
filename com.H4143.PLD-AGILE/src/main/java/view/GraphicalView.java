@@ -43,7 +43,6 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
-		
 		if (this.model.getMap() != null) this.drawCityMap(g2);
 		if (this.model.getRequestList() != null) this.drawRequestList(g2);
 		if (this.model.getRoute() != null) this.drawResult(g2);
@@ -51,7 +50,6 @@ public class GraphicalView extends JLabel implements MouseWheelListener {
 		if (this.model.getDelivPointSelected() != null) this.drawVisitPointSelected(this.model.getDelivPointSelected(), g2);
 		if (this.model.getPickupPointSelected() != null) this.drawVisitPointSelected(this.model.getPickupPointSelected(), g2);
 		if (this.model.getIntersectionSelected() != null) this.drawIntersectionSelected(this.model.getIntersectionSelected(), g2);
-		
 		this.drawBorder(g2);
 		g2.dispose();
 
