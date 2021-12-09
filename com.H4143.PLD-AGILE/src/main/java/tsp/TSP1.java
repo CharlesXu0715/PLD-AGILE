@@ -3,6 +3,11 @@ package tsp;
 import java.util.Collection;
 import java.util.Iterator;
 
+/**
+ * The TSP using an heuristics of (sum of the shortest path from current vertex and each unvisited vertex
+ * to a different unvisited vertex or the 1st vertex in the list), and an iterator using TreeMap to store unvisited vertices
+ */
+
 public class TSP1 extends TemplateTSP {
 	
 	@Override

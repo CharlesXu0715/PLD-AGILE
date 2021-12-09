@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Documentation
+
 public class Route {
 	private List<Path> paths;
 	private List<VisitPoint> visitPoints;

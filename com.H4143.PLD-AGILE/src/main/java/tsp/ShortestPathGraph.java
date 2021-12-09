@@ -18,16 +18,20 @@ public class ShortestPathGraph implements Graph{
 	private Path paths[][];
 	private List<Intersection> intersections;
 	
+	/**
+	 * Create a Graph with vertices of VisitPoint and edges of Path
+	 * The Graph uses the <code>requestList</code> to create its vertices,
+	 * and a Dijkstra algorithm with <code>cityMap</code> to find the shortest Path between each of said vertex
+	 * @param requestList the list of requests in order to create the vertices
+	 * @param cityMap the map in order to create the shortest path between 2 vertices
+	 */
 	public ShortestPathGraph (RequestList requestList, CityMap cityMap) {
 		nbVertices = requestList.getRequests().size()*2+1;
 		toVisit = new ArrayList<VisitPoint>();
 		toVisit.add(requestList.getDepotPoint());
 		paths = new Path[nbVertices][nbVertices];
-		int j=0;
 		for (int i=0;i<requestList.getRequests().size();i++) {
-			j++;
 			toVisit.add(requestList.getRequests().get(i).getPickPoint());
-			j++;
 			toVisit.add(requestList.getRequests().get(i).getDelivPoint());
 		}
 		for (int i=0;i<nbVertices;i++) {
@@ -48,6 +52,11 @@ public class ShortestPathGraph implements Graph{
 		
 	}
 	
+	/**
+	 * Uses Dijkstra to find the shortest paths from <code>source</code> to each Intersection in <code>toExplore</code> 
+	 * @param source the starting point
+	 * @param toExplore the list of end points
+	 */
 	private void dijkstra(Intersection source, List<Intersection> toExplore) {
 		double dist[] = new double [intersections.size()];
 		boolean visited[] = new boolean [intersections.size()];
@@ -86,6 +95,10 @@ public class ShortestPathGraph implements Graph{
 		}
 	}
 	
+	/**
+	 * @param index the index of an Intersection as stored in cityMap
+	 * @return the index of the VisitPoint as stored in the Graph
+	 */
 	private int getGraphIndex(int index) {
 		for (int i=0;i<toVisit.size();i++) {
 			if (toVisit.get(i).getIntersection().getIndex()==index) return i;
@@ -172,6 +185,7 @@ public class ShortestPathGraph implements Graph{
 		dijkstra(delivery.getIntersection(),toExplore);
 	}
 	
+	@Override
 	public void removeVisitPoints(VisitPoint pickup, VisitPoint delivery) {
 		nbVertices = nbVertices-2;
 		//indexPickup is always < indexDelivery (the 2 indices should be consecutive)
