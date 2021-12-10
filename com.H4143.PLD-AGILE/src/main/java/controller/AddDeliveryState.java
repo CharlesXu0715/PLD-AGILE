@@ -2,7 +2,6 @@ package controller;
 
 import javax.swing.JOptionPane;
 
-import model.Intersection;
 import model.Model;
 import model.Request;
 import model.VisitPoint;
@@ -19,7 +18,7 @@ public class AddDeliveryState implements State{
 			String duration = JOptionPane.showInputDialog(view, "Enter duration");
 			VisitPoint delivPoint = new VisitPoint(model.findClosestIntersection(lat, lng), Integer.valueOf(duration), 2);
 			model.setDelivPointSelected(delivPoint);
-			view.getButtons().get(6).setEnabled(true);
+			view.getButton(View.VALIDATE).setEnabled(true);
 		} catch (Exception e) {
 			controller.setCurrentState(controller.displayRouteState);
 		}
@@ -38,11 +37,11 @@ public class AddDeliveryState implements State{
 		model.setDelivPointSelected(null);
 		model.setPickupPointSelected(null);
 		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
-		view.getButtons().get(6).setEnabled(false);
-		view.getButtons().get(3).setEnabled(true);
-		view.getButtons().get(5).setEnabled(true);
-		view.getButtons().get(7).setEnabled(true);
-		view.getButtons().get(8).setEnabled(true);
+		view.getButton(View.VALIDATE).setEnabled(false);
+		view.getButton(View.DELETEREQUEST).setEnabled(true);
+		view.getButton(View.CHANGEORDER).setEnabled(true);
+		view.getButton(View.UNDO).setEnabled(true);
+		view.getButton(View.REDO).setEnabled(true);
 		controller.setCurrentState(controller.displayRouteState);
 	}
 	

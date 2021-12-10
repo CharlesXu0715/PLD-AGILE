@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JButton;
+
 import model.CityMap;
 import model.Model;
 import model.Request;
@@ -16,7 +18,7 @@ public class DeleteRequestState implements State {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			model.setRequestList(requestList);
-			view.getButtons().get(4).setEnabled(false);
+			view.getButton(View.CALCULROUTE).setEnabled(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -29,10 +31,11 @@ public class DeleteRequestState implements State {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
 			view.getTextualView().changeMessage(View.MESSAGE_LOAD_REQUEST);
-			view.getButtons().get(1).setEnabled(true);
-			for(int i = 2; i<view.getButtons().size() ; i++) {
-				view.getButtons().get(i).setEnabled(false);
+			for(JButton button: view.getButtons()) {
+				button.setEnabled(false);
 			}
+			view.getButton(View.LOADMAP).setEnabled(true);
+			view.getButton(View.LOADREQUESTS).setEnabled(true);
 			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,22 +50,22 @@ public class DeleteRequestState implements State {
 		model.setVisitPointSelected(null);
 		view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
 		controller.setCurrentState(controller.displayRouteState);
-		view.getButtons().get(6).setEnabled(false);
-		view.getButtons().get(7).setEnabled(true);
-		view.getButtons().get(8).setEnabled(true);
+		view.getButton(View.VALIDATE).setEnabled(false);
+		view.getButton(View.UNDO).setEnabled(true);
+		view.getButton(View.REDO).setEnabled(true);
 	}
 
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
 			ListOfCommands listOfCommands) {
 		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
-		view.getButtons().get(6).setEnabled(true);
+		view.getButton(View.VALIDATE).setEnabled(true);
 	}
 
 	@Override
 	public void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
 		model.setVisitPointSelected(visitPoint);
-		view.getButtons().get(6).setEnabled(true);
+		view.getButton(View.VALIDATE).setEnabled(true);
 	}
 
 	@Override

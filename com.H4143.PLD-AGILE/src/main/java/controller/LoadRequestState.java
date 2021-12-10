@@ -31,8 +31,8 @@ public class LoadRequestState implements State {
 			controller.resetAll();
 			model.setMap(map);
 			view.getTextualView().changeMessage(View.MESSAGE_LOAD_REQUEST);
-			view.getButtons().get(1).setEnabled(true);
-			view.getButtons().get(4).setEnabled(false);
+			view.getButton(View.LOADREQUESTS).setEnabled(true);
+			view.getButton(View.CALCULROUTE).setEnabled(false);
 			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
 			e.printStackTrace();

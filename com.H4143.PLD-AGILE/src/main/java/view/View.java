@@ -30,16 +30,16 @@ public class View extends JFrame implements Observer {
 	private GraphicalView graphicalView;
 	private TextualView textualView;
 	
-	protected static final String LOADMAP = "Load a map";
-	protected static final String LOADREQUESTS = "Load requests";
-	protected static final String CALCULROUTE = "Calculate Route";
-	protected static final String DELETEREQUEST = "Delete Request";
-	protected static final String ADDREQUEST = "Add Request";
-	protected static final String VALIDATE = "Validate";
-	protected static final String VISITPOINT = "Point";
-	protected static final String CHANGEORDER = "Change order";
-	protected static final String REDO = "Redo";
-	protected static final String UNDO = "Undo";
+	public static final String LOADMAP = "Load a map";
+	public static final String LOADREQUESTS = "Load requests";
+	public static final String CALCULROUTE = "Calculate Route";
+	public static final String DELETEREQUEST = "Delete Request";
+	public static final String ADDREQUEST = "Add Request";
+	public static final String VALIDATE = "Validate";
+	public static final String VISITPOINT = "Point";
+	public static final String CHANGEORDER = "Change order";
+	public static final String REDO = "Redo";
+	public static final String UNDO = "Undo";
 
 	private ArrayList<JButton> buttons;
 	private final String[] buttonTexts = new String[] { LOADMAP, LOADREQUESTS, ADDREQUEST, DELETEREQUEST, CALCULROUTE,
@@ -99,6 +99,13 @@ public class View extends JFrame implements Observer {
 
 	public void setTextualView(TextualView textualView) {
 		this.textualView = textualView;
+	}
+	
+	public JButton getButton(String string) {
+		for (JButton button : this.buttons) {
+			if (button.getText().equals(string)) return button;
+		}
+		return null;
 	}
 	
 	public ArrayList<JButton> getButtons() {

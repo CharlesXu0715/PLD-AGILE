@@ -14,7 +14,7 @@ public class InitialState implements State {
 			CityMap map = XMLFileLoader.getInstance().loadMap(view);
 			model.setMap(map);
 			view.getTextualView().changeMessage(View.MESSAGE_LOAD_REQUEST);
-			view.getButtons().get(1).setEnabled(true);
+			view.getButton(View.LOADREQUESTS).setEnabled(true);
 			controller.setCurrentState(controller.loadMapState);
 		} catch (Exception e) {
 			e.printStackTrace();

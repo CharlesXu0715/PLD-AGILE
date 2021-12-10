@@ -14,7 +14,7 @@ public class LoadMapState implements State {
 		try {
 			RequestList requestList = XMLFileLoader.getInstance().loadRequest(view, model);
 			model.setRequestList(requestList);
-			view.getButtons().get(4).setEnabled(true);
+			view.getButton(View.CALCULROUTE).setEnabled(true);
 			view.getTextualView().changeMessage(View.MESSAGE_CALCULATE_ROUTE);
 			controller.setCurrentState(controller.loadRequestState);
 		} catch (Exception e) {

@@ -16,8 +16,8 @@ public class ChangeOrderState implements State {
 			String position = JOptionPane.showInputDialog(view, "Enter position");
 			listOfCommands.add(new ChangeVisitPointOrderCommand(model, tsp, visitPoint, Integer.valueOf(position)));
 			view.getTextualView().changeMessage(View.MESSAGE_NEUTRAL);
-			view.getButtons().get(7).setEnabled(true);
-			view.getButtons().get(8).setEnabled(true);
+			view.getButton(View.UNDO).setEnabled(true);
+			view.getButton(View.REDO).setEnabled(true);
 			controller.setCurrentState(controller.displayRouteState);
 		} catch(Exception e) {
 			controller.setCurrentState(controller.displayRouteState);
