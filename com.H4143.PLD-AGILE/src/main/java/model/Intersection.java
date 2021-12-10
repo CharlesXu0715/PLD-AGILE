@@ -35,7 +35,7 @@ public class Intersection {
     
     /**
      * constructor of copy
-     * @param i
+     * @param i the original Intersection
      */
     public Intersection(Intersection i) {
     	this.longitude=i.longitude;

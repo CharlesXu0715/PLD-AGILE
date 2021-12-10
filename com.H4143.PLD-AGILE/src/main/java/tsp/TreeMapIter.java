@@ -14,9 +14,9 @@ public class TreeMapIter implements Iterator<Integer> {
 	 * which are successors of <code>currentVertex</code> in <code>g</code>
 	 * Vertices are stored in a TreeMap sorted by cost
 	 * The iterator returns the index of the lowest cost vertex first
-	 * @param unvisited
-	 * @param currentVertex
-	 * @param g
+	 * @param unvisited the list of all unvisited vertices
+	 * @param currentVertex the vertex being explored
+	 * @param g the graph used to calculate
 	 */
 	public TreeMapIter(Collection<Integer> unvisited, int currentVertex, Graph g){
 		this.sortingTree = new TreeMap<Double,Integer>();

@@ -28,7 +28,7 @@ public class Model implements Subject {
 
 	/**
 	 * set the selected intersection
-	 * @param the selected intersection
+	 * @param intersectionSelected the selected intersection
 	 */
 	public void setIntersectionSelected(Intersection intersectionSelected) {
 		this.intersectionSelected = intersectionSelected;

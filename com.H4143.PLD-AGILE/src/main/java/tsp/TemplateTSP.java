@@ -92,7 +92,7 @@ public abstract class TemplateTSP implements TSP {
 	}
 	
 	/**
-	 * @param i
+	 * @param i the index
 	 * @return the VisitPoint at visited at position <code>i</code>
 	 */
 	public VisitPoint getVisitPoint(int i){

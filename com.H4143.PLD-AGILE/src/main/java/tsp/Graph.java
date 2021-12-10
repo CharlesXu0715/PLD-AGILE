@@ -10,43 +10,43 @@ public interface Graph {
 	public abstract int getNbVertices();
 
 	/**
-	 * @param i 
-	 * @param j 
+	 * @param i the index of the origin
+	 * @param j the index of the destination
 	 * @return the cost of arc (i,j) if (i,j) is an arc; -1 otherwise
 	 */
 	public abstract double getCost(int i, int j);
 
 	/**
-	 * @param i 
-	 * @param j 
+	 * @param i the index of the origin
+	 * @param j the index of the destination
 	 * @return true if <code>(i,j)</code> is an arc of <code>this</code>
 	 */
 	public abstract boolean isArc(int i, int j);
 	
 	/**
-	 * @param i
+	 * @param i the index
 	 * @return the VisitPoint at vertex <code>i</code>
 	 */
 	
 	public abstract VisitPoint getVertex(int i);
 	
 	/**
-	 * @param i
+	 * @param i the index
 	 * @return the vertex index of vertex <code>i</code> in the complete map
 	 */
 	
 	public abstract int getVertexIndex(int i);
 	
 	/**
-	 * @param i: the intersection to find index
+	 * @param i the intersection to find index
 	 * @return the index of intersection <code>i</code> as stored in the graph
 	 */
 	
 	public abstract int getGraphVertexIndex(VisitPoint i);
 	
 	/**
-	 * @param i 
-	 * @param j 
+	 * @param i the index of the origin
+	 * @param j the index of the destination
 	 * @return a list of edges that go from vertex <code>i</code> to vertex <code>j</code>
 	 */
 	

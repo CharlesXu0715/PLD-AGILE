@@ -13,15 +13,15 @@ public interface TSP {
 	 * Search for a shortest cost hamiltonian circuit in <code>g</code> within <code>timeLimit</code> milliseconds
 	 * (returns the best found tour whenever the time limit is reached)
 	 * Warning: The computed tour always start from vertex 0
-	 * @param limitTime
-	 * @param g
+	 * @param timeLimit the time limit
+	 * @param g the graph being used
 	 */
 	public void searchSolution(int timeLimit, Graph g);
 	
 	/**
-	 * @param i
+	 * @param i the index
 	 * @return the ith visited vertex in the solution computed by <code>searchSolution</code> 
-	 * (-1 if <code>searchSolution</code> has not been called yet, or if i < 0 or i >= g.getNbSommets())
+	 * (-1 if <code>searchSolution</code> has not been called yet, or if i &lt; 0 or i 	&gt;= g.getNbSommets())
 	 */
 	public Integer getSolution(int i);
 	
@@ -59,9 +59,9 @@ public interface TSP {
 	/**
 	 * add a request to the shortest path graph, then change the route so that the pickup and delivery points of the request
 	 * are visited at <code>indexPickup</code> and <code>indexDelivery</code> respectively
-	 * @param newRequest: the new request to be added
-	 * @param indexPickup: the index at which the pickup point is visited
-	 * @param indexDeliver: the index at which the delivery point is visited
+	 * @param request the new request to be added
+	 * @param indexPickup the index at which the pickup point is visited
+	 * @param indexDelivery the index at which the delivery point is visited
 	 */
 	public void addRequestToIndex(Request request, int indexPickup, int indexDelivery);
 	
@@ -80,8 +80,8 @@ public interface TSP {
 	
 	/**
 	 * change the order of the VisitPoint <code>visitPoint</code> in the Route to index <code>index</code>
-	 * @param visitPoint is the concerned VisitPoint, and should be present in the Route
-	 * @param index is the new visiting order for the <code>visitPoint</code>, and should be a positive number
+	 * @param visitPoint the concerned VisitPoint, and should be present in the Route
+	 * @param newIndex the new visiting order for the <code>visitPoint</code>, and should be a positive number
 	 * or equal to the total number of VisitPoint
 	 */
 	public void changeVisitPointOrder(VisitPoint visitPoint, int newIndex);
