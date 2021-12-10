@@ -47,7 +47,7 @@ public class View extends JFrame implements Observer {
 	private ButtonListener buttonListener;
 	private JPanel buttonPanel;
 	private final int buttonHeight = 45;
-	private final int buttonWidth = 150;
+	private final int buttonWidth = 140;
 
 	public final static String MESSAGE_LOAD_MAP = "<html>Click on Load Map and select the corresponding file</html>";
 	public final static String MESSAGE_LOAD_REQUEST = "<html>Click on Load Request and select the corresponding file</html>";
@@ -73,7 +73,7 @@ public class View extends JFrame implements Observer {
 		add(graphicalView);
 		
 		textualView = new TextualView(controller, model, 500, 550);
-		textualView.setLocation(700, 0);
+		textualView.setLocation(710, 0);
 		add(textualView);
 
 		

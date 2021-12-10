@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)--><ajsv>
+    <diagram creationDate="2021-déc.-10 20:51" licenseGrade="single" licenseeName="AgileJ community member" licenseeOrganization="agilej-community" populationMethod="manual" version="1.9.2.v20190518-1152">
+        <filterScript>
+
+// no filter script yet defined for this class diagram
+// use CTRL+SPACE for completion suggestions
+hide all methods
+hide all fields
+hide dependency lines
+
+</filterScript>
+        <class className="controller.ChangeVisitPointOrderCommand" modelMemberId="controller.ChangeVisitPointOrderCommand" project="com.H4143.PLD-AGILE" xLocation="-250" yLocation="-50"/>
+        <class className="controller.DeleteRequestCommand" modelMemberId="controller.DeleteRequestCommand" project="com.H4143.PLD-AGILE" xLocation="-381" yLocation="144"/>
+        <class className="controller.AddRequestCommand" modelMemberId="controller.AddRequestCommand" project="com.H4143.PLD-AGILE" xLocation="88" yLocation="-221"/>
+        <class className="controller.DeleteRequestState" modelMemberId="controller.DeleteRequestState" project="com.H4143.PLD-AGILE" xLocation="820" yLocation="46"/>
+        <class className="controller.ChangeOrderState" modelMemberId="controller.ChangeOrderState" project="com.H4143.PLD-AGILE" xLocation="809" yLocation="-202"/>
+        <class className="controller.LoadRequestState" modelMemberId="controller.LoadRequestState" project="com.H4143.PLD-AGILE" xLocation="725" yLocation="481"/>
+        <class className="controller.DisplayRouteState" modelMemberId="controller.DisplayRouteState" project="com.H4143.PLD-AGILE" xLocation="488" yLocation="235"/>
+        <class className="controller.ListOfCommands" modelMemberId="controller.ListOfCommands" project="com.H4143.PLD-AGILE" xLocation="48" yLocation="459"/>
+        <class className="controller.AddDeliveryState" modelMemberId="controller.AddDeliveryState" project="com.H4143.PLD-AGILE" xLocation="474" yLocation="19"/>
+        <class className="controller.AddPickupState" modelMemberId="controller.AddPickupState" project="com.H4143.PLD-AGILE" xLocation="883" yLocation="240"/>
+        <class className="controller.LoadMapState" modelMemberId="controller.LoadMapState" project="com.H4143.PLD-AGILE" xLocation="727" yLocation="679"/>
+        <class className="model.Intersection" modelMemberId="model.Intersection" project="com.H4143.PLD-AGILE" xLocation="2695" yLocation="256"/>
+        <class className="controller.InitialState" modelMemberId="controller.InitialState" project="com.H4143.PLD-AGILE" xLocation="489" yLocation="480"/>
+        <class className="controller.Command" modelMemberId="controller.Command" project="com.H4143.PLD-AGILE" xLocation="43" yLocation="283"/>
+        <class className="controller.Controller" modelMemberId="controller.Controller" project="com.H4143.PLD-AGILE" xLocation="90" yLocation="724"/>
+        <class className="model.Request" modelMemberId="model.Request" project="com.H4143.PLD-AGILE" xLocation="1942" yLocation="369"/>
+        <class className="model.CityMap" modelMemberId="model.CityMap" project="com.H4143.PLD-AGILE" xLocation="2416" yLocation="-103"/>
+        <class className="model.Model" modelMemberId="model.Model" project="com.H4143.PLD-AGILE" xLocation="1981" yLocation="-63"/>
+        <class className="model.Route" modelMemberId="model.Route" project="com.H4143.PLD-AGILE" xLocation="2307" yLocation="855"/>
+        <class className="controller.State" modelMemberId="controller.State" project="com.H4143.PLD-AGILE" xLocation="452" yLocation="727"/>
+        <class className="tsp.ShortestPathGraph" modelMemberId="tsp.ShortestPathGraph" project="com.H4143.PLD-AGILE" xLocation="2681" yLocation="1123"/>
+        <class className="singleton.XMLFileLoader" modelMemberId="singleton.XMLFileLoader" project="com.H4143.PLD-AGILE" xLocation="1286" yLocation="692"/>
+        <class className="view.MouseListener" modelMemberId="view.MouseListener" project="com.H4143.PLD-AGILE" xLocation="345" yLocation="1448"/>
+        <class className="view.GraphicalView" modelMemberId="view.GraphicalView" project="com.H4143.PLD-AGILE" xLocation="-1" yLocation="1456"/>
+        <class className="view.ButtonListener" modelMemberId="view.ButtonListener" project="com.H4143.PLD-AGILE" xLocation="519" yLocation="1197"/>
+        <class className="tsp.TemplateTSP" modelMemberId="tsp.TemplateTSP" project="com.H4143.PLD-AGILE" xLocation="1841" yLocation="1235"/>
+        <class className="model.RequestList" modelMemberId="model.RequestList" project="com.H4143.PLD-AGILE" xLocation="1935" yLocation="129"/>
+        <class className="tsp.TreeMapIter" modelMemberId="tsp.TreeMapIter" project="com.H4143.PLD-AGILE" xLocation="2377" yLocation="1463"/>
+        <class className="view.TextualView" modelMemberId="view.TextualView" project="com.H4143.PLD-AGILE" xLocation="112" yLocation="1185"/>
+        <class className="model.VisitPoint" modelMemberId="model.VisitPoint" project="com.H4143.PLD-AGILE" xLocation="2314" yLocation="618"/>
+        <class className="model.Segment" modelMemberId="model.Segment" project="com.H4143.PLD-AGILE" xLocation="2355" yLocation="256"/>
+        <class className="observer.Observer" modelMemberId="observer.Observer" project="com.H4143.PLD-AGILE" xLocation="894" yLocation="1272"/>
+        <class className="observer.Subject" modelMemberId="observer.Subject" project="com.H4143.PLD-AGILE" xLocation="1232" yLocation="1302"/>
+        <class className="tsp.TreeIter" modelMemberId="tsp.TreeIter" project="com.H4143.PLD-AGILE" xLocation="2828" yLocation="1426"/>
+        <class className="tsp.SeqIter" modelMemberId="tsp.SeqIter" project="com.H4143.PLD-AGILE" xLocation="2089" yLocation="1479"/>
+        <class className="tsp.Graph" modelMemberId="tsp.Graph" project="com.H4143.PLD-AGILE" xLocation="2389" yLocation="1135"/>
+        <class className="tsp.TSP1" modelMemberId="tsp.TSP1" project="com.H4143.PLD-AGILE" xLocation="2518" yLocation="1329"/>
+        <class className="view.View" modelMemberId="view.View" project="com.H4143.PLD-AGILE" xLocation="294" yLocation="1018"/>
+        <class className="model.Path" modelMemberId="model.Path" project="com.H4143.PLD-AGILE" xLocation="2655" yLocation="843"/>
+        <class className="tsp.TSP" modelMemberId="tsp.TSP" project="com.H4143.PLD-AGILE" xLocation="1644" yLocation="1133"/>
+    </diagram>
+</ajsv>
