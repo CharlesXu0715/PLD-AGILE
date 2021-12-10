@@ -9,6 +9,12 @@ import view.View;
 
 public class LoadMapState implements State {
 	
+	/**
+	 * load the requests
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 */
 	@Override
 	public void loadRequest(Controller controller, View view, Model model) {
 		try {
@@ -22,6 +28,12 @@ public class LoadMapState implements State {
 		}
 	}
 	
+	/**
+	 * load the map
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 */
 	@Override
 	public void loadMap(Controller controller, View view, Model model) {
 

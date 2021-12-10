@@ -14,7 +14,8 @@ public class TreeIter implements Iterator<Integer> {
 	/**
 	 * Create an iterator to traverse the set of vertices in <code>unvisited</code> 
 	 * which are successors of <code>currentVertex</code> in <code>g</code>
-	 * Vertices are traversed in the order of lowest cost to highest as in <code>unvisited</code>
+	 * Vertices are stored in a TreeSet sorting by cost and a HashMap is used to translate the cost to the index of each vertex
+	 * The iterator returns the index of the lowest cost vertex first
 	 * @param unvisited
 	 * @param currentVertex
 	 * @param g

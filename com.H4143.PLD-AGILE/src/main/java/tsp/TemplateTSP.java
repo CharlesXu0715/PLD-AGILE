@@ -20,6 +20,7 @@ public abstract class TemplateTSP implements TSP {
 	private long startTime;
 	private Route route;
 	
+	@Override
 	public void searchSolution(int timeLimit, Graph g){
 		if (timeLimit <= 0) return;
 		startTime = System.currentTimeMillis();	
@@ -39,6 +40,11 @@ public abstract class TemplateTSP implements TSP {
 		}
 	}
 	
+	/**
+	 * Used locally to add paths to the final route
+	 * @param i
+	 * @return the Path to travel to the VisitPoint at position <code>i</code>
+	 */
 	private Path getPath(int i) {
 		if (g != null && i>=0 && i<g.getNbVertices())
 			if (i==g.getNbVertices()-1) {
@@ -49,12 +55,14 @@ public abstract class TemplateTSP implements TSP {
 		return null;
 	}
 	
+	@Override
 	public Integer getSolution(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
 			return bestSol[i];
 		return -1;
 	}
 	
+	@Override
 	public double getSolutionCost(){
 		if (g != null)
 			return route.getDuration();
@@ -83,12 +91,17 @@ public abstract class TemplateTSP implements TSP {
 		}
 	}
 	
+	/**
+	 * @param i
+	 * @return the VisitPoint at visited at position <code>i</code>
+	 */
 	public VisitPoint getVisitPoint(int i){
 		if (g != null && i>=0 && i<g.getNbVertices())
 			return g.getVertex(bestSol[i]);
 		return null;
 	}
 	
+	@Override
 	public Route getRoute() {
 		return route;
 	}

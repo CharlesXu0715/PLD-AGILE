@@ -12,6 +12,12 @@ import view.View;
 
 public class LoadRequestState implements State {
 	
+	/**
+	 * load the requests
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 */
 	@Override
 	public void loadRequest(Controller controller, View view, Model model) {
 		try {
@@ -23,6 +29,12 @@ public class LoadRequestState implements State {
 		}
 	}
 	
+	/**
+	 * load the map
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 */
 	@Override
 	public void loadMap(Controller controller, View view, Model model) {
 
@@ -40,17 +52,43 @@ public class LoadRequestState implements State {
 
 	}
 	
+	/**
+	 * select a point by latitude and longitude
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 * @param latitude: the latitude of the chosen point
+	 * @param longitude: the longitude of the chosen point
+	 * @param tsp: the tool of finding tsp
+	 * @param listOfCommands: the list of current commands
+	 */
 	@Override
 	public void leftClick(Controller controller, View view, Model model, double latitude, double longitude, TSP tsp,
 			ListOfCommands listOfCommands) {
 		model.setVisitPointSelected(model.findClosestVisitPoint(latitude, longitude));
 	}
 	
+	/**
+	 * select a point
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 * @param visitPoint: the chosen point
+	 * @param tsp: the tool of finding tsp
+	 * @param listOfCommands: the list of current commands
+	 */
 	@Override
 	public void handleClick(Controller controller, View view, Model model, VisitPoint visitPoint, TSP tsp, ListOfCommands listOfCommands) {
 		model.setVisitPointSelected(visitPoint);
 	}
 	
+	/**
+	 * calculate the route of tsp(the shortest path
+	 * @param controller: the current controller
+	 * @param view: the current interface
+	 * @param model: the tool of the settings of the model
+	 * @param tsp: the tool of finding tsp
+	 */
 	@Override
 	public void calculateRoute(Controller controller, View view, Model model, TSP tsp) {
 
