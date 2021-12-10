@@ -6,6 +6,9 @@ public class ListOfCommands {
 	private LinkedList<Command> list;
 	private int currentIndex;
 	
+	/**
+	 * constructor of a ListOfCommands
+	 */
 	public ListOfCommands(){
 		currentIndex = -1;
 		list = new LinkedList<Command>();

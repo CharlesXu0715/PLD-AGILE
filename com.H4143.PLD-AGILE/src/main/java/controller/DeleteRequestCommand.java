@@ -12,6 +12,12 @@ public class DeleteRequestCommand implements Command {
 	private int indexPickupRoute;
 	private int indexDeliveryRoute;
 	
+	/**
+	 * constructor of delete a request
+	 * @param model: the tool of the settings of model
+	 * @param tsp: the tool of finding the shortest path
+	 * @param request: the request to be deleted
+	 */
 	public DeleteRequestCommand(Model model, TSP tsp, Request request) {
 		this.model = model;
 		this.tsp = tsp;
@@ -21,6 +27,9 @@ public class DeleteRequestCommand implements Command {
 		this.indexDeliveryRoute = tsp.getVisitPointIndex(request.getDelivPoint());
 	}
 
+	/**
+	 * delete the request
+	 */
 	@Override
 	public void doCommand() {
 		this.tsp.removeRequest(request);
@@ -28,6 +37,9 @@ public class DeleteRequestCommand implements Command {
 		model.setRoute(tsp.getRoute());
 	}
 
+	/**
+	 * cancel of deleting the request
+	 */
 	@Override
 	public void undoCommand() {
 		this.tsp.addRequestToIndex(request, indexPickupRoute, indexDeliveryRoute);
